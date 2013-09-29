@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
-  <link href="http://hyina.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 雑談 | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/za-tan/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
   <updated>2013-09-29T19:57:20+09:00</updated>
   <id>http://hyina.github.io/</id>
@@ -70,19 +70,6 @@
 <p>  転職エージェントに登録するのもいいかなぁ〜</p>
 
 <p>まぁそんな感じのことを毎日考えている。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ブログを立ち上げてみたよ]]></title>
-    <link href="http://hyina.github.io/blog/2013/09/15/start-blog/"/>
-    <updated>2013-09-15T00:36:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/09/15/start-blog</id>
-    <content type="html"><![CDATA[<p>入社して４年目。半分以上はとある場所で保守運用な作業ばっかりで、本当にこのままで良いのかと切羽詰まっていたときにやっとこさ、開発に戻れたヾ(o・ω・o)ﾉﾞ<br/>
-でも、技術的にこのままで良いのかと悶々しつつ…自分の力量の無さにびっくり。<br/>
-とりあえず、前々からのタスクだったブログを立ち上げてみようと思ったとです。</p>
-
-<p>まぁ、そんな感じで何かしら書いていけたら良いなぁと思ってます((( ﾉ∀｀*)</p>
 ]]></content>
   </entry>
   
