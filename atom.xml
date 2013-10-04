@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-10-04T23:05:17+09:00</updated>
+  <updated>2013-10-04T23:12:23+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -223,10 +223,13 @@ post titleは、実際のURLになるので、注意。</p>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
 
 
-<p>ちなみに、html生成＋デプロイは、下記のコマンド１行でいけます。<br/>
-`&ldquo;
-rake gen_deloy
-&rdquo;&#8217;</p>
+<p></p>
+
+<p>ちなみに、html生成＋デプロイは、下記のコマンド１行でいけます。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake gen_deloy</span></code></pre></td></tr></table></div></figure>
+
 
 <p>あと、記事の削除は、<code>source/_posts/〜.markdown</code>を削除し、html生成+デプロイをすると、ブログからは消え去ります。</p>
 
