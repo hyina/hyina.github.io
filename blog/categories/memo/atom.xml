@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: memo | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/memo/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2013-10-04T23:05:17+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressはじめました]]></title>
+    <link href="http://hyina.github.io/blog/2013/10/04/start-octopress/"/>
+    <updated>2013-10-04T20:38:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2013/10/04/start-octopress</id>
+    <content type="html"><![CDATA[<h3>はじめに</h3>
+
+<hr />
+
+<p>個人的なoctpressをはじめるためのメモ書きです。</p>
+
+<h3>個人的環境</h3>
+
+<hr />
+
+<ul>
+<li>Mac OS X Lion</li>
+<li>ruby 2.0.0p247</li>
+<li>git 1.8.4</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>導入</h3>
+
+<hr />
+
+<p><a href="http://octopress.org/docs/setup/">公式サイト</a>を見てコマンド実行するだけ。
+rubyのバージョンは1.9.3以上が必要なので注意。
+<code>.rbenv-version</code>ってファイルをイジると問題ないような気もする。やってないけど(笑´∀｀)<br/>
+あとは、いつからか、githubのリポジトリをusername.github.com から username.github.io とするようになっているみたい。</p>
+
+<p>デフォルトのテーマのままっていうのもあれなので、<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">サードパーティー制のテーマ</a>から、bootstrap-themeを適用しました。<br/>
+下記のコマンドを実行でOK。テーマを適用するとサイドバーとかの修正した分の一部が初期化されるので、テーマを適用してからイジると良いかと思います。</p>
+
+<p><code>
+cd octopress
+git clone https://github.com/bkutil/bootstrap-theme .themes/bootstrap
+rake install['bootstrap']
+rake generate
+</code></p>
+
+<h3>ブログの設定</h3>
+
+<hr />
+
+<p><em>config.ymlの編集すると、ブログタイトルなどは</em>config.ymlで設定できます。<br/>
+titleやauthor等を編集すると、ヘッダーやフッターが自動的に変わってくれます。<br/>
+内容については、ググるなり、<a href="http://octopress.org/docs/configuring/">公式サイト</a>を見ると色々書いてありますが、下記くらいは修正しておくと良いかと思います。</p>
+
+<p><code>
+url: http://yoursite.com
+title: My Octopress Blog
+subtitle: A blogging framework for hackers.
+author: Yout Name
+simple_search: http://google.com/search
+description:
+date_format: "%Y-%m-%d"
+excerpt_link: "続きを読む"
+</code></p>
+
+<p>あと、ブログなのにコメント欄がないというのもあれなので、ブログのコメントサービス<a href="http://disqus.com/">Disqus</a>を設定しときます。<br/>
+Disqusでユーザ登録する際に、ユーザIDを設定できます、それを、<code>_config.yml</code>に追記します。<br/>
+```</p>
+
+<h1>Dispus account</h1>
+
+<p>disqus_short_name: USER_ID
+disqus_show_comment_count: false
+<code>``
+すると、</code>source/_include/disqus.html`によってdisqus用のコードを生成してくれます。</p>
+
+<h3>プレビュー</h3>
+
+<hr />
+
+<p>ここらで一度、どんな感じになっているか確認してみます。<br/>
+プレビューを行うには、下記のコマンドを実行後、<a href="http://localhost:4000">localhost:4000</a>にアクセスします。</p>
+
+<p><code>
+$ rake preview
+</code><br/>
+プレビューを終了するには、ctrl+cでｗ</p>
+
+<h3>デプロイ</h3>
+
+<hr />
+
+<p>OctopressをGithub Pagesにデプロイするための設定をします。</p>
+
+<p><code>
+rake setup_github_pages
+</code><br/>
+コマンドを叩くと、Github PagesのリポジトリのURLを入力してねと出るので、
+リポジトリのURLを入力しましょう。</p>
+
+<p>入力したら、下記コマンドを入力するとデプロイできます。しばらくすると、<code>http://onigra.github.io/</code>にブログができあがります。反映には5〜10分くらいかかるみたいです。</p>
+
+<p><code>
+rake gen_deploy
+</code></p>
+
+<h3>記事の作成</h3>
+
+<hr />
+
+<p>記事を作成するには、下記のコマンドを実行し、テンプレートを作成します。<br/>
+post titleは、実際のURLになるので、注意。</p>
+
+<p><code>
+rake new_post['post title']
+</code>
+テンプレートは、<code>source/_posts/</code>以下に出来るので、お好みのエディタで編集します。</p>
+
+<h2>```</h2>
+
+<p>layout: post
+title: &ldquo;ここにタイトルを記入&rdquo;
+date: 作成日が入っています。
+comments: コメント欄を出す場合は、trueに。</p>
+
+<h2>categories: タグ</h2>
+
+<p>記事を書く。
+下記を入れておくと、トップページではmore以下が省略され、続きを読むリンクが表示されます。
+リンク文字列は、_config.yml の excerpt_link で変更可能です。</p>
+
+<h1>上の内容までがトップページに表示</h1>
+
+<!-- more -->
+
+
+<h1>下の内容が個別の記事のページに表示</h1>
+
+<p>```</p>
+
+<p>Markdownで書いたものをリアルプレビューできるMouが有名みたいですが、僕は、Sublime Text 2で書いています。意味は特にないですｗ</p>
+
+<h3>Sublime Text 2でMarkdownのプレビューをする</h3>
+
+<hr />
+
+<p>需要があるかは不明ですが、忘却メモということで(・∀・)<br/>
+1. Ctrl + Shift + p<br/>
+2. Package Controll:Install Packages</p>
+
+<p>その後、「Markdown Preview」をインストールしたら使えます。<br/>
+<a href="https://github.com/revolunet/sublimetext-markdown-preview#usage-">ここ</a>に使い方は書いてあるけど、Markdownのファイルを開いた状態で、</p>
+
+<ol>
+<li>Ctrl+Shift+p</li>
+<li>Markdown Preview : preview in Browser</li>
+</ol>
+
+
+<p>と実行すると、ブラウザで開かれてプレビューを見ることができます。
+<code>/var/folders/</code>にファイルが作成されてるみたい…勝手に削除されるのかな？</p>
+
+<h3>htmlファイル生成</h3>
+
+<hr />
+
+<p>下記のコマンドを実行すると、htmlファイルが生成されます。<br/>
+<code>
+rake generate
+</code>
+そのあとは、プレビューで確認して、最終確認をします。</p>
+
+<h3>記事の投稿</h3>
+
+<hr />
+
+<p>プレビューで公開をしても問題ないとなったら、下記のコマンドを実行してデプロイします。<br/>
+<code>
+rake deploy
+</code>
+ちなみに、html生成＋デプロイは、下記のコマンド１行でいけます。<br/>
+`&ldquo;
+rake gen_deloy
+&rdquo;'</p>
+
+<p>あと、記事の削除は、<code>source/_posts/〜.markdown</code>を削除し、html生成+デプロイをすると、ブログからは消え去ります。</p>
+
+<h3>感想</h3>
+
+<hr />
+
+<p>rubyを触ったことないからインストールから始めたので意外と時間はかかっちゃいました。あとは、テーマやらサイドバーとかの修正で手間取ったりorz<br/>
+とりあえず、markdownでブログを書けるのはかなり楽なのでやって損はないと思います。<br/>
+問題は、ブログを書き続ける継続力があるかどうか・・・かな(；・∀・)←</p>
+]]></content>
+  </entry>
+  
+</feed>
