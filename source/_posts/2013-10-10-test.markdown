@@ -1,0 +1,10 @@
+---
+layout: post
+title: "投稿テスト"
+date: 2013-10-10 02:28
+comments: true
+categories: 
+---
+####投稿テスト
+Macportsからbrewに乗り換え後の投稿テストです。  
+すぐに消しますｗ
