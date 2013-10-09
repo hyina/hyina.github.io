@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-10-10T02:30:21+09:00</updated>
+  <updated>2013-10-10T02:45:53+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,18 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[投稿テスト]]></title>
-    <link href="http://hyina.github.io/blog/2013/10/10/test/"/>
-    <updated>2013-10-10T02:28:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/10/10/test</id>
-    <content type="html"><![CDATA[<h4>投稿テスト</h4>
-
-<p>Macportsからbrewに乗り換え後の投稿テストです。<br/>
-すぐに消しますｗ</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopressはじめました]]></title>
