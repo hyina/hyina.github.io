@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ”開発” | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/kai-fa/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2013-12-19T19:57:12+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Homebrewでmysql5.6をインストールしてみる]]></title>
+    <link href="http://hyina.github.io/blog/2013/12/19/mysql5-dot-6-install/"/>
+    <updated>2013-12-19T19:09:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2013/12/19/mysql5-dot-6-install</id>
+    <content type="html"><![CDATA[<h2>Mysqlのインストールめも</h2>
+
+<hr />
+
+<p>MacたんにインストールしてあったMysqlの調子が悪かったので、１から入れなおすことにしました。
+HomebrewでMysql5.6をインストールした時のメモです。</p>
+
+<h2>実施内容</h2>
+
+<p>下記を順番に実行していく。</p>
+
+<h3>Homebrewを最新の状態に更新する。</h3>
+
+<p><code>
+$ brew update
+</code></p>
+
+<h3>最新のMysqlをインストールする。</h3>
+
+<p><code>
+$ brew install mysql
+</code>
+インストール後、メッセージが表示されるが、下記のコマンドでいつでも確認可能。
+<code>
+$ brew info mysql
+</code></p>
+
+<h3>データベースのインストールとオプションを設定する。</h3>
+
+<p><code>
+$ unset TMPDIR
+$ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+</code></p>
+
+<h3>MySQLの設定を行うため、MySQLを起動する。</h3>
+
+<p><code>
+$ mysql.server start
+</code></p>
+
+<h3>rootのパスワードを変更する。</h3>
+
+<p><code>
+mysqladmin -u root password 'new-password'
+</code></p>
+
+<h3>MySQLのセキュリティ向上（念のため）</h3>
+
+<p><code>
+$ mysql_secure_installation
+</code>
+基本デフォルトで良いと思う。
+<em>rootパスワードの設定
+</em>rootユーザのログインをlocalhostに制限
+<em>anonymousユーザの削除
+</em>testデータベースを削除</p>
+
+<h3>my.cnfを配置する。</h3>
+
+<p>my.cnfを配置後、カリカリと設定を書いていく。
+<code>
+$ touch /usr/local/etc/my.cnf
+</code>
+また、my.cnfの読み込み順は下記コマンドで確認する。
+<code>
+$ mysql --help | grep my.cnf
+</code></p>
+
+<p>いじょうー</p>
+]]></content>
+  </entry>
+  
+</feed>
