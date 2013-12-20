@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ”開発” | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/kai-fa/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-12-21T00:31:39+09:00</updated>
+  <updated>2013-12-21T00:34:11+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -24,6 +24,9 @@
 
 <p>MacたんにインストールしてあったMysqlの調子が悪かったので、１から入れなおすことにしました。
 HomebrewでMysql5.6をインストールした時のメモです。</p>
+
+<!-- more -->
+
 
 <h2>実施内容</h2>
 

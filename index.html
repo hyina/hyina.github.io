@@ -129,39 +129,12 @@
 というわけで、その時の対処方法メモを書いておく。<br/>
 主に自分のために(・∀・)</p>
 
-<h3>部屋を暖める</h3>
-
-<p>もうこれに尽きる！<br/>
-といっても部屋がすぐに温まるわけでもない。。。<br/>
-雰囲気的に、MBA本体よりMagsafe充電アダプタ本体を手とかこたつで温めると案外すぐに充電出来るようになる。<br/>
-MBAのバッテリー、充電アダプタは両方動作温度は10~35℃なんだってさ。<br/>
-自分のはこれでもいいけど、調べてたら他にも方法があるらしい。</p>
-
-<h3>Magsafe充電アダプタを外して再接続する</h3>
-
-<p>充電器をコンセントとMBAから外して1分以上待ってから再度接続する。<br/>
-オンラインヘルプでも普通に出てくるらしい。<br/>
-・・・効くのか？</p>
-
-<h3>SMCをリセットする</h3>
-
-<p>SMC=システム管理コントローラ<br/>
-MBAのバッテリーや充電の電源管理は、SMCってとこがやっているらしいです。<br/>
-このSMCが異常を起こして電源アダプタを正常に認識出来ていない（可能性）があって充電出来ないことがある・・・らしい。<br/>
-方法は下記の通り。</p>
-
-<ol>
-<li>電源切る</li>
-<li>電源コードを差し込む</li>
-<li>Shift+Control+optionを押しながら電源ボタンを押す</li>
-<li>全部のキーを離す→成功すると、電源アダプタが点灯する</li>
-<li>電源ボタンオン！！</li>
-</ol>
-
-
-<p>いじょー</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/12/20/macair/">続きを読む</a>
+    </footer>
   
 
 
@@ -202,77 +175,12 @@ MBAのバッテリーや充電の電源管理は、SMCってとこがやって�
 <p>MacたんにインストールしてあったMysqlの調子が悪かったので、１から入れなおすことにしました。
 HomebrewでMysql5.6をインストールした時のメモです。</p>
 
-<h2>実施内容</h2>
-
-<p>下記を順番に実行していく。</p>
-
-<h3>Homebrewを最新の状態に更新する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew update</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>最新のMysqlをインストールする。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install mysql</span></code></pre></td></tr></table></div></figure>
-
-
-<p>インストール後、メッセージが表示されるが、下記のコマンドでいつでも確認可能。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew info mysql</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>データベースのインストールとオプションを設定する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ unset TMPDIR
-</span><span class='line'>$ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>MySQLの設定を行うため、MySQLを起動する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql.server start</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>rootのパスワードを変更する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysqladmin -u root password 'new-password'</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>MySQLのセキュリティ向上（念のため）</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql_secure_installation</span></code></pre></td></tr></table></div></figure>
-
-
-<p>基本デフォルトで良いと思う。
-<em>rootパスワードの設定
-</em>rootユーザのログインをlocalhostに制限
-<em>anonymousユーザの削除
-</em>testデータベースを削除</p>
-
-<h3>my.cnfを配置する。</h3>
-
-<p>my.cnfを配置後、カリカリと設定を書いていく。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch /usr/local/etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
-
-<p>また、my.cnfの読み込み順は下記コマンドで確認する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql --help | grep my.cnf</span></code></pre></td></tr></table></div></figure>
-
-
-<p>いじょうー</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/12/19/mysql5-dot-6-install/">続きを読む</a>
+    </footer>
   
 
 
