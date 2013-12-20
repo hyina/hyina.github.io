@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-12-19T19:57:12+09:00</updated>
+  <updated>2013-12-21T00:31:39+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MacAirが充電できない…]]></title>
+    <link href="http://hyina.github.io/blog/2013/12/20/macair/"/>
+    <updated>2013-12-20T23:57:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2013/12/20/macair</id>
+    <content type="html"><![CDATA[<h2>寒さでMBAが凍える</h2>
+
+<p>昨日から一気に冷えてきて、朝がツライ今日このごろ。<br/>
+去年はそうでもなかったのに、最近愛用MacBookAirが充電出来ないことが多くなってきた。</p>
+
+<p>2011モデルなので、最初はぶっ壊れたかと思ったが、調べてみると寒いと充電出来ないことよくあるらしい。<br/>
+というわけで、その時の対処方法メモを書いておく。<br/>
+主に自分のために(・∀・)</p>
+
+<h3>部屋を暖める</h3>
+
+<p>もうこれに尽きる！<br/>
+といっても部屋がすぐに温まるわけでもない。。。<br/>
+雰囲気的に、MBA本体よりMagsafe充電アダプタ本体を手とかこたつで温めると案外すぐに充電出来るようになる。<br/>
+MBAのバッテリー、充電アダプタは両方動作温度は10~35℃なんだってさ。<br/>
+自分のはこれでもいいけど、調べてたら他にも方法があるらしい。</p>
+
+<h3>Magsafe充電アダプタを外して再接続する</h3>
+
+<p>充電器をコンセントとMBAから外して1分以上待ってから再度接続する。<br/>
+オンラインヘルプでも普通に出てくるらしい。<br/>
+・・・効くのか？</p>
+
+<h3>SMCをリセットする</h3>
+
+<p>SMC=システム管理コントローラ<br/>
+MBAのバッテリーや充電の電源管理は、SMCってとこがやっているらしいです。<br/>
+このSMCが異常を起こして電源アダプタを正常に認識出来ていない（可能性）があって充電出来ないことがある・・・らしい。<br/>
+方法は下記の通り。</p>
+
+<ol>
+<li>電源切る</li>
+<li>電源コードを差し込む</li>
+<li>Shift+Control+optionを押しながら電源ボタンを押す</li>
+<li>全部のキーを離す→成功すると、電源アダプタが点灯する</li>
+<li>電源ボタンオン！！</li>
+</ol>
+
+
+<p>いじょー</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Homebrewでmysql5.6をインストールしてみる]]></title>
