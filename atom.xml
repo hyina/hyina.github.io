@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-12-21T00:34:11+09:00</updated>
+  <updated>2013-12-21T00:42:15+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -265,7 +265,7 @@ Disqusでユーザ登録する際に、ユーザIDを設定できます、それ
 コマンドを叩くと、Github PagesのリポジトリのURLを入力してねと出るので、
 リポジトリのURLを入力しましょう。</p>
 
-<p>入力したら、下記コマンドを入力するとデプロイできます。しばらくすると、<code>http://onigra.github.io/</code>にブログができあがります。反映には5〜10分くらいかかるみたいです。</p>
+<p>入力したら、下記コマンドを入力するとデプロイできます。しばらくすると、<code>http://username.github.io</code>にブログができあがります。反映には5〜10分くらいかかるみたいです。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake gen_deploy</span></code></pre></td></tr></table></div></figure>
@@ -305,7 +305,7 @@ post titleは、実際のURLになるので、注意。</p>
 </span><span class='line'>title: "ここにタイトルを記入"
 </span><span class='line'>date: 作成日が入っています。
 </span><span class='line'>comments: コメント欄を出す場合は、trueに。
-</span><span class='line'>categories: タグ
+</span><span class='line'>categories: "タグ"（複数入れる場合は、["タグ１","タグ２"]みたいにする）
 </span><span class='line'>---
 </span><span class='line'>記事を書く。
 </span><span class='line'>下記を入れておくと、トップページではmore以下が省略され、続きを読むリンクが表示されます。

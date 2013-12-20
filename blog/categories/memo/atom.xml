@@ -4,7 +4,7 @@
   <title><![CDATA[Category: memo | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/memo/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-12-21T00:34:11+09:00</updated>
+  <updated>2013-12-21T00:42:15+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -162,7 +162,7 @@ rake setup_github_pages
 コマンドを叩くと、Github PagesのリポジトリのURLを入力してねと出るので、
 リポジトリのURLを入力しましょう。</p>
 
-<p>入力したら、下記コマンドを入力するとデプロイできます。しばらくすると、<code>http://onigra.github.io/</code>にブログができあがります。反映には5〜10分くらいかかるみたいです。</p>
+<p>入力したら、下記コマンドを入力するとデプロイできます。しばらくすると、<code>http://username.github.io</code>にブログができあがります。反映には5〜10分くらいかかるみたいです。</p>
 
 <p><code>
 rake gen_deploy
@@ -187,7 +187,7 @@ title: &ldquo;ここにタイトルを記入&rdquo;
 date: 作成日が入っています。
 comments: コメント欄を出す場合は、trueに。</p>
 
-<h2>categories: タグ</h2>
+<h2>categories: &ldquo;タグ"（複数入れる場合は、["タグ１&rdquo;,&ldquo;タグ２&rdquo;]みたいにする）</h2>
 
 <p>記事を書く。
 下記を入れておくと、トップページではmore以下が省略され、続きを読むリンクが表示されます。
