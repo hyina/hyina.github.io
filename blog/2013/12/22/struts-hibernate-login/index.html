@@ -1,24 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
-  <link href="http://hyina.github.io/atom.xml" rel="self"/>
-  <link href="http://hyina.github.io/"/>
-  <updated>2013-12-23T00:26:13+09:00</updated>
-  <id>http://hyina.github.io/</id>
-  <author>
-    <name><![CDATA[hyina]]></name>
-    <email><![CDATA[muffin.nov20@gmail.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Struts2とHibernate4を使ってTodoアプリをつくろう その１ - Hyinaのブログヾ(o・ω・o)ﾉ</title>
+  <meta name="author" content="hyina">
 
   
-  <entry>
-    <title type="html"><![CDATA[Struts2とHibernate4を使ってTodoアプリをつくろう その１]]></title>
-    <link href="http://hyina.github.io/blog/2013/12/22/struts-hibernate-login/"/>
-    <updated>2013-12-22T23:35:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/12/22/struts-hibernate-login</id>
-    <content type="html"><![CDATA[<h3>事の始まり</h3>
+  <meta name="description" content="">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://hyina.github.io/blog/2013/12/22/struts-hibernate-login">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/stylesheets/syntax/syntax.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    body {
+      padding-bottom: 40px;
+    }
+    h1 {
+      margin-bottom: 15px;
+    }
+    img {
+      max-width: 100%;
+    }
+    .sharing, .meta, .pager {
+      margin: 20px 0px 20px 0px;
+    }
+    .page-footer p {
+      text-align: center;
+    }
+  </style>
+  <script src="/javascripts/libs/jquery.js"></script>
+  <script src="/javascripts/libs/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/bootstrap.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Hyinaのブログヾ(o・ω・o)ﾉ" type="application/atom+xml">
+  
+  
+
+</head>
+
+<body   >
+  <nav role="navigation"><div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <a class="brand" href="/">Hyinaのブログヾ(o・ω・o)ﾉ</a>
+
+      <div class="nav-collapse">
+        <ul class="nav">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+
+        <ul class="nav pull-right" data-subscription="rss">
+          <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+          
+        </ul>
+
+        
+          <form class="pull-right navbar-search" action="http://google.com/search" method="get">
+            <fieldset role="search">
+              <input type="hidden" name="q" value="site:hyina.github.io" />
+              <input class="search-query" type="text" name="q" results="0" placeholder="Search"/>
+            </fieldset>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+</nav>
+  <div class="container">
+    <div class="row-fluid">
+      
+<article class="hentry span9" role="article">
+
+  
+  <header class="page-header">
+    
+      <h1 class="entry-title">Struts2とHibernate4を使ってTodoアプリをつくろう その１</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T23:35:00+09:00" pubdate data-updated="true">2013-12-22</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>事の始まり</h3>
 
 <p>12月半ばにとあるプロジェクトにアサインされた。どうやら新規開発らしい。<br/>
 開発案件から遠ざかっていたし、２年ほどいた職場で病んでいた精神も薬とかカウンセリングとかで
@@ -742,453 +842,151 @@ Hibernate Reverse Engineering File以降は、テーブルを作ってからや�
 
 <p>なぜかしょうもないとこ含め、色んなとこで詰まってしまった(´・ω・｀)<br/>
 まぁ、これも経験ということで。やっぱり手を動かさないと覚えないもんだよねー。</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[MacAirが充電できない…]]></title>
-    <link href="http://hyina.github.io/blog/2013/12/20/macair/"/>
-    <updated>2013-12-20T23:57:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/12/20/macair</id>
-    <content type="html"><![CDATA[<h2>寒さでMBAが凍える</h2>
 
-<p>昨日から一気に冷えてきて、朝がツライ今日このごろ。<br/>
-去年はそうでもなかったのに、最近愛用MacBookAirが充電出来ないことが多くなってきた。</p>
+<span class="byline author vcard">Posted by <span class="fn">hyina</span></span>
 
-<p>2011モデルなので、最初はぶっ壊れたかと思ったが、調べてみると寒いと充電出来ないことよくあるらしい。<br/>
-というわけで、その時の対処方法メモを書いておく。<br/>
-主に自分のために(・∀・)</p>
-
-<!-- more -->
+      
 
 
-<h3>部屋を暖める</h3>
-
-<p>もうこれに尽きる！<br/>
-といっても部屋がすぐに温まるわけでもない。。。<br/>
-雰囲気的に、MBA本体よりMagsafe充電アダプタ本体を手とかこたつで温めると案外すぐに充電出来るようになる。<br/>
-MBAのバッテリー、充電アダプタは両方動作温度は10~35℃なんだってさ。<br/>
-自分のはこれでもいいけど、調べてたら他にも方法があるらしい。</p>
-
-<h3>Magsafe充電アダプタを外して再接続する</h3>
-
-<p>充電器をコンセントとMBAから外して1分以上待ってから再度接続する。<br/>
-オンラインヘルプでも普通に出てくるらしい。<br/>
-・・・効くのか？</p>
-
-<h3>SMCをリセットする</h3>
-
-<p>SMC=システム管理コントローラ<br/>
-MBAのバッテリーや充電の電源管理は、SMCってとこがやっているらしいです。<br/>
-このSMCが異常を起こして電源アダプタを正常に認識出来ていない（可能性）があって充電出来ないことがある・・・らしい。<br/>
-方法は下記の通り。</p>
-
-<ol>
-<li>電源切る</li>
-<li>電源コードを差し込む</li>
-<li>Shift+Control+optionを押しながら電源ボタンを押す</li>
-<li>全部のキーを離す→成功すると、電源アダプタが点灯する</li>
-<li>電源ボタンオン！！</li>
-</ol>
 
 
-<p>いじょー</p>
-]]></content>
-  </entry>
+
+
+
+
   
-  <entry>
-    <title type="html"><![CDATA[Homebrewでmysql5.6をインストールしてみる]]></title>
-    <link href="http://hyina.github.io/blog/2013/12/19/mysql5-dot-6-install/"/>
-    <updated>2013-12-19T19:09:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/12/19/mysql5-dot-6-install</id>
-    <content type="html"><![CDATA[<h2>Mysqlのインストールめも</h2>
-
-<hr />
-
-<p>MacたんにインストールしてあったMysqlの調子が悪かったので、１から入れなおすことにしました。
-HomebrewでMysql5.6をインストールした時のメモです。</p>
-
-<!-- more -->
 
 
-<h2>実施内容</h2>
+<time datetime="2013-12-22T23:35:00+09:00" pubdate data-updated="true">2013-12-22</time>
+      
 
-<p>下記を順番に実行していく。</p>
-
-<h3>Homebrewを最新の状態に更新する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew update</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>最新のMysqlをインストールする。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install mysql</span></code></pre></td></tr></table></div></figure>
-
-
-<p>インストール後、メッセージが表示されるが、下記のコマンドでいつでも確認可能。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew info mysql</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>データベースのインストールとオプションを設定する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ unset TMPDIR
-</span><span class='line'>$ mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>MySQLの設定を行うため、MySQLを起動する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql.server start</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>rootのパスワードを変更する。</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysqladmin -u root password 'new-password'</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>MySQLのセキュリティ向上（念のため）</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql_secure_installation</span></code></pre></td></tr></table></div></figure>
-
-
-<p>基本デフォルトで良いと思う。
-<em>rootパスワードの設定
-</em>rootユーザのログインをlocalhostに制限
-<em>anonymousユーザの削除
-</em>testデータベースを削除</p>
-
-<h3>my.cnfを配置する。</h3>
-
-<p>my.cnfを配置後、カリカリと設定を書いていく。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch /usr/local/etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
-
-<p>また、my.cnfの読み込み順は下記コマンドで確認する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ mysql --help | grep my.cnf</span></code></pre></td></tr></table></div></figure>
-
-
-<p>いじょうー</p>
-]]></content>
-  </entry>
+<span class="categories">
   
-  <entry>
-    <title type="html"><![CDATA[Octopressはじめました]]></title>
-    <link href="http://hyina.github.io/blog/2013/10/04/start-octopress/"/>
-    <updated>2013-10-04T20:38:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/10/04/start-octopress</id>
-    <content type="html"><![CDATA[<h3>はじめに</h3>
-
-<hr />
-
-<p>個人的なoctpressをはじめるためのメモ書きです。</p>
-
-<h3>個人的環境</h3>
-
-<hr />
-
-<ul>
-<li>Mac OS X Lion</li>
-<li>ruby 2.0.0p247</li>
-<li>git 1.8.4</li>
-</ul>
+    <a class='category' href='/blog/categories/hibernate/'>Hibernate</a>, <a class='category' href='/blog/categories/struts/'>Struts</a>, <a class='category' href='/blog/categories/mian-qiang/'>勉強</a>
+  
+</span>
 
 
-<!-- more -->
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hyina.github.io/blog/2013/12/22/struts-hibernate-login/" data-via="hyina_qfir" data-counturl="http://hyina.github.io/blog/2013/12/22/struts-hibernate-login/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    
+    <section>
+      <h1>Comments</h1>
+      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+    </section>
+    
+    <ul class="pager">
+      
+      <li class="previous"><a class="basic-alignment left"
+        href="/blog/2013/12/20/macair/" title="Previous Post:
+        MacAirが充電できない…">&laquo; MacAirが充電できない…</a></li>
+      
+      <li><a href="/blog/archives">Blog Archives</a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+<aside class="sidebar-nav span3">
+  
+    <section>
+  <h1>自己紹介</h1>
+  <p>とあるメーカー系企業に務めているへっぽこSE((( ﾉ∀｀*)<br />
+  AndroidやGAEに興味があるとかないとか。</p>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 120.0%'>Hibernate(1)</a> <a href='/blog/categories/memo' style='font-size: 140.0%'>memo(2)</a> <a href='/blog/categories/struts' style='font-size: 120.0%'>Struts(1)</a> <a href='/blog/categories/kai-fa' style='font-size: 120.0%'>”開発”(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 120.0%'>勉強(1)</a> <a href='/blog/categories/za-tan' style='font-size: 160.0%'>雑談(3)</a> </span>
+</section>
+
+<br />
+<section class="well">
+<a class="twitter-timeline" href="https://twitter.com/mndsaisai" data-widget-id="378864733077520385" height="400" data-chrome="noheader nofooter noscrollbar transparent" lang="ja">@hyina_qfir のつぶやき</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
 
 
-<h3>導入</h3>
-
-<hr />
-
-<p><a href="http://octopress.org/docs/setup/">公式サイト</a>を見てコマンド実行するだけ。
-rubyのバージョンは1.9.3以上が必要なので注意。
-<code>.rbenv-version</code>ってファイルをイジると問題ないような気もする。やってないけど(笑´∀｀)<br/>
-あとは、いつからか、githubのリポジトリをusername.github.com から username.github.io とするようになっているみたい。</p>
-
-<p>デフォルトのテーマのままっていうのもあれなので、<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">サードパーティー制のテーマ</a>から、bootstrap-themeを適用しました。<br/>
-下記のコマンドを実行でOK。テーマを適用するとサイドバーとかの修正した分の一部が初期化されるので、テーマを適用してからイジると良いかと思います。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd octopress
-</span><span class='line'>git clone https://github.com/bkutil/bootstrap-theme .themes/bootstrap
-</span><span class='line'>rake install['bootstrap']
-</span><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>ブログの設定</h3>
 
-<hr />
-
-<p><em>config.ymlの編集すると、ブログタイトルなどは</em>config.ymlで設定できます。<br/>
-titleやauthor等を編集すると、ヘッダーやフッターが自動的に変わってくれます。<br/>
-内容については、ググるなり、<a href="http://octopress.org/docs/configuring/">公式サイト</a>を見ると色々書いてありますが、下記くらいは修正しておくと良いかと思います。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>url: http://yoursite.com
-</span><span class='line'>title: My Octopress Blog
-</span><span class='line'>subtitle: A blogging framework for hackers.
-</span><span class='line'>author: Yout Name
-</span><span class='line'>simple_search: http://google.com/search
-</span><span class='line'>description:
-</span><span class='line'>date_format: "%Y-%m-%d" 
-</span><span class='line'>excerpt_link: "続きを読む" </span></code></pre></td></tr></table></div></figure>
+  
+</aside>
 
 
-<p>あと、ブログなのにコメント欄がないというのもあれなので、ブログのコメントサービス<a href="http://disqus.com/">Disqus</a>を設定しときます。<br/>
-Disqusでユーザ登録する際に、ユーザIDを設定できます、それを、<code>_config.yml</code>に追記します。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#Dispus account
-</span><span class='line'>disqus_short_name: USER_ID
-</span><span class='line'>disqus_show_comment_count: false</span></code></pre></td></tr></table></div></figure>
-
-
-<p>すると、<code>source/_include/disqus.html</code>によってdisqus用のコードを生成してくれます。</p>
-
-<h3>プレビュー</h3>
-
-<hr />
-
-<p>ここらで一度、どんな感じになっているか確認してみます。<br/>
-プレビューを行うには、下記のコマンドを実行後、<a href="http://localhost:4000">localhost:4000</a>にアクセスします。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake preview</span></code></pre></td></tr></table></div></figure>
-
-
+    </div>
+  </div>
+  <footer role="contentinfo" class="page-footer"><hr>
 <p>
-プレビューを終了するには、ctrl+cでｗ</p>
+  Copyright &copy; 2013 - hyina -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
 
-<h3>デプロイ</h3>
-
-<hr />
-
-<p>OctopressをGithub Pagesにデプロイするための設定をします。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
-
-
-<p>
-コマンドを叩くと、Github PagesのリポジトリのURLを入力してねと出るので、
-リポジトリのURLを入力しましょう。</p>
-
-<p>入力したら、下記コマンドを入力するとデプロイできます。しばらくすると、<code>http://username.github.io</code>にブログができあがります。反映には5〜10分くらいかかるみたいです。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake gen_deploy</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<h3>記事の作成</h3>
-
-<hr />
-
-<p>記事を作成するには、下記のコマンドを実行し、テンプレートを作成します。<br/>
-post titleは、実際のURLになるので、注意。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post['post title']</span></code></pre></td></tr></table></div></figure>
-
-
-<p>テンプレートは、<code>source/_posts/</code>以下に出来るので、お好みのエディタで編集します。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>---
-</span><span class='line'>layout: post
-</span><span class='line'>title: "ここにタイトルを記入"
-</span><span class='line'>date: 作成日が入っています。
-</span><span class='line'>comments: コメント欄を出す場合は、trueに。
-</span><span class='line'>categories: "タグ"（複数入れる場合は、["タグ１","タグ２"]みたいにする）
-</span><span class='line'>---
-</span><span class='line'>記事を書く。
-</span><span class='line'>下記を入れておくと、トップページではmore以下が省略され、続きを読むリンクが表示されます。
-</span><span class='line'>リンク文字列は、_config.yml の excerpt_link で変更可能です。
-</span><span class='line'>
-</span><span class='line'># 上の内容までがトップページに表示 #
-</span><span class='line'>&lt;!-- more --&gt;
-</span><span class='line'># 下の内容が個別の記事のページに表示 #
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Markdownで書いたものをリアルプレビューできるMouが有名みたいですが、僕は、Sublime Text 2で書いています。意味は特にないですｗ</p>
-
-<h3>Sublime Text 2でMarkdownのプレビューをする</h3>
-
-<hr />
-
-<p>需要があるかは不明ですが、忘却メモということで(・∀・)<br/>
-1. Ctrl + Shift + p<br/>
-2. Package Controll:Install Packages</p>
-
-<p>その後、「Markdown Preview」をインストールしたら使えます。<br/>
-<a href="https://github.com/revolunet/sublimetext-markdown-preview#usage-">ここ</a>に使い方は書いてあるけど、Markdownのファイルを開いた状態で、</p>
-
-<ol>
-<li>Ctrl+Shift+p</li>
-<li>Markdown Preview : preview in Browser</li>
-</ol>
-
-
-<p>と実行すると、ブラウザで開かれてプレビューを見ることができます。
-<code>/var/folders/</code>にファイルが作成されてるみたい…勝手に削除されるのかな？</p>
-
-<h3>htmlファイル生成</h3>
-
-<hr />
-
-<p>下記のコマンドを実行すると、htmlファイルが生成されます。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
-
-
-<p>そのあとは、プレビューで確認して、最終確認をします。</p>
-
-<h3>記事の投稿</h3>
-
-<hr />
-
-<p>プレビューで公開をしても問題ないとなったら、下記のコマンドを実行してデプロイします。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>ちなみに、html生成＋デプロイは、下記のコマンド１行でいけます。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake gen_deloy</span></code></pre></td></tr></table></div></figure>
-
-
-<p>あと、記事の削除は、<code>source/_posts/〜.markdown</code>を削除し、html生成+デプロイをすると、ブログからは消え去ります。</p>
-
-<h3>感想</h3>
-
-<hr />
-
-<p>rubyを触ったことないからインストールから始めたので意外と時間はかかっちゃいました。あとは、テーマやらサイドバーとかの修正で手間取ったりorz<br/>
-とりあえず、markdownでブログを書けるのはかなり楽なのでやって損はないと思います。<br/>
-問題は、ブログを書き続ける継続力があるかどうか・・・かな(；・∀・)←</p>
-]]></content>
-  </entry>
+</footer>
   
-  <entry>
-    <title type="html"><![CDATA[最近よく思うこと]]></title>
-    <link href="http://hyina.github.io/blog/2013/09/29/recently-thinking/"/>
-    <updated>2013-09-29T19:15:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/09/29/recently-thinking</id>
-    <content type="html"><![CDATA[<h3>最近あったこと</h3>
 
-<p>2年ほどいた職場から撤退した。</p>
+<script type="text/javascript">
+      var disqus_shortname = 'hyinablog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://hyina.github.io/blog/2013/12/22/struts-hibernate-login/';
+        var disqus_url = 'http://hyina.github.io/blog/2013/12/22/struts-hibernate-login/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
-<p>振り返ってみると・・・ただ単に作業量が多くて時間が消費されていたイメージ。
-まだ、１ヶ月も立っていないけど、会社ではコードを触る機会を全然与えてくれず、今は・・・お察しな感じ(´・ω・｀)</p>
-
-<!-- more -->
 
 
-<p></p>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
-<hr />
 
-<h3>最近の刺激的なこと</h3>
 
-<p>友人からの紹介を得て、とある企業にお邪魔してきた。</p>
 
-<p>その手の業界では普通なことなんだろうけど、SIerにいるうちには絶対に出来ないようなことを日常に取り込んでいて、とても楽しそうだった。
-問題は、その企業の主力戦力の言語をほぼ触れないことｗ</p>
 
-<hr />
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
 
-<h3>最近よく思うこと</h3>
 
-<p>本当にこのままでいいのだろうか？
-ということ(；´Д｀)</p>
 
-<p>入社したときは特に思わなかったけど、最近自分の取り巻く現状に不満・・・とまでは行かないものの、矛盾？みたいなものを感じている。
-このまま行くと、エンジニアとして終わる未来も…。</p>
 
-<p>外から戻ってきたら出しやすいってのが大きいと思うが・・・作業的にも、誰にでも出来るような作業を振られていて、毎日全然楽しくない。
-周りに技術に明るい人が少ないので、そういう話が出来る人が少ない・・・。
-外部の勉強会に行くだけで、「おー！！すごいね！！」と言われる状況ｗ</p>
 
-<p>かと言って転職する・・・には、圧倒的に技術力が不足している・・・という残念過ぎる状況(´；д；`)</p>
-
-<hr />
-
-<h3>最近ではないけど実は</h3>
-
-<p>僕も今年でちゃっかり４年目になる。その間、開発はほぼほぼエンハンスのみ。
-サーバーリプレースや保守・運用といった様々な作業をさせてもらえたのは、とても自分のためになったと思っている。</p>
-
-<p>でも、このまま行くとどんどん潰しの利かないエンジニアになる・・・と友人にも言われたが、自分でもそう思っているｱﾀヽ(д｀ヽ彡ノ´д)ノﾌﾀ</p>
-
-<hr />
-
-<h3>最近考えていることの結果</h3>
-
-<p>色々悩んでいるけど、結局このまま行っても不満が積もるばかりな気がする。</p>
-
-<p>技術的にしょっぱいなら、勉強してコード書けばいいだけだし、外の話も色々聞きたい。</p>
-
-<p>転職エージェントに登録しますかー。とりあえず、職務経歴書でも書いてみますか！！ヾ(o・ω・o)ﾉﾞ</p>
-
-<p>まぁそんな感じのことを毎日考えている。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ブログを立ち上げてみたよ]]></title>
-    <link href="http://hyina.github.io/blog/2013/09/15/start-blog/"/>
-    <updated>2013-09-15T00:36:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/09/15/start-blog</id>
-    <content type="html"><![CDATA[<p>入社して４年目。半分以上はとある場所で保守運用な作業ばっかりで、本当にこのままで良いのかと切羽詰まっていたときにやっとこさ、開発に戻れたヾ(o・ω・o)ﾉﾞ<br/>
-でも、技術的にこのままで良いのかと悶々しつつ…自分の力量の無さにびっくり。<br/>
-とりあえず、前々からのタスクだったブログを立ち上げてみようと思ったとです。</p>
-
-<p>まぁ、そんな感じで何かしら書いていけたら良いなぁと思ってます((( ﾉ∀｀*)</p>
-]]></content>
-  </entry>
-  
-</feed>
+</body>
+</html>
