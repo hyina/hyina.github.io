@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-14T00:45:25+09:00</updated>
+  <updated>2014-01-14T02:23:08+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,6 +12,451 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[hibernateSessionFactory]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/14/hibernatesessionfactory/"/>
+    <updated>2014-01-14T02:01:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/14/hibernatesessionfactory</id>
+    <content type="html"><![CDATA[<h3>SessionFactoryをシングルトン化する</h3>
+
+<p>データ永続化のPOJOは作成しているものとする。<br/>
+ここでそれぞれのDAOにはいくつか共通するコードが出てくる。<br/>
+特にセッション取得やクローズを毎回記述するのは面倒ですので、以下のようにDAOの基底クラスを作成し、
+共通メソッドを定義します。</p>
+
+<!-- more -->
+
+
+<p>セッションファクトリ管理クラス：SessionManager.java<br/>
+基底クラス                 ：BaseDAO.java<br/>
+個別DAO                   ：それぞれ</p>
+
+<p>セッションファクトリ管理クラス</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import org.hibernate.HibernateException;
+</span><span class='line'>import org.hibernate.Session;
+</span><span class='line'>import org.hibernate.SessionFactory;
+</span><span class='line'>import org.hibernate.cfg.Configuration;
+</span><span class='line'>
+</span><span class='line'>/**
+</span><span class='line'> * HibernateのSessionFactoryを保持するシングルトン
+</span><span class='line'> */
+</span><span class='line'>public class SessionManager {
+</span><span class='line'>    private static SessionManager instance;
+</span><span class='line'>
+</span><span class='line'>    private SessionFactory sessions;
+</span><span class='line'>
+</span><span class='line'>    private SessionManager() throws HibernateException {
+</span><span class='line'>      Configuration configuration = new Configuration();
+</span><span class='line'>      sessions = configuration.configure().buildSessionFactory();
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    public static synchronized SessionManager getInstance() {
+</span><span class='line'>        if (instance == null) throw new NotInitializedException();
+</span><span class='line'>        return instance;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    /**
+</span><span class='line'>     * SessionFactoryを初期化する。
+</span><span class='line'>     * getInstance()を呼び出す前に必ず一度呼び出す必要がある。
+</span><span class='line'>     * @throws HibernateException
+</span><span class='line'>     */
+</span><span class='line'>    public static synchronized void initialize() throws HibernateException {
+</span><span class='line'>        if (instance == null)
+</span><span class='line'>            instance = new SessionManager();
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    public Session getSession() throws HibernateException {
+</span><span class='line'>        return sessions.openSession();
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    public static class NotInitializedException extends RuntimeException {}
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>基底クラス</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import org.hibernate.HibernateException;
+</span><span class='line'>import org.hibernate.Session;
+</span><span class='line'>import org.hibernate.Transaction;
+</span><span class='line'>
+</span><span class='line'>/**
+</span><span class='line'> * 各DAOにSession取得のための簡易メソッドを提供する基底クラス。
+</span><span class='line'> */
+</span><span class='line'>public class BaseDAO {
+</span><span class='line'>    protected SessionManager manager;
+</span><span class='line'>    
+</span><span class='line'>    public BaseDAO() {
+</span><span class='line'>      //セッションマネージャー初期処理
+</span><span class='line'>      SessionManager.initialize();
+</span><span class='line'>      manager = SessionManager.getInstance();
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    /** 
+</span><span class='line'>     * HibernateのSessionを取得する
+</span><span class='line'>     * @return
+</span><span class='line'>     * @throws HibernateException
+</span><span class='line'>     */
+</span><span class='line'>    public Session getSession() throws HibernateException {
+</span><span class='line'>        return manager.getSession();
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    /** 
+</span><span class='line'>     * トランザクションのロールバックを行う
+</span><span class='line'>     * @param session
+</span><span class='line'>     */
+</span><span class='line'>    public void rollback(Transaction tr) {
+</span><span class='line'>        try {
+</span><span class='line'>            tr.rollback();
+</span><span class='line'>        } catch (HibernateException ignore) {}
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>    /**
+</span><span class='line'>     * HibernateのSessionを閉じる
+</span><span class='line'>     */
+</span><span class='line'>    public void closeSession(Session session) {
+</span><span class='line'>        if (session != null) {
+</span><span class='line'>            try {
+</span><span class='line'>                session.close();
+</span><span class='line'>            } catch (HibernateException ignore) {}
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>個別DAO</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package test.dao;
+</span><span class='line'>
+</span><span class='line'>import java.util.List;
+</span><span class='line'>
+</span><span class='line'>import org.hibernate.HibernateException;
+</span><span class='line'>import org.hibernate.Query;
+</span><span class='line'>import org.hibernate.Session;
+</span><span class='line'>import org.hibernate.Transaction;
+</span><span class='line'>
+</span><span class='line'>/**
+</span><span class='line'> * Testテーブルへのアクセスを行うDAO
+</span><span class='line'> */
+</span><span class='line'>public class sampleDao extends BaseDAO {
+</span><span class='line'>    
+</span><span class='line'>      /**
+</span><span class='line'>       * データベースへオブジェクトをinsertする
+</span><span class='line'>       */
+</span><span class='line'>      public void save(Test obj) throws HibernateException {
+</span><span class='line'>          Session sess = getSession();
+</span><span class='line'>          Transaction tx = null;
+</span><span class='line'>          try {
+</span><span class='line'>              tx = sess.beginTransaction();
+</span><span class='line'>              sess.save(obj);
+</span><span class='line'>              tx.commit();
+</span><span class='line'>          } catch (HibernateException ex) {
+</span><span class='line'>              rollback(tx);
+</span><span class='line'>              throw ex;
+</span><span class='line'>          } finally {
+</span><span class='line'>              closeSession(sess);
+</span><span class='line'>          }
+</span><span class='line'>      }
+</span><span class='line'>
+</span><span class='line'>      /**
+</span><span class='line'>       * データベース内のオブジェクトを更新する
+</span><span class='line'>       */
+</span><span class='line'>      public void update(Test obj) throws HibernateException {
+</span><span class='line'>          Session sess = getSession();
+</span><span class='line'>          Transaction tx = null;
+</span><span class='line'>          try {
+</span><span class='line'>              tx = sess.beginTransaction();
+</span><span class='line'>              sess.update(obj);
+</span><span class='line'>              tx.commit();
+</span><span class='line'>          } catch (HibernateException ex) {
+</span><span class='line'>              rollback(tx);
+</span><span class='line'>              throw ex;
+</span><span class='line'>          } finally {
+</span><span class='line'>              closeSession(sess);
+</span><span class='line'>          }
+</span><span class='line'>      }
+</span><span class='line'>
+</span><span class='line'>      /**
+</span><span class='line'>       * 引数で指定した主キー値にマッチするTestオブジェクトを取得する
+</span><span class='line'>       * @param id 複合主キークラス
+</span><span class='line'>       */
+</span><span class='line'>      public Test load(test.dao.TestId id) throws HibernateException {
+</span><span class='line'>          Test user = null;
+</span><span class='line'>          Session sess = getSession();
+</span><span class='line'>          try {
+</span><span class='line'>              user = (Test) sess.get("test.dao.Test", id);
+</span><span class='line'>          } finally {
+</span><span class='line'>              closeSession(sess);
+</span><span class='line'>          }
+</span><span class='line'>          return user;
+</span><span class='line'>      }
+</span><span class='line'>
+</span><span class='line'>      /**
+</span><span class='line'>       * 引数にマッチする名前を持つTestオブジェクトのリストを取得する
+</span><span class='line'>       */
+</span><span class='line'>      public List&lt;Test&gt; findByName(String name) throws HibernateException {
+</span><span class='line'>          List&lt;Test&gt; test = null;
+</span><span class='line'>          Session sess = getSession();
+</span><span class='line'>          
+</span><span class='line'>          //HQL文  
+</span><span class='line'>          String hql = "FROM test.dao.Test as test WHERE test.name = :name";  
+</span><span class='line'>          
+</span><span class='line'>          try {
+</span><span class='line'>              Query query = sess.createQuery(hql);  
+</span><span class='line'>            
+</span><span class='line'>              //条件          
+</span><span class='line'>              query.setString("name", new String(name));  
+</span><span class='line'>                
+</span><span class='line'>              //クエリ発行
+</span><span class='line'>              test = (List&lt;Test&gt;) query.list();
+</span><span class='line'>          } finally {
+</span><span class='line'>              closeSession(sess);
+</span><span class='line'>          }
+</span><span class='line'>          return test;
+</span><span class='line'>      }
+</span><span class='line'>  
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>あとは呼び出すクラス</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.List;
+</span><span class='line'>
+</span><span class='line'>public class TestSample {
+</span><span class='line'>
+</span><span class='line'>  public static void main(String[] args) {
+</span><span class='line'>      TestId id = new TestId(1,"admin");
+</span><span class='line'>      System.out.println("Factoryをシングルトンにした場合");
+</span><span class='line'>      sampleDao s = new sampleDao();
+</span><span class='line'>      System.out.println("主キーによる検索結果");
+</span><span class='line'>      System.out.println(s.load(id));
+</span><span class='line'>      
+</span><span class='line'>      System.out.println("nameによる検索");
+</span><span class='line'>          
+</span><span class='line'>      for (Test t : s.findByName("てすと１")) {
+</span><span class='line'>          System.out.print(t.getId().getId() + " ");
+</span><span class='line'>          System.out.print(t.getId().getUserid() + " ");
+</span><span class='line'>          System.out.println(t.getName());
+</span><span class='line'>      }
+</span><span class='line'>      
+</span><span class='line'>      System.out.println("主キーの一部による検索");
+</span><span class='line'>      for (Test t : s.findByUserId("admin")) {
+</span><span class='line'>          System.out.print(t.getId().getId() + " ");
+</span><span class='line'>          System.out.print(t.getId().getUserid() + " ");
+</span><span class='line'>          System.out.println(t.getName());
+</span><span class='line'>      }
+</span><span class='line'>  
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[hibernateの設定周り＋α]]></title>

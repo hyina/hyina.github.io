@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hibernate | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/hibernate/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-14T00:45:25+09:00</updated>
+  <updated>2014-01-14T02:23:08+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,6 +12,259 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[hibernateSessionFactory]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/14/hibernatesessionfactory/"/>
+    <updated>2014-01-14T02:01:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/14/hibernatesessionfactory</id>
+    <content type="html"><![CDATA[<h3>SessionFactoryをシングルトン化する</h3>
+
+<p>データ永続化のPOJOは作成しているものとする。<br/>
+ここでそれぞれのDAOにはいくつか共通するコードが出てくる。<br/>
+特にセッション取得やクローズを毎回記述するのは面倒ですので、以下のようにDAOの基底クラスを作成し、
+共通メソッドを定義します。</p>
+
+<!-- more -->
+
+
+<p>セッションファクトリ管理クラス：SessionManager.java<br/>
+基底クラス                 ：BaseDAO.java<br/>
+個別DAO                   ：それぞれ</p>
+
+<p>セッションファクトリ管理クラス</p>
+
+<p>```
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;</p>
+
+<p>/<em>*
+ * HibernateのSessionFactoryを保持するシングルトン
+ </em>/
+public class SessionManager {</p>
+
+<pre><code>private static SessionManager instance;
+
+private SessionFactory sessions;
+
+private SessionManager() throws HibernateException {
+    Configuration configuration = new Configuration();
+    sessions = configuration.configure().buildSessionFactory();
+}
+
+public static synchronized SessionManager getInstance() {
+    if (instance == null) throw new NotInitializedException();
+    return instance;
+}
+
+/**
+ * SessionFactoryを初期化する。
+ * getInstance()を呼び出す前に必ず一度呼び出す必要がある。
+ * @throws HibernateException
+ */
+public static synchronized void initialize() throws HibernateException {
+    if (instance == null)
+        instance = new SessionManager();
+}
+
+public Session getSession() throws HibernateException {
+    return sessions.openSession();
+}
+
+public static class NotInitializedException extends RuntimeException {}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>基底クラス</p>
+
+<p>```
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;</p>
+
+<p>/<em>*
+ * 各DAOにSession取得のための簡易メソッドを提供する基底クラス。
+ </em>/
+public class BaseDAO {</p>
+
+<pre><code>protected SessionManager manager;
+
+public BaseDAO() {
+    //セッションマネージャー初期処理
+    SessionManager.initialize();
+    manager = SessionManager.getInstance();
+}
+
+/** 
+ * HibernateのSessionを取得する
+ * @return
+ * @throws HibernateException
+ */
+public Session getSession() throws HibernateException {
+    return manager.getSession();
+}
+
+/** 
+ * トランザクションのロールバックを行う
+ * @param session
+ */
+public void rollback(Transaction tr) {
+    try {
+        tr.rollback();
+    } catch (HibernateException ignore) {}
+}
+
+/**
+ * HibernateのSessionを閉じる
+ */
+public void closeSession(Session session) {
+    if (session != null) {
+        try {
+            session.close();
+        } catch (HibernateException ignore) {}
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>個別DAO</p>
+
+<p>```
+package test.dao;</p>
+
+<p>import java.util.List;</p>
+
+<p>import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;</p>
+
+<p>/<em>*
+ * Testテーブルへのアクセスを行うDAO
+ </em>/
+public class sampleDao extends BaseDAO {</p>
+
+<pre><code>    /**
+     * データベースへオブジェクトをinsertする
+     */
+    public void save(Test obj) throws HibernateException {
+        Session sess = getSession();
+        Transaction tx = null;
+        try {
+            tx = sess.beginTransaction();
+            sess.save(obj);
+            tx.commit();
+        } catch (HibernateException ex) {
+            rollback(tx);
+            throw ex;
+        } finally {
+            closeSession(sess);
+        }
+    }
+
+    /**
+     * データベース内のオブジェクトを更新する
+     */
+    public void update(Test obj) throws HibernateException {
+        Session sess = getSession();
+        Transaction tx = null;
+        try {
+            tx = sess.beginTransaction();
+            sess.update(obj);
+            tx.commit();
+        } catch (HibernateException ex) {
+            rollback(tx);
+            throw ex;
+        } finally {
+            closeSession(sess);
+        }
+    }
+
+    /**
+     * 引数で指定した主キー値にマッチするTestオブジェクトを取得する
+     * @param id 複合主キークラス
+     */
+    public Test load(test.dao.TestId id) throws HibernateException {
+        Test user = null;
+        Session sess = getSession();
+        try {
+            user = (Test) sess.get("test.dao.Test", id);
+        } finally {
+            closeSession(sess);
+        }
+        return user;
+    }
+
+    /**
+     * 引数にマッチする名前を持つTestオブジェクトのリストを取得する
+     */
+    public List&lt;Test&gt; findByName(String name) throws HibernateException {
+        List&lt;Test&gt; test = null;
+        Session sess = getSession();
+
+        //HQL文  
+        String hql = "FROM test.dao.Test as test WHERE test.name = :name";  
+
+        try {
+            Query query = sess.createQuery(hql);  
+
+            //条件          
+            query.setString("name", new String(name));  
+
+            //クエリ発行
+            test = (List&lt;Test&gt;) query.list();
+        } finally {
+            closeSession(sess);
+        }
+        return test;
+    }
+</code></pre>
+
+<p>}
+```</p>
+
+<p>あとは呼び出すクラス</p>
+
+<p>```
+import java.util.List;</p>
+
+<p>public class TestSample {</p>
+
+<pre><code>public static void main(String[] args) {
+    TestId id = new TestId(1,"admin");
+    System.out.println("Factoryをシングルトンにした場合");
+    sampleDao s = new sampleDao();
+    System.out.println("主キーによる検索結果");
+    System.out.println(s.load(id));
+
+    System.out.println("nameによる検索");
+
+    for (Test t : s.findByName("てすと１")) {
+        System.out.print(t.getId().getId() + " ");
+        System.out.print(t.getId().getUserid() + " ");
+        System.out.println(t.getName());
+    }
+
+    System.out.println("主キーの一部による検索");
+    for (Test t : s.findByUserId("admin")) {
+        System.out.print(t.getId().getId() + " ");
+        System.out.print(t.getId().getUserid() + " ");
+        System.out.println(t.getName());
+    }
+
+}
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[hibernateの設定周り＋α]]></title>
