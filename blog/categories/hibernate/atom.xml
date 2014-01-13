@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Hibernate | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <title><![CDATA[Category: hibernate | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/hibernate/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-12-23T00:26:13+09:00</updated>
+  <updated>2014-01-14T00:45:25+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,139 +14,15 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Struts2とHibernate4を使ってTodoアプリをつくろう その１]]></title>
-    <link href="http://hyina.github.io/blog/2013/12/22/struts-hibernate-login/"/>
-    <updated>2013-12-22T23:35:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/12/22/struts-hibernate-login</id>
-    <content type="html"><![CDATA[<h3>事の始まり</h3>
+    <title type="html"><![CDATA[hibernateの設定周り＋α]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/13/hibernatesettings/"/>
+    <updated>2014-01-13T20:26:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/13/hibernatesettings</id>
+    <content type="html"><![CDATA[<h3>Hibernateの設定</h3>
 
-<p>12月半ばにとあるプロジェクトにアサインされた。どうやら新規開発らしい。<br/>
-開発案件から遠ざかっていたし、２年ほどいた職場で病んでいた精神も薬とかカウンセリングとかで
-やっとこさマシな状況まで回復してきたので、開発に復活するにはちょうど良さそうなタイミングだった。<br/>
-2年半ほど、(なんちゃって)運用系な作業をやっていたので、開発は2年半ぶりｗ<br/>
-いやー楽しみですわー</p>
+<p>最低こんくらいあれば動くと思う。</p>
 
-<p>MVCはStruts2で、O/RMapperはHibernate使うから勉強しといて！！</p>
-
-<!-- more -->
-
-
-<h4>どっちも触ったことねーーー(´・ω・｀)</h4>
-
-<p>Struts1.x系はちょろっと改修するときに見たことある程度だったので、マジ初心者。<br/>
-Hibernate？名前しか知りませんがなにか？←<br/>
-という残念っぷり。。。<br/>
-というわけで、勉強も兼ねて、Struts2.x系とHibernate4.x系使ってTODOアプリでも作ってみるかー。</p>
-
-<p>眠いのでまとめるのはまた今度ちゃんとやる。</p>
-
-<h1>限りなく自分用のメモです。</h1>
-
-<h3>環境</h3>
-
-<ol>
-<li>MacBookAir</li>
-<li>Mysql5.6</li>
-<li>Struts2.3.16</li>
-<li>Hibernate4.3.0</li>
-<li>Tomcat7.0.47</li>
-<li>Eclipse kepler
-
-<ul>
-<li>Tomcatプラグイン3.3</li>
-<li>Hibernate Tools
-
-<ul>
-<li>Hibernate Toolsは、Eclipseで<code>http://download.jboss.org/jbosstools/updates/stable/kepler/</code>を指定して、「Hibernate Tools」でフィルター後、複数出てくるが１番上のを入れてみた</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-
-
-<h3>Strutsの設定周り</h3>
-
-<p>web.xml
-filter-classへの指定がどっかのバージョンから変わったらしい。。。
-```
-&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?>
-&lt;web-app id=&ldquo;WebApp_9&rdquo; version=&ldquo;2.4&rdquo; xmlns=&ldquo;<a href="http://java.sun.com/xml/ns/j2ee">http://java.sun.com/xml/ns/j2ee</a>&rdquo;
- xmlns:xsi=&ldquo;<a href="http://www.w3.org/2001/XMLSchema-instance">http://www.w3.org/2001/XMLSchema-instance</a>&rdquo;
- xsi:schemaLocation=&ldquo;<a href="http://java.sun.com/xml/ns/j2ee">http://java.sun.com/xml/ns/j2ee</a> <a href="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd</a>&rdquo;></p>
-
-<pre><code>&lt;display-name&gt;Struts Todo&lt;/display-name&gt;
-
-&lt;filter&gt;
-    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
-    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
-&lt;/filter&gt;
-
-&lt;filter-mapping&gt;
-    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
-    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-&lt;/filter-mapping&gt;
-
-&lt;welcome-file-list&gt;
-    &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;
-&lt;/welcome-file-list&gt;
-</code></pre>
-
-<p>&lt;/web-app>
-```</p>
-
-<p>struts.xml
-ここら辺は特に変化はないはず。
-```
-&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo; ?>
-&lt;!DOCTYPE struts PUBLIC</p>
-
-<pre><code>"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-"http://struts.apache.org/dtds/struts-2.3.dtd"&gt;
-</code></pre>
-
-<p><struts></p>
-
-<pre><code>&lt;package name="StrutsTodoProject" extends="struts-default"&gt;
-
-    &lt;action name="Login" class="todo.Login"&gt;
-        &lt;result name="success"&gt;ぺーじ&lt;/result&gt;
-    &lt;/action&gt;
-
-    &lt;action name="LoginConfirm" method="confirm" class="todo.Login"&gt;
-        &lt;result name="success"&gt;ぺーじ&lt;/result&gt;
-        &lt;result name="error"&gt;ぺーじ&lt;/result&gt;
-        &lt;result name="input"&gt;ぺーじ&lt;/result&gt;
-    &lt;/action&gt;
-&lt;/package&gt;
-</code></pre>
-
-<p></struts>
-```</p>
-
-<p>あとは、formのとこでなぜか詰まってしまった。。。<br/>
-formのactionには、struts.xmlのactionタグのnameを書く。<br/>
-参考にしてたサイトがsubmitのとこに入れてたので、動かんくて困った。。。<br/>
-```
-<body></p>
-
-<pre><code>&lt;s:form action="LoginConfirm" validate="true"&gt;
-    &lt;s:textfield label="〜" name="xxxx" /&gt;
-    &lt;s:password label="〜" name="yyyy" /&gt;
-    &lt;s:submit value="ボタン" /&gt;
-&lt;/s:form&gt;
-</code></pre>
-
-<p></body>
-```</p>
-
-<h3>Hibernate</h3>
-
-<p>ここを参考に<a href="http://www.omotenashi-mind.com/index.php/Hibernate_Tools%E3%81%A7%E7%B0%A1%E5%8D%98Hibernate%E6%B4%BB%E7%94%A8">HibernateToolsで簡単Hibernate活用</a>ツールのインストール。<br/>
-Hibernate Reverse Engineering File以降は、テーブルを作ってからやる（当然）。</p>
-
-<p>hibernate.cfg.xml
-```
+<p>```
 &lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?>
 &lt;!DOCTYPE hibernate-configuration PUBLIC &ldquo;&ndash;//Hibernate/Hibernate Configuration DTD 3.0//EN&rdquo;</p>
 
@@ -156,291 +32,310 @@ Hibernate Reverse Engineering File以降は、テーブルを作ってからや�
 <p>&lt;hibernate-configuration></p>
 
 <pre><code>&lt;session-factory name=""&gt;
+    &lt;!-- session contextの設定 --&gt;
+    &lt;property name="current_session_context_class"&gt;thread&lt;/property&gt;
+    &lt;!-- DBのドライバ --&gt;
     &lt;property name="hibernate.connection.driver_class"&gt;org.gjt.mm.mysql.Driver&lt;/property&gt;
-    &lt;property name="hibernate.connection.url"&gt;jdbc:mysql://localhost:3306/でーびー&lt;/property&gt;
-    &lt;property name="hibernate.connection.username"&gt;ゆーざー&lt;/property&gt;
-    &lt;property name="hibernate.connection.password"&gt;ぱすわーど&lt;/property&gt;
     &lt;property name="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
+    &lt;!-- DBのユーザ・パスワード --&gt;
+    &lt;property name="hibernate.connection.username"&gt;　&lt;/property&gt;
+    &lt;property name="hibernate.connection.password"&gt;　&lt;/property&gt;
+    &lt;!-- 接続するDBのURL --&gt;
+    &lt;property name="hibernate.connection.url"&gt;jdbc:mysql://localhost:3306/〜&lt;/property&gt;
+    &lt;!-- コネクションプールの設定 --&gt;
     &lt;property name="hibernate.connection.pool_size"&gt;3&lt;/property&gt;
-    &lt;property name="hibernate.current_session_context_class"&gt;thread&lt;/property&gt;
+    &lt;!-- 実行SQLをコンソールに表示するか（true:表示、false:非表示） --&gt;
     &lt;property name="hibernate.show_sql"&gt;true&lt;/property&gt;
-    &lt;!-- Mapping files --&gt;
-    &lt;mapping  resource="まっぴんぐふぁいるのありか" /&gt;
+    &lt;!-- マッピングファイルの定義 --&gt;
+    &lt;!-- hibernateのxmlで管理する場合 --&gt;
+    &lt;mapping resource="src以下のディレクトリ/〜/〜.hbm.xml" /&gt;
+    &lt;!-- アノテーションで管理する場合 --&gt;
+    &lt;mapping class="パッケージ名.パッケージ名.クラス名" /&gt;
 &lt;/session-factory&gt;
 </code></pre>
 
 <p>&lt;/hibernate-configuration>
 ```</p>
 
-<p>HibernateToolsで作成したDAO(一部修正)
-```
-/<em>*
- * Home object for domain model class TodoUser.
- * @see todo.hibernate.TodoUser
- * @author Hibernate Tools
+<!-- more -->
+
+
+<h3>Hibernateのセッション</h3>
+
+<p><a href="http://www.yefisys.com/blog/2013/05/05/hibernate-will-be-no-backward-compat/">ここを参考</a>
+buildServiceRegistry()が見つからないらしいので、build()に変更。</p>
+
+<p>```</p>
+
+<pre><code>private final SessionFactory sessionFactory = getSessionFactory();
+private static ServiceRegistry serviceRegistry;
+
+protected SessionFactory getSessionFactory() {
+    try {
+        //デフォルトで作成されるやつ
+</code></pre>
+
+<p>//          return (SessionFactory) new InitialContext()
+//                  .lookup(&ldquo;SessionFactory&rdquo;);</p>
+
+<pre><code>        //3とかで使える。5以降では削除される予定らしい。
+</code></pre>
+
+<p>//          return new Configuration().configure().buildSessionFactory();</p>
+
+<pre><code>        // Hibernateの初期化処理（Sessionオブジェクトの取得）
+        // ※ Hibernate 4.0以降
+        Configuration config = new Configuration().configure();
+        serviceRegistry = new ServiceRegistryBuilder().applySettings(config.getProperties()).build();
+        return config.buildSessionFactory(serviceRegistry);
+    } catch (Exception e) {
+        throw new IllegalStateException(
+                "Could not locate SessionFactory in JNDI");
+    }
+}
+
+private Session getSession() {
+    return  sessionFactory.openSession();
+}
+</code></pre>
+
+<p>```</p>
+
+<p>Hinerbate Toolsで作成したDAOについて。テーブル名+HOMEで作成される。<br/>
+どうやらこのままだと使えないっぽい。なんかめんｄ(ry<br/>
+daoSupportクラス。</p>
+
+<p>```
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;</p>
+
+<p>/<em>*
+ * Dao を補助するクラス
  </em>/
-public class TodoUserHome {</p>
+public abstract class daoSupport {</p>
 
-<pre><code>private static final Log log = LogFactory.getLog(TodoUserHome.class);
-private SessionFactory sessionFactory;
+<pre><code>private static SessionFactory factory;
+private static ServiceRegistry serviceRegistry;
 
-public TodoUserHome() {
-    HibernateUtil h = new HibernateUtil();
-    sessionFactory = h.getSessionFactory();
+protected Session getSession() {
+    try {
+        Configuration configuration = new Configuration();
+        return configuration.configure().buildSessionFactory().openSession();
+    } catch (Exception e) {
+        throw new IllegalStateException(
+                "Could not locate SessionFactory in JNDI");
+    }
 }
+</code></pre>
 
-/** 
- * セッションを取得する 
- * @return Session 
- */
-// TODO 共通化すること 
-private Session getSession() {  
-    Session session = sessionFactory.getCurrentSession();
-    session.beginTransaction();
-    return session;  
-} 
+<p>}
+```</p>
 
-/**
- * 
- * @param transientInstance
- */
-public void persist(TodoUser transientInstance) {
-    log.debug("persisting TodoUser instance");
+<p>daoSupportクラスを継承して、daoを作成。<br/>
+複合主キーの１部を使用して検索し、結果をListで返すだけ。</p>
+
+<p>テスト用なので、下記な感じです。</p>
+
+<ol>
+<li>id   PK</li>
+<li>userid   PK</li>
+<li>name</li>
+</ol>
+
+
+<p>```
+import java.util.List;</p>
+
+<p>import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;</p>
+
+<p>public class daoTest extends daoSupport {</p>
+
+<pre><code>@SuppressWarnings("unchecked")
+public List&lt;Test&gt; findByUserId(String userId) {
     try {
         Session s = getSession();
-        s.persist(transientInstance);
-        log.debug("persist successful");
-    } catch (RuntimeException re) {
-        log.error("persist failed", re);
-        throw re;
-    }
-}
+        try {
+            List&lt;Test&gt; results = (List&lt;Test&gt;) s.createCriteria(Test.class)　//←Entityクラスを指定
+                    .add( Restrictions.eq("id.userid", userId) )    //useridに一致する。カラム名はhibernateの関連付けで定義した名前
+</code></pre>
 
-/**
- * 登録or更新
- * @param instance
- */
-public void attachDirty(TodoUser instance) {
-    log.debug("attaching dirty TodoUser instance");
-    try {
-        Session s = getSession();
-        s.saveOrUpdate(instance);
-        s.getTransaction().commit();
-        log.debug("attach successful");
-    } catch (RuntimeException re) {
-        log.error("attach failed", re);
-        throw re;
-    }
-}
+<p>//                      .add( Restrictions.like(&ldquo;name&rdquo;, &ldquo;てすと%&rdquo;))  //like検索
+//                      .add( Restrictions.between(&ldquo;id.id&rdquo;,new Integer(1), new Integer(4)))     //between検索。第２引数が開始、第３引数が終了</p>
 
-/**
- * 
- * @param instance
- */
-public void attachClean(TodoUser instance) {
-    log.debug("attaching clean TodoUser instance");
-    try {
-        Session s = getSession();
-        s.lock(instance, LockMode.NONE);
-        log.debug("attach successful");
-    } catch (RuntimeException re) {
-        log.error("attach failed", re);
-        throw re;
-    }
-}
-
-/**
- * 削除
- * @param persistentInstance
- */
-public void delete(TodoUser persistentInstance) {
-    log.debug("deleting TodoUser instance");
-    try {
-        Session s = getSession();
-        s.delete(persistentInstance);
-        s.getTransaction().commit();
-        log.debug("delete successful");
-    } catch (RuntimeException re) {
-        log.error("delete failed", re);
-        throw re;
-    }
-}
-
-/**
- * 登録処理
- * @param instance
- */
-public void save(TodoUser instance) {
-    log.debug("Save TodoUser instance");
-    try {
-        Session s = getSession();
-        s.save(instance);
-        s.getTransaction().commit();
-        log.debug("save successful");
-    } catch (RuntimeException re) {
-        log.error("save failed", re);
-        throw re;
-    }
-}
-
-public TodoUser merge(TodoUser detachedInstance) {
-    log.debug("merging TodoUser instance");
-    try {
-        TodoUser result = (TodoUser) sessionFactory.getCurrentSession()
-                .merge(detachedInstance);
-        log.debug("merge successful");
-        return result;
-    } catch (RuntimeException re) {
-        log.error("merge failed", re);
-        throw re;
-    }
-}
-
-/**
- * IDによる検索
- * @param id
- * @return
- */
-public TodoUser findById(java.lang.Integer id) {
-    log.debug("getting TodoUser instance with id: " + id);
-    try {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        TodoUser instance = (TodoUser) session.get("todo.hibernate.TodoUser", id);
-        if (instance == null) {
-            log.debug("get successful, no instance found");
-        } else {
-            log.debug("get successful, instance found");
+<pre><code>                    .list();
+            return results;
+        } finally {
+            s.close();
         }
-        return instance;
     } catch (RuntimeException re) {
-        log.error("get failed", re);
         throw re;
     }
-}
-
-@SuppressWarnings("unchecked")
-public List&lt;TodoUser&gt; findByExample(TodoUser instance) {
-    log.debug("finding TodoUser instance by example");
-    try {
-        List&lt;TodoUser&gt; results = (List&lt;TodoUser&gt;) sessionFactory
-                .getCurrentSession()
-                .createCriteria("todo.hibernate.TodoUser")
-                .add(create(instance)).list();
-        log.debug("find by example successful, result size: "
-                + results.size());
-        return results;
-    } catch (RuntimeException re) {
-        log.error("find by example failed", re);
-        throw re;
-    }
-}
-
-/** 
- * TodoUserデータ検索（全件取得）
- * @return TODOUSERの全件データ。 
- */  
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getAllList() {  
-    return getSession().createCriteria(TodoUser.class).list();  
-}
-
-/** 
- * HQL文より指定条件で合致するユーザのリストを取得する
- * @param name ユーザ名
- * @return 合致するユーザのリスト
- */
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getListByNameHql(String name) {  
-    //HQL文  
-    String hql = "FROM todo.hibernate.TodoUser as u WHERE u.name = :name";  
-    Query query = getSession().createQuery(hql);  
-
-    //条件          
-    query.setString("name", name);  
-
-    //クエリ発行  
-    return query.list();  
-}  
-
-/** 
- * HQL文より指定条件で合致するユーザ名とパスワードのリストを取得する
- * @param name ユーザ名
- * @param password パスワード
- * @return 合致するユーザのリスト
- */   
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getListByNamePassowordHql(String name, String password) {  
-    //HQL文  
-    String hql = "FROM todo.hibernate.TodoUser as u WHERE u.name = :name AND u.password = :password";  
-    Query query = getSession().createQuery(hql);  
-
-    //条件          
-    query.setString("name", name);  
-    query.setString("password", password);  
-
-    //クエリ発行  
-    return query.list();  
-}  
-
-/** 
- * SQL文より指定条件で合致するユーザのリストを取得する
- * @param name ユーザ名 
- * @return 合致するユーザのリスト 
- */  
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getListByNameSql(String name) {  
-    //HQL文  
-    String sql = "FROM TODOUSER u WHERE u.NAME = :name";  
-    Query query = getSession().createSQLQuery(sql);  
-
-    //条件          
-    query.setString("name", name);  
-
-    //クエリ発行  
-    return query.list();  
 }
 </code></pre>
 
 <p>}
 ```</p>
 
-<p>HibernateUtil.java
+<p>以下エンティティ。</p>
+
+<p>Test.java
 ```
-package todo.hibernate;</p>
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;</p>
 
-<p>import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;</p>
+<p>import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;</p>
 
-<p>public class HibernateUtil {</p>
+<p>/<em>*
+ * Test generated by hbm2java
+ </em>/
+@Entity
+@Table(name = &ldquo;test&rdquo;, catalog = &ldquo;todoSample&rdquo;)
+public class Test implements java.io.Serializable {</p>
 
-<pre><code>private final SessionFactory sessionFactory = buildSessionFactory();
+<pre><code>/**
+ * 
+ */
+private static final long serialVersionUID = 1L;
+private TestId id;
+private String name;
 
-@SuppressWarnings("deprecation")
-private SessionFactory buildSessionFactory() {
-    try {
-        // Create the SessionFactory from hibernate.cfg.xml
-        return new Configuration().configure().buildSessionFactory();
-    }
-    catch (Throwable ex) {
-        // Make sure you log the exception, as it might be swallowed
-        System.err.println("Initial SessionFactory creation failed." + ex);
-        throw new ExceptionInInitializerError(ex);
-    }
+public Test() {
 }
 
-public SessionFactory getSessionFactory() {
-    return sessionFactory;
+public Test(TestId id) {
+    this.id = id;
+}
+
+public Test(TestId id, String name) {
+    this.id = id;
+    this.name = name;
+}
+
+@EmbeddedId
+@AttributeOverrides({
+        @AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
+        @AttributeOverride(name = "userid", column = @Column(name = "userid", nullable = false, length = 45)) })
+public TestId getId() {
+    return this.id;
+}
+
+public void setId(TestId id) {
+    this.id = id;
+}
+
+@Column(name = "name", length = 45)
+public String getName() {
+    return this.name;
+}
+
+public void setName(String name) {
+    this.name = name;
+}
+public String toString() {
+    return ToStringBuilder.reflectionToString(this,
+            ToStringStyle.SHORT_PREFIX_STYLE);
 }
 </code></pre>
 
 <p>}
 ```</p>
 
-<h3>どうしてこうなった</h3>
+<p>TestId.java(複合主キー)</p>
 
-<p>なぜかしょうもないとこ含め、色んなとこで詰まってしまった(´・ω・｀)<br/>
-まぁ、これも経験ということで。やっぱり手を動かさないと覚えないもんだよねー。</p>
+<p>```
+package test.dao;</p>
+
+<p>// Generated 2014/01/13 23:47:05 by Hibernate Tools 4.0.0</p>
+
+<p>import javax.persistence.Column;
+import javax.persistence.Embeddable;</p>
+
+<p>import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;</p>
+
+<p>/<em>*
+ * TestId generated by hbm2java
+ </em>/
+@Embeddable
+public class TestId implements java.io.Serializable {</p>
+
+<pre><code>/**
+ * 
+ */
+private static final long serialVersionUID = 1L;
+private int id;
+private String userid;
+
+public TestId() {
+}
+
+public TestId(int id, String userid) {
+    this.id = id;
+    this.userid = userid;
+}
+
+@Column(name = "id", nullable = false)
+public int getId() {
+    return this.id;
+}
+
+public void setId(int id) {
+    this.id = id;
+}
+
+@Column(name = "userid", nullable = false, length = 45)
+public String getUserid() {
+    return this.userid;
+}
+
+public void setUserid(String userid) {
+    this.userid = userid;
+}
+
+public boolean equals(Object other) {
+    if ((this == other))
+        return true;
+    if ((other == null))
+        return false;
+    if (!(other instanceof TestId))
+        return false;
+    TestId castOther = (TestId) other;
+
+    return (this.getId() == castOther.getId())
+            &amp;&amp; ((this.getUserid() == castOther.getUserid()) || (this
+                    .getUserid() != null &amp;&amp; castOther.getUserid() != null &amp;&amp; this
+                    .getUserid().equals(castOther.getUserid())));
+}
+
+public int hashCode() {
+    int result = 17;
+
+    result = 37 * result + this.getId();
+    result = 37 * result
+            + (getUserid() == null ? 0 : this.getUserid().hashCode());
+    return result;
+}
+
+public String toString() {
+    return ToStringBuilder.reflectionToString(this,
+            ToStringStyle.SHORT_PREFIX_STYLE);
+}
+</code></pre>
+
+<p>}
+```</p>
 ]]></content>
   </entry>
   

@@ -97,6 +97,152 @@
       
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2014/01/13/hibernatesettings/">Hibernateの設定周り＋α</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-13T20:26:00+09:00" pubdate data-updated="true">2014-01-13</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Hibernateの設定</h3>
+
+<p>最低こんくらいあれば動くと思う。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+</span><span class='line'>&lt;!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+</span><span class='line'>                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;
+</span><span class='line'>&lt;hibernate-configuration&gt;
+</span><span class='line'>  &lt;session-factory name=""&gt;
+</span><span class='line'>      &lt;!-- session contextの設定 --&gt;
+</span><span class='line'>      &lt;property name="current_session_context_class"&gt;thread&lt;/property&gt;
+</span><span class='line'>      &lt;!-- DBのドライバ --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.driver_class"&gt;org.gjt.mm.mysql.Driver&lt;/property&gt;
+</span><span class='line'>      &lt;property name="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
+</span><span class='line'>      &lt;!-- DBのユーザ・パスワード --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.username"&gt;　&lt;/property&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.password"&gt;　&lt;/property&gt;
+</span><span class='line'>      &lt;!-- 接続するDBのURL --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.url"&gt;jdbc:mysql://localhost:3306/〜&lt;/property&gt;
+</span><span class='line'>      &lt;!-- コネクションプールの設定 --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.pool_size"&gt;3&lt;/property&gt;
+</span><span class='line'>      &lt;!-- 実行SQLをコンソールに表示するか（true:表示、false:非表示） --&gt;
+</span><span class='line'>      &lt;property name="hibernate.show_sql"&gt;true&lt;/property&gt;
+</span><span class='line'>      &lt;!-- マッピングファイルの定義 --&gt;
+</span><span class='line'>      &lt;!-- hibernateのxmlで管理する場合 --&gt;
+</span><span class='line'>      &lt;mapping resource="src以下のディレクトリ/〜/〜.hbm.xml" /&gt;
+</span><span class='line'>      &lt;!-- アノテーションで管理する場合 --&gt;
+</span><span class='line'>      &lt;mapping class="パッケージ名.パッケージ名.クラス名" /&gt;
+</span><span class='line'>  &lt;/session-factory&gt;
+</span><span class='line'>&lt;/hibernate-configuration&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/01/13/hibernatesettings/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/">HeadFirstオブジェクト指向分析設計を読んだ時のメモ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-31T15:01:00+09:00" pubdate data-updated="true">2013-12-31</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Head First オブジェクト指向分析設計のメモ</h2>
+
+<p>「Head First オブジェクト指向分析」を読んで理解出来ていなかったところや、大事そうなところをメモしていく。<br/>
+今後のために…。</p>
+
+<h2>オブジェクト指向分析設計とは</h2>
+
+<p>実際にはコードに必要な処理を行わせること、そしてその設計をよくすることに特化したソフトウェア作成手法にすぎない。<br/>
+つまり、柔軟で、変更が容易であり、保守と再利用が可能であるコードを作成するための方法。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2013/12/22/struts-hibernate-login/">Struts2とHibernate4を使ってTodoアプリをつくろう その１</a></h1>
     
     
@@ -392,7 +538,7 @@ HomebrewでMysql5.6をインストールした時のメモです。</p>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 120.0%'>Hibernate(1)</a> <a href='/blog/categories/memo' style='font-size: 140.0%'>memo(2)</a> <a href='/blog/categories/struts' style='font-size: 120.0%'>Struts(1)</a> <a href='/blog/categories/kai-fa' style='font-size: 120.0%'>”開発”(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 120.0%'>勉強(1)</a> <a href='/blog/categories/za-tan' style='font-size: 160.0%'>雑談(3)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 120.0%'>hibernate(1)</a> <a href='/blog/categories/hibernate' style='font-size: 120.0%'>Hibernate(1)</a> <a href='/blog/categories/memo' style='font-size: 140.0%'>memo(2)</a> <a href='/blog/categories/struts' style='font-size: 120.0%'>Struts(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 120.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 140.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 120.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 160.0%'>雑談(3)</a> </span>
 </section>
 
 <br />
@@ -412,7 +558,7 @@ HomebrewでMysql5.6をインストールした時のメモです。</p>
   </div>
   <footer role="contentinfo" class="page-footer"><hr>
 <p>
-  Copyright &copy; 2013 - hyina -
+  Copyright &copy; 2014 - hyina -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

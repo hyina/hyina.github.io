@@ -14,7 +14,7 @@
     </url>
     <url>
         <loc>http://hyina.github.io/blog/2013/12/19/mysql5-dot-6-install/</loc>
-        <lastmod>2013-12-21T00:33:59+09:00</lastmod>
+        <lastmod>2013-12-31T15:57:00+09:00</lastmod>
     </url>
     <url>
         <loc>http://hyina.github.io/blog/2013/12/20/macair/</loc>
@@ -25,12 +25,22 @@
         <lastmod>2013-12-23T00:25:47+09:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/
+        </loc>
+        <lastmod>2013-12-31T16:21:15+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://hyina.github.io/blog/2014/01/13/hibernatesettings/</loc>
+        <lastmod>2014-01-14T00:45:25+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://hyina.github.io/blog/archives/</loc>
-        <lastmod>2013-12-23T00:25:47+09:00</lastmod>
+        <lastmod>2014-01-14T00:45:25+09:00</lastmod>
     </url>
     <url>
         <loc>http://hyina.github.io/</loc>
-        <lastmod>2013-12-23T00:25:47+09:00</lastmod>
+        <lastmod>2014-01-14T00:45:25+09:00</lastmod>
     </url>
     <url>
         <loc>http://hyina.github.io/robots.txt</loc>

@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2013-12-23T00:26:13+09:00</updated>
+  <updated>2014-01-14T00:45:25+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,6 +12,628 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[hibernateの設定周り＋α]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/13/hibernatesettings/"/>
+    <updated>2014-01-13T20:26:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/13/hibernatesettings</id>
+    <content type="html"><![CDATA[<h3>Hibernateの設定</h3>
+
+<p>最低こんくらいあれば動くと思う。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+</span><span class='line'>&lt;!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+</span><span class='line'>                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;
+</span><span class='line'>&lt;hibernate-configuration&gt;
+</span><span class='line'>  &lt;session-factory name=""&gt;
+</span><span class='line'>      &lt;!-- session contextの設定 --&gt;
+</span><span class='line'>      &lt;property name="current_session_context_class"&gt;thread&lt;/property&gt;
+</span><span class='line'>      &lt;!-- DBのドライバ --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.driver_class"&gt;org.gjt.mm.mysql.Driver&lt;/property&gt;
+</span><span class='line'>      &lt;property name="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
+</span><span class='line'>      &lt;!-- DBのユーザ・パスワード --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.username"&gt;　&lt;/property&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.password"&gt;　&lt;/property&gt;
+</span><span class='line'>      &lt;!-- 接続するDBのURL --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.url"&gt;jdbc:mysql://localhost:3306/〜&lt;/property&gt;
+</span><span class='line'>      &lt;!-- コネクションプールの設定 --&gt;
+</span><span class='line'>      &lt;property name="hibernate.connection.pool_size"&gt;3&lt;/property&gt;
+</span><span class='line'>      &lt;!-- 実行SQLをコンソールに表示するか（true:表示、false:非表示） --&gt;
+</span><span class='line'>      &lt;property name="hibernate.show_sql"&gt;true&lt;/property&gt;
+</span><span class='line'>      &lt;!-- マッピングファイルの定義 --&gt;
+</span><span class='line'>      &lt;!-- hibernateのxmlで管理する場合 --&gt;
+</span><span class='line'>      &lt;mapping resource="src以下のディレクトリ/〜/〜.hbm.xml" /&gt;
+</span><span class='line'>      &lt;!-- アノテーションで管理する場合 --&gt;
+</span><span class='line'>      &lt;mapping class="パッケージ名.パッケージ名.クラス名" /&gt;
+</span><span class='line'>  &lt;/session-factory&gt;
+</span><span class='line'>&lt;/hibernate-configuration&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<h3>Hibernateのセッション</h3>
+
+<p><a href="http://www.yefisys.com/blog/2013/05/05/hibernate-will-be-no-backward-compat/">ここを参考</a>
+buildServiceRegistry()が見つからないらしいので、build()に変更。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>private final SessionFactory sessionFactory = getSessionFactory();
+</span><span class='line'>private static ServiceRegistry serviceRegistry;
+</span><span class='line'>
+</span><span class='line'>protected SessionFactory getSessionFactory() {
+</span><span class='line'>  try {
+</span><span class='line'>      //デフォルトで作成されるやつ
+</span><span class='line'>//            return (SessionFactory) new InitialContext()
+</span><span class='line'>//                    .lookup("SessionFactory");
+</span><span class='line'>      
+</span><span class='line'>      //3とかで使える。5以降では削除される予定らしい。
+</span><span class='line'>//            return new Configuration().configure().buildSessionFactory();
+</span><span class='line'>      
+</span><span class='line'>      // Hibernateの初期化処理（Sessionオブジェクトの取得）
+</span><span class='line'>      // ※ Hibernate 4.0以降
+</span><span class='line'>      Configuration config = new Configuration().configure();
+</span><span class='line'>      serviceRegistry = new ServiceRegistryBuilder().applySettings(config.getProperties()).build();
+</span><span class='line'>      return config.buildSessionFactory(serviceRegistry);
+</span><span class='line'>  } catch (Exception e) {
+</span><span class='line'>      throw new IllegalStateException(
+</span><span class='line'>              "Could not locate SessionFactory in JNDI");
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>private Session getSession() {
+</span><span class='line'>  return  sessionFactory.openSession();
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hinerbate Toolsで作成したDAOについて。テーブル名+HOMEで作成される。<br/>
+どうやらこのままだと使えないっぽい。なんかめんｄ(ry<br/>
+daoSupportクラス。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import org.hibernate.HibernateException; 
+</span><span class='line'>import org.hibernate.Session; 
+</span><span class='line'>import org.hibernate.Transaction;
+</span><span class='line'>import org.hibernate.SessionFactory;
+</span><span class='line'>import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+</span><span class='line'>import org.hibernate.cfg.Configuration;
+</span><span class='line'>import org.hibernate.service.ServiceRegistry;
+</span><span class='line'>import org.hibernate.service.ServiceRegistryBuilder;
+</span><span class='line'>
+</span><span class='line'>/**
+</span><span class='line'> * Dao を補助するクラス
+</span><span class='line'> */
+</span><span class='line'>public abstract class daoSupport {
+</span><span class='line'>  private static SessionFactory factory;
+</span><span class='line'>  private static ServiceRegistry serviceRegistry;
+</span><span class='line'>  
+</span><span class='line'>  protected Session getSession() {
+</span><span class='line'>      try {
+</span><span class='line'>          Configuration configuration = new Configuration();
+</span><span class='line'>          return configuration.configure().buildSessionFactory().openSession();
+</span><span class='line'>      } catch (Exception e) {
+</span><span class='line'>          throw new IllegalStateException(
+</span><span class='line'>                  "Could not locate SessionFactory in JNDI");
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>daoSupportクラスを継承して、daoを作成。<br/>
+複合主キーの１部を使用して検索し、結果をListで返すだけ。</p>
+
+<p>テスト用なので、下記な感じです。</p>
+
+<ol>
+<li>id   PK</li>
+<li>userid   PK</li>
+<li>name</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.List;
+</span><span class='line'>
+</span><span class='line'>import org.hibernate.Session;
+</span><span class='line'>import org.hibernate.criterion.Restrictions;
+</span><span class='line'>
+</span><span class='line'>public class daoTest extends daoSupport {
+</span><span class='line'>  @SuppressWarnings("unchecked")
+</span><span class='line'>  public List&lt;Test&gt; findByUserId(String userId) {
+</span><span class='line'>      try {
+</span><span class='line'>          Session s = getSession();
+</span><span class='line'>          try {
+</span><span class='line'>              List&lt;Test&gt; results = (List&lt;Test&gt;) s.createCriteria(Test.class)　//←Entityクラスを指定
+</span><span class='line'>                      .add( Restrictions.eq("id.userid", userId) )    //useridに一致する。カラム名はhibernateの関連付けで定義した名前
+</span><span class='line'>//                        .add( Restrictions.like("name", "てすと%"))  //like検索
+</span><span class='line'>//                        .add( Restrictions.between("id.id",new Integer(1), new Integer(4)))     //between検索。第２引数が開始、第３引数が終了
+</span><span class='line'>                      .list();
+</span><span class='line'>              return results;
+</span><span class='line'>          } finally {
+</span><span class='line'>              s.close();
+</span><span class='line'>          }
+</span><span class='line'>      } catch (RuntimeException re) {
+</span><span class='line'>          throw re;
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以下エンティティ。</p>
+
+<p>Test.java</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import javax.persistence.AttributeOverride;
+</span><span class='line'>import javax.persistence.AttributeOverrides;
+</span><span class='line'>import javax.persistence.Column;
+</span><span class='line'>import javax.persistence.EmbeddedId;
+</span><span class='line'>import javax.persistence.Entity;
+</span><span class='line'>import javax.persistence.Table;
+</span><span class='line'>
+</span><span class='line'>import org.apache.commons.lang3.builder.ToStringBuilder;
+</span><span class='line'>import org.apache.commons.lang3.builder.ToStringStyle;
+</span><span class='line'>
+</span><span class='line'>/**
+</span><span class='line'> * Test generated by hbm2java
+</span><span class='line'> */
+</span><span class='line'>@Entity
+</span><span class='line'>@Table(name = "test", catalog = "todoSample")
+</span><span class='line'>public class Test implements java.io.Serializable {
+</span><span class='line'>
+</span><span class='line'>  /**
+</span><span class='line'>   * 
+</span><span class='line'>   */
+</span><span class='line'>  private static final long serialVersionUID = 1L;
+</span><span class='line'>  private TestId id;
+</span><span class='line'>  private String name;
+</span><span class='line'>
+</span><span class='line'>  public Test() {
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public Test(TestId id) {
+</span><span class='line'>      this.id = id;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public Test(TestId id, String name) {
+</span><span class='line'>      this.id = id;
+</span><span class='line'>      this.name = name;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  @EmbeddedId
+</span><span class='line'>  @AttributeOverrides({
+</span><span class='line'>          @AttributeOverride(name = "id", column = @Column(name = "id", nullable = false)),
+</span><span class='line'>          @AttributeOverride(name = "userid", column = @Column(name = "userid", nullable = false, length = 45)) })
+</span><span class='line'>  public TestId getId() {
+</span><span class='line'>      return this.id;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public void setId(TestId id) {
+</span><span class='line'>      this.id = id;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  @Column(name = "name", length = 45)
+</span><span class='line'>  public String getName() {
+</span><span class='line'>      return this.name;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public void setName(String name) {
+</span><span class='line'>      this.name = name;
+</span><span class='line'>  }
+</span><span class='line'>  public String toString() {
+</span><span class='line'>      return ToStringBuilder.reflectionToString(this,
+</span><span class='line'>                ToStringStyle.SHORT_PREFIX_STYLE);
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>TestId.java(複合主キー)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>package test.dao;
+</span><span class='line'>
+</span><span class='line'>// Generated 2014/01/13 23:47:05 by Hibernate Tools 4.0.0
+</span><span class='line'>
+</span><span class='line'>import javax.persistence.Column;
+</span><span class='line'>import javax.persistence.Embeddable;
+</span><span class='line'>
+</span><span class='line'>import org.apache.commons.lang3.builder.ToStringBuilder;
+</span><span class='line'>import org.apache.commons.lang3.builder.ToStringStyle;
+</span><span class='line'>
+</span><span class='line'>/**
+</span><span class='line'> * TestId generated by hbm2java
+</span><span class='line'> */
+</span><span class='line'>@Embeddable
+</span><span class='line'>public class TestId implements java.io.Serializable {
+</span><span class='line'>
+</span><span class='line'>  /**
+</span><span class='line'>   * 
+</span><span class='line'>   */
+</span><span class='line'>  private static final long serialVersionUID = 1L;
+</span><span class='line'>  private int id;
+</span><span class='line'>  private String userid;
+</span><span class='line'>
+</span><span class='line'>  public TestId() {
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public TestId(int id, String userid) {
+</span><span class='line'>      this.id = id;
+</span><span class='line'>      this.userid = userid;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  @Column(name = "id", nullable = false)
+</span><span class='line'>  public int getId() {
+</span><span class='line'>      return this.id;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public void setId(int id) {
+</span><span class='line'>      this.id = id;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  @Column(name = "userid", nullable = false, length = 45)
+</span><span class='line'>  public String getUserid() {
+</span><span class='line'>      return this.userid;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public void setUserid(String userid) {
+</span><span class='line'>      this.userid = userid;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public boolean equals(Object other) {
+</span><span class='line'>      if ((this == other))
+</span><span class='line'>          return true;
+</span><span class='line'>      if ((other == null))
+</span><span class='line'>          return false;
+</span><span class='line'>      if (!(other instanceof TestId))
+</span><span class='line'>          return false;
+</span><span class='line'>      TestId castOther = (TestId) other;
+</span><span class='line'>
+</span><span class='line'>      return (this.getId() == castOther.getId())
+</span><span class='line'>              && ((this.getUserid() == castOther.getUserid()) || (this
+</span><span class='line'>                      .getUserid() != null && castOther.getUserid() != null && this
+</span><span class='line'>                      .getUserid().equals(castOther.getUserid())));
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public int hashCode() {
+</span><span class='line'>      int result = 17;
+</span><span class='line'>
+</span><span class='line'>      result = 37 * result + this.getId();
+</span><span class='line'>      result = 37 * result
+</span><span class='line'>              + (getUserid() == null ? 0 : this.getUserid().hashCode());
+</span><span class='line'>      return result;
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>  public String toString() {
+</span><span class='line'>      return ToStringBuilder.reflectionToString(this,
+</span><span class='line'>                ToStringStyle.SHORT_PREFIX_STYLE);
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[HeadFirstオブジェクト指向分析設計を読んだ時のメモ]]></title>
+    <link href="http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/"/>
+    <updated>2013-12-31T15:01:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design</id>
+    <content type="html"><![CDATA[<h2>Head First オブジェクト指向分析設計のメモ</h2>
+
+<p>「Head First オブジェクト指向分析」を読んで理解出来ていなかったところや、大事そうなところをメモしていく。<br/>
+今後のために…。</p>
+
+<h2>オブジェクト指向分析設計とは</h2>
+
+<p>実際にはコードに必要な処理を行わせること、そしてその設計をよくすることに特化したソフトウェア作成手法にすぎない。<br/>
+つまり、柔軟で、変更が容易であり、保守と再利用が可能であるコードを作成するための方法。</p>
+
+<!-- more -->
+
+
+<h2>１章 よく設計されたアプリケーションは心を動かす</h2>
+
+<h3>素晴らしいソフトウェアとは？</h3>
+
+<ul>
+<li>[オブジェクト指向のプログラマ]オブジェクト指向のコード。つまり、コードの重複がなく、各オブジェクトの振る舞いが的確に制御されている。設計が堅実かつ柔軟なので、拡張も容易。</li>
+<li>[設計の達人]実証されたデザインパターンと原則が使用されたときに生じる。オブジェクト間の結合を疎に保ち、コードは拡張に開かれ、修正に閉じるようにする。コードの再利用が容易になり、アプリケーションの一部を何度も使い回せるから、すべてを作り直す必要がなくなる。</li>
+<li>第一に顧客を満足させ、顧客が望む処理を実行する必要がある。第二に設計やコードが適切で、保守、再利用、拡張が容易である。</li>
+</ul>
+
+
+<h3>素晴らしいソフトウェアにするための３ステップ</h3>
+
+<ol>
+<li>処理をソフトウェアが実行するようにする
+
+<ul>
+<li>良い要件収集と分析が必要</li>
+</ul>
+</li>
+<li>オブジェクト指向の基本原則を適用し、柔軟性を高める
+
+<ul>
+<li>重複するコードを見つけ取り除く。そして、良いオブジェクト指向プログラミング技法を活用</li>
+</ul>
+</li>
+<li>保守と再利用が可能な設計を追求する
+
+<ul>
+<li>処理の最適なオブジェクト指向アプリケーションが完成したら、パターンと原則を適用して、ソフトウェアが今後数年間使用可能である状態にする</li>
+</ul>
+</li>
+</ol>
+
+
+<h3>カプセル化</h3>
+
+<p>アプリケーションを論理的な部分に分割して、それぞれを別々に扱えるようにすること。<br/>
+結成を改善できる箇所を探すのは、カプセル化から行う。継承やポリモーフィズムは、どちらもコードの重複とカプセル化に関するため、カプセル化から行うと良い。</p>
+
+<p>オブジェクトで何ができるかの仕様を、オブジェクトがその目標を達成ｓるうために行う実際の実装から、分離することである</p>
+
+<ol>
+<li>カプセル化により、アプリケーションの各部分の内部動作は隠蔽されるが、各部分の実行内容は明確になる！</li>
+<li>目的の１つは、アプリケーションの一部にある情報を、他の部分から保護すること。</li>
+<li>クラスから振る舞いを分離すれば、クラスを変更しなくても、振る舞いを変更することが可能。</li>
+<li>一般的に、アプリケーション内で変動する部分を、同じ状態にとどまり続ける他の部分と分離して、カプセル化すべき。</li>
+</ol>
+
+
+<h3>委譲</h3>
+
+<p>あるオブジェクトが、操作を他のオブジェクトに転送し、代わりに実行してもらう行為。<br/>
+委譲により、コードの再利用が容易になる。あるオブジェクトの振る舞いを処理するコードがアプリケーション全体に広まってしまうことがなくなり、オブジェクトは自分の機能だけを処理すれば良くなります。<br/>
+(例)equals()メソッドが一般的な例</p>
+
+<p>委譲により各オブジェクトは等価性（あるいはその他の仕事）を自分で処理するようになります。つまり、オブジェクト間の独立性が増し、疎結合(※)となる。<br/>
+疎結合のオブジェクトは、他のオブジェクトのコードと強く結合していないので、別のアプリケーションにおいて容易に再利用することが出来る。<br/>
+※疎結合：アプリケーション内のオブジェクトが自分の仕事だけに専念している状態。機能は、良く設計された多くのオブジェクトによって実現されるが、各オブジェクトは１つの仕事だけを的確に行う。<br/>
+なぜそれが良いのか？<br/>
+→疎結合のアプリケーションは、通常柔軟で、変更が容易である。各オブジェクトは、他のオブジェクトからかなり独立しているので、別のオブジェクトの振る舞いを変更することができる。
+その結果、新しいフィーチャや機能の追加がはるかに容易になる。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Struts2とHibernate4を使ってTodoアプリをつくろう その１]]></title>
