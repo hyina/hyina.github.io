@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: java | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/java/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2014-01-15T00:09:51+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[javaList]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/14/javalist/"/>
+    <updated>2014-01-14T23:52:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/14/javalist</id>
+    <content type="html"><![CDATA[<p>なんか久々に触ってたらListやHashmapのiterationを忘れてしまうので、メモ。</p>
+
+<!-- more -->
+
+
+<p>```
+HashMap&lt;String,String> map = new HashMap&lt;String,String>();
+map.put(&ldquo;キー1&rdquo;, &ldquo;キー1の値&rdquo;);
+map.put(&ldquo;キー2&rdquo;, &ldquo;キー2の値&rdquo;);
+map.put(&ldquo;キー2&rdquo;, &ldquo;キー3の値&rdquo;);</p>
+
+<p>if (map.containsKey(&ldquo;キー1&rdquo;)){
+  System.out.println(&ldquo;キー1=&rdquo; + map.get(&ldquo;キー1&rdquo;));
+}else{
+  System.out.println(&ldquo;指定したキーは存在しません&rdquo;);
+}</p>
+
+<p>//拡張for文（for-each)でループ
+for(Map.Entry&lt;String, String> e : map.entrySet()) {</p>
+
+<pre><code>System.out.println(e.getKey() + " : " + e.getValue());
+</code></pre>
+
+<p>}</p>
+
+<p>//Iteratorでループ
+for (Iterator&lt;Map.Entry&lt;String, String>> it = map.entrySet().iterator(); it.hasNext(); ) {</p>
+
+<pre><code>// entryを取得
+Map.Entry&lt;String, String&gt; entry = it.next();
+// キーを取得
+String key = entry.getKey();
+// 値を取得
+String val = entry.getValue();
+System.out.println(key + " : " + val);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>ついでにHibernateの結果をListでグリグリ。</p>
+
+<p>```
+public static void testHqlNewList(Session sess) {</p>
+
+<pre><code>    String hql = "select new list('Hello', 100, f.id, f.name) from Father f where f.name like 'f%'";  
+
+    Query query = sess.createQuery(hql);  
+    List &lt;List&gt; listList = query.list();  
+
+    for (List list: listList) {  
+        System.out.println("==========");  
+
+        for (int i=0; i&lt;list.size(); i++) {  
+            System.out.println(String.valueOf(i) + " : " + list.get(i));  
+        }  
+    }  
+</code></pre>
+
+<p>}
+```</p>
+
+<p>◇実行ログ
+```</p>
+
+<h1>Hibernate: select &lsquo;Hello&rsquo; as col_0_0<em>, 100 as col_1_0</em>, father0<em>.ID as col_2_0</em>, father0<em>.NAME as col_3_0</em> from FATHER father0<em> where father0</em>.NAME like &lsquo;f%&rsquo;</h1>
+
+<p>0 : Hello<br/>
+1 : 100<br/>
+2 : 1</p>
+
+<h1>3 : f01  </h1>
+
+<p>0 : Hello<br/>
+1 : 100<br/>
+2 : 2<br/>
+3 : f02<br/>
+```</p>
+
+<p>だめっぽい気がするけど、Object型のListでガリガリ。</p>
+
+<p>```
+クエリ省略
+List <Object []> objsList = (List <Object []>) query.list();
+for (Object [] objs:test) {</p>
+
+<pre><code>System.out.println("========");
+System.out.println(objs[0].toString());  
+System.out.println(objs[1].toString());
+System.out.println(objs[2].toString());
+</code></pre>
+
+<p>}
+```</p>
+
+<p>眠いのでホントめも。</p>
+]]></content>
+  </entry>
+  
+</feed>
