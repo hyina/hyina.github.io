@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-16T22:43:52+09:00</updated>
+  <updated>2014-01-16T22:47:18+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -219,7 +219,7 @@
 
 <ol>
 <li><a href="http://hyina.github.io/blog/2014/01/14/javalist/">Listの拡張fro文とIterator</a></li>
-<li><a href="http://hyina.github.io/blog/2014/01/16/jjavadateandsubstring/">substringの使い方と月の末尾の取得</a></li>
+<li><a href="http://hyina.github.io/blog/2014/01/16/javadateandsubstring/">substringの使い方と月の末尾の取得</a></li>
 </ol>
 
 ]]></content>
