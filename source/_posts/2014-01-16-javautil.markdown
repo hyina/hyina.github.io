@@ -1,0 +1,14 @@
+---
+layout: post
+title: "javautil"
+date: 2014-01-16 22:08
+comments: true
+categories: ["個人的メモリンク", "java"]
+---
+個人的にメモ
+個人的メモのため、追記していく予定。  
+
+1. [Listの拡張fro文とIterator](/blog/2014/01/14/javalist/)
+2. [substringの使い方と月の末尾の取得](/blog/2014/01/16/javadateandsubstring/)
+
+

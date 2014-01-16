@@ -3,7 +3,7 @@ layout: post
 title: "Homebrewでmysql5.6をインストールしてみる"
 date: 2013-12-19 19:09
 comments: true
-categories: ”開発”
+categories: 開発
 ---
 ## Mysqlのインストールめも
 ---
