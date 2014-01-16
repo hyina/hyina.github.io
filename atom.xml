@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-15T00:09:51+09:00</updated>
+  <updated>2014-01-16T22:06:11+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,14 +14,28 @@
 
   
   <entry>
-    <title type="html"><![CDATA[javaList]]></title>
+    <title type="html"><![CDATA[javautil]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/16/javautil/"/>
+    <updated>2014-01-16T21:58:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/16/javautil</id>
+    <content type="html"><![CDATA[<p>個人的にメモ
+個人的メモのため、追記していく予定。</p>
+
+<ol>
+<li>Listの拡張fro文とIterator</li>
+<li>substringの使い方</li>
+<li>月の末尾の取得</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[javaのListやHashMapの拡張forとIterator]]></title>
     <link href="http://hyina.github.io/blog/2014/01/14/javalist/"/>
     <updated>2014-01-14T23:52:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/14/javalist</id>
     <content type="html"><![CDATA[<p>なんか久々に触ってたらListやHashmapのiterationを忘れてしまうので、メモ。</p>
-
-<!-- more -->
-
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -135,7 +149,7 @@
 </span><span class='line'>3 : f02  </span></code></pre></td></tr></table></div></figure>
 
 
-<p>だめっぽい気がするけど、Object型のListでガリガリ。</p>
+<p>Object型のListでガリガリ。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -155,7 +169,7 @@
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<p>眠いのでホントめも。</p>
+
 ]]></content>
   </entry>
   

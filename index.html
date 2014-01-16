@@ -97,7 +97,51 @@
       
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2014/01/14/javalist/">javaList</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/01/16/javautil/">Javautil</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-16T21:58:00+09:00" pubdate data-updated="true">2014-01-16</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>個人的にメモ
+個人的メモのため、追記していく予定。</p>
+
+<ol>
+<li>Listの拡張fro文とIterator</li>
+<li>substringの使い方</li>
+<li>月の末尾の取得</li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/14/javalist/">javaのListやHashMapの拡張forとIterator</a></h1>
     
     
       <p class="meta">
@@ -122,12 +166,141 @@
 
   <div class="entry-content"><p>なんか久々に触ってたらListやHashmapのiterationを忘れてしまうので、メモ。</p>
 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HashMap&lt;String,String&gt; map = new HashMap&lt;String,String&gt;();
+</span><span class='line'>map.put("キー1", "キー1の値");
+</span><span class='line'>map.put("キー2", "キー2の値");
+</span><span class='line'>map.put("キー2", "キー3の値");
+</span><span class='line'>
+</span><span class='line'>if (map.containsKey("キー1")){
+</span><span class='line'>  System.out.println("キー1=" + map.get("キー1"));
+</span><span class='line'>}else{
+</span><span class='line'>  System.out.println("指定したキーは存在しません");
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>//拡張for文（for-each)でループ
+</span><span class='line'>for(Map.Entry&lt;String, String&gt; e : map.entrySet()) {
+</span><span class='line'>    System.out.println(e.getKey() + " : " + e.getValue());
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>//Iteratorでループ
+</span><span class='line'>for (Iterator&lt;Map.Entry&lt;String, String&gt;&gt; it = map.entrySet().iterator(); it.hasNext(); ) {
+</span><span class='line'>    // entryを取得
+</span><span class='line'>    Map.Entry&lt;String, String&gt; entry = it.next();
+</span><span class='line'>    // キーを取得
+</span><span class='line'>    String key = entry.getKey();
+</span><span class='line'>    // 値を取得
+</span><span class='line'>    String val = entry.getValue();
+</span><span class='line'>    System.out.println(key + " : " + val);
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ついでにHibernateの結果をListでグリグリ。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public static void testHqlNewList(Session sess) {  
+</span><span class='line'>        String hql = "select new list('Hello', 100, f.id, f.name) from Father f where f.name like 'f%'";  
+</span><span class='line'>          
+</span><span class='line'>        Query query = sess.createQuery(hql);  
+</span><span class='line'>        List &lt;List&gt; listList = query.list();  
+</span><span class='line'>          
+</span><span class='line'>        for (List list: listList) {  
+</span><span class='line'>            System.out.println("==========");  
+</span><span class='line'>              
+</span><span class='line'>            for (int i=0; i&lt;list.size(); i++) {  
+</span><span class='line'>                System.out.println(String.valueOf(i) + " : " + list.get(i));  
+</span><span class='line'>            }  
+</span><span class='line'>        }  
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>◇実行ログ</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Hibernate: select 'Hello' as col_0_0_, 100 as col_1_0_, father0_.ID as col_2_0_, father0_.NAME as col_3_0_ from FATHER father0_ where father0_.NAME like 'f%'
+</span><span class='line'>==========  
+</span><span class='line'>0 : Hello  
+</span><span class='line'>1 : 100  
+</span><span class='line'>2 : 1  
+</span><span class='line'>3 : f01  
+</span><span class='line'>==========  
+</span><span class='line'>0 : Hello  
+</span><span class='line'>1 : 100  
+</span><span class='line'>2 : 2  
+</span><span class='line'>3 : f02  </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Object型のListでガリガリ。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>クエリ省略
+</span><span class='line'>List &lt;Object []&gt; objsList = (List &lt;Object []&gt;) query.list();
+</span><span class='line'>for (Object [] objs:test) {
+</span><span class='line'>  System.out.println("========");
+</span><span class='line'>  System.out.println(objs[0].toString());  
+</span><span class='line'>  System.out.println(objs[1].toString());
+</span><span class='line'>  System.out.println(objs[2].toString());
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/01/14/javalist/">続きを読む</a>
-    </footer>
   
 
 
@@ -570,47 +743,9 @@ HomebrewでMysql5.6をインストールした時のメモです。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/15/start-blog/">ブログを立ち上げてみたよ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-15T00:36:00+09:00" pubdate data-updated="true">2013-09-15</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>入社して４年目。半分以上はとある場所で保守運用な作業ばっかりで、本当にこのままで良いのかと切羽詰まっていたときにやっとこさ、開発に戻れたヾ(o・ω・o)ﾉﾞ<br/>
-でも、技術的にこのままで良いのかと悶々しつつ…自分の力量の無さにびっくり。<br/>
-とりあえず、前々からのタスクだったブログを立ち上げてみようと思ったとです。</p>
-
-<p>まぁ、そんな感じで何かしら書いていけたら良いなぁと思ってます((( ﾉ∀｀*)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <ul class="pager">
+    
+    <li class="previous"><a href="/blog/page/2/">&larr; Older</a></li>
     
     <li><a href="/blog/archives">Blog Archives</a></li>
     
@@ -625,7 +760,7 @@ HomebrewでMysql5.6をインストールした時のメモです。</p>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 160.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 120.0%'>java(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(3)</a> <a href='/blog/categories/struts' style='font-size: 120.0%'>Struts(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 120.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 140.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 120.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 160.0%'>雑談(3)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 160.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 120.0%'>java(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(3)</a> <a href='/blog/categories/struts' style='font-size: 120.0%'>Struts(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 120.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-de-memoji' style='font-size: 120.0%'>個人的メモ集(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 140.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 120.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 160.0%'>雑談(3)</a> </span>
 </section>
 
 <br />

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-15T00:09:51+09:00</updated>
+  <updated>2014-01-16T22:06:11+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,14 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[javaList]]></title>
+    <title type="html"><![CDATA[javaのListやHashMapの拡張forとIterator]]></title>
     <link href="http://hyina.github.io/blog/2014/01/14/javalist/"/>
     <updated>2014-01-14T23:52:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/14/javalist</id>
     <content type="html"><![CDATA[<p>なんか久々に触ってたらListやHashmapのiterationを忘れてしまうので、メモ。</p>
-
-<!-- more -->
-
 
 <p>```
 HashMap&lt;String,String> map = new HashMap&lt;String,String>();
@@ -97,7 +94,7 @@ public static void testHqlNewList(Session sess) {</p>
 3 : f02<br/>
 ```</p>
 
-<p>だめっぽい気がするけど、Object型のListでガリガリ。</p>
+<p>Object型のListでガリガリ。</p>
 
 <p>```
 クエリ省略
@@ -112,8 +109,6 @@ System.out.println(objs[2].toString());
 
 <p>}
 ```</p>
-
-<p>眠いのでホントめも。</p>
 ]]></content>
   </entry>
   

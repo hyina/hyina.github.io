@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>HeadFirstオブジェクト指向分析設計を読んだ時のメモ - Hyinaのブログヾ(o・ω・o)ﾉ</title>
+  <title>javautil - Hyinaのブログヾ(o・ω・o)ﾉ</title>
   <meta name="author" content="hyina">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design">
+  <link rel="canonical" href="http://hyina.github.io/blog/2014/01/16/javautil">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -95,7 +95,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">HeadFirstオブジェクト指向分析設計を読んだ時のメモ</h1>
+      <h1 class="entry-title">Javautil</h1>
     
     
       <p class="meta">
@@ -111,88 +111,22 @@
   
 
 
-<time datetime="2013-12-31T15:01:00+09:00" pubdate data-updated="true">2013-12-31</time>
+<time datetime="2014-01-16T21:58:00+09:00" pubdate data-updated="true">2014-01-16</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>Head First オブジェクト指向分析設計のメモ</h2>
-
-<p>「Head First オブジェクト指向分析」を読んで理解出来ていなかったところや、大事そうなところをメモしていく。<br/>
-今後のために…。</p>
-
-<h2>オブジェクト指向分析設計とは</h2>
-
-<p>実際にはコードに必要な処理を行わせること、そしてその設計をよくすることに特化したソフトウェア作成手法にすぎない。<br/>
-つまり、柔軟で、変更が容易であり、保守と再利用が可能であるコードを作成するための方法。</p>
-
-<!-- more -->
-
-
-<h2>１章 よく設計されたアプリケーションは心を動かす</h2>
-
-<h3>素晴らしいソフトウェアとは？</h3>
-
-<ul>
-<li>[オブジェクト指向のプログラマ]オブジェクト指向のコード。つまり、コードの重複がなく、各オブジェクトの振る舞いが的確に制御されている。設計が堅実かつ柔軟なので、拡張も容易。</li>
-<li>[設計の達人]実証されたデザインパターンと原則が使用されたときに生じる。オブジェクト間の結合を疎に保ち、コードは拡張に開かれ、修正に閉じるようにする。コードの再利用が容易になり、アプリケーションの一部を何度も使い回せるから、すべてを作り直す必要がなくなる。</li>
-<li>第一に顧客を満足させ、顧客が望む処理を実行する必要がある。第二に設計やコードが適切で、保守、再利用、拡張が容易である。</li>
-</ul>
-
-
-<h3>素晴らしいソフトウェアにするための３ステップ</h3>
+<div class="entry-content"><p>個人的にメモ
+個人的メモのため、追記していく予定。</p>
 
 <ol>
-<li>処理をソフトウェアが実行するようにする
-
-<ul>
-<li>良い要件収集と分析が必要</li>
-</ul>
-</li>
-<li>オブジェクト指向の基本原則を適用し、柔軟性を高める
-
-<ul>
-<li>重複するコードを見つけ取り除く。そして、良いオブジェクト指向プログラミング技法を活用</li>
-</ul>
-</li>
-<li>保守と再利用が可能な設計を追求する
-
-<ul>
-<li>処理の最適なオブジェクト指向アプリケーションが完成したら、パターンと原則を適用して、ソフトウェアが今後数年間使用可能である状態にする</li>
-</ul>
-</li>
+<li>Listの拡張fro文とIterator</li>
+<li>substringの使い方</li>
+<li>月の末尾の取得</li>
 </ol>
 
-
-<h3>カプセル化</h3>
-
-<p>アプリケーションを論理的な部分に分割して、それぞれを別々に扱えるようにすること。<br/>
-結成を改善できる箇所を探すのは、カプセル化から行う。継承やポリモーフィズムは、どちらもコードの重複とカプセル化に関するため、カプセル化から行うと良い。</p>
-
-<p>オブジェクトで何ができるかの仕様を、オブジェクトがその目標を達成ｓるうために行う実際の実装から、分離することである</p>
-
-<ol>
-<li>カプセル化により、アプリケーションの各部分の内部動作は隠蔽されるが、各部分の実行内容は明確になる！</li>
-<li>目的の１つは、アプリケーションの一部にある情報を、他の部分から保護すること。</li>
-<li>クラスから振る舞いを分離すれば、クラスを変更しなくても、振る舞いを変更することが可能。</li>
-<li>一般的に、アプリケーション内で変動する部分を、同じ状態にとどまり続ける他の部分と分離して、カプセル化すべき。</li>
-</ol>
-
-
-<h3>委譲</h3>
-
-<p>あるオブジェクトが、操作を他のオブジェクトに転送し、代わりに実行してもらう行為。<br/>
-委譲により、コードの再利用が容易になる。あるオブジェクトの振る舞いを処理するコードがアプリケーション全体に広まってしまうことがなくなり、オブジェクトは自分の機能だけを処理すれば良くなります。<br/>
-(例)equals()メソッドが一般的な例</p>
-
-<p>委譲により各オブジェクトは等価性（あるいはその他の仕事）を自分で処理するようになります。つまり、オブジェクト間の独立性が増し、疎結合(※)となる。<br/>
-疎結合のオブジェクトは、他のオブジェクトのコードと強く結合していないので、別のアプリケーションにおいて容易に再利用することが出来る。<br/>
-※疎結合：アプリケーション内のオブジェクトが自分の仕事だけに専念している状態。機能は、良く設計された多くのオブジェクトによって実現されるが、各オブジェクトは１つの仕事だけを的確に行う。<br/>
-なぜそれが良いのか？<br/>
-→疎結合のアプリケーションは、通常柔軟で、変更が容易である。各オブジェクトは、他のオブジェクトからかなり独立しているので、別のオブジェクトの振る舞いを変更することができる。
-その結果、新しいフィーチャや機能の追加がはるかに容易になる。</p>
 </div>
 
 
@@ -215,12 +149,12 @@
   
 
 
-<time datetime="2013-12-31T15:01:00+09:00" pubdate data-updated="true">2013-12-31</time>
+<time datetime="2014-01-16T21:58:00+09:00" pubdate data-updated="true">2014-01-16</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/obuziekutozhi-xiang/'>オブジェクト指向</a>, <a class='category' href='/blog/categories/mian-qiang/'>勉強</a>
+    <a class='category' href='/blog/categories/ge-ren-de-memoji/'>個人的メモ集</a>
   
 </span>
 
@@ -229,7 +163,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/" data-via="hyina_qfir" data-counturl="http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hyina.github.io/blog/2014/01/16/javautil/" data-via="hyina_qfir" data-counturl="http://hyina.github.io/blog/2014/01/16/javautil/" >Tweet</a>
   
   
   
@@ -248,14 +182,10 @@
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2013/12/22/struts-hibernate-login/" title="Previous Post:
-        Struts2とHibernate4を使ってTodoアプリをつくろう その１">&laquo; Struts2とHibernate4を使ってTodoアプリをつくろう その１</a></li>
+        href="/blog/2014/01/14/javalist/" title="Previous Post:
+        javaのListやHashMapの拡張forとIterator">&laquo; javaのListやHashMapの拡張forとIterator</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2014/01/13/hibernatesettings/"
-        title="Next Post: hibernateの設定周り＋α">hibernateの設定周り＋α
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -303,8 +233,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/';
-        var disqus_url = 'http://hyina.github.io/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/';
+        var disqus_identifier = 'http://hyina.github.io/blog/2014/01/16/javautil/';
+        var disqus_url = 'http://hyina.github.io/blog/2014/01/16/javautil/';
         var disqus_script = 'embed.js';
       
     (function () {
