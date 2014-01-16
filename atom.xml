@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-16T22:55:11+09:00</updated>
+  <updated>2014-01-17T04:07:29+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,7 +14,244 @@
 
   
   <entry>
-    <title type="html"><![CDATA[javaDateAndSubstring]]></title>
+    <title type="html"><![CDATA[strutsでlogin画面]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/17/strutslogin/"/>
+    <updated>2014-01-17T03:44:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/17/strutslogin</id>
+    <content type="html"><![CDATA[<p>めも。<br/>
+セッション管理が抜けてた。。。</p>
+
+<p><a href="http://www15.plala.or.jp/k_maeba/struts2/login/index.html">参考１</a>
+<a href="http://si.comp.ae.keio.ac.jp/web_app_dev_material/app/framework/framework_list/index.html">参考２</a></p>
+
+<!-- more -->
+
+
+<p>struts.xml</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- ログイン画面-ログインボタン押下時の処理 --&gt;
+</span><span class='line'>&lt;action name="LoginConfirm" method="confirm" class="todo.Login"&gt;
+</span><span class='line'>   &lt;result name="success"&gt;/page/todolist.jsp&lt;/result&gt;
+</span><span class='line'>   &lt;result name="error"&gt;/page/login.jsp&lt;/result&gt;
+</span><span class='line'>   &lt;result name="input"&gt;/page/login.jsp&lt;/result&gt;
+</span><span class='line'>&lt;/action&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>login.java</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.List;
+</span><span class='line'>import org.apache.struts2.interceptor.validation.SkipValidation;
+</span><span class='line'>import com.opensymphony.xwork2.ActionSupport;
+</span><span class='line'>import com.opensymphony.xwork2.validator.annotations.*;
+</span><span class='line'>
+</span><span class='line'>@Validations(
+</span><span class='line'>      requiredFields = {
+</span><span class='line'>              @RequiredFieldValidator(
+</span><span class='line'>                      fieldName="userid",
+</span><span class='line'>                      message="ユーザIDを入力してください。"),
+</span><span class='line'>              @RequiredFieldValidator(
+</span><span class='line'>                  fieldName="password",
+</span><span class='line'>                  message="パスワードを入力してください。")
+</span><span class='line'>      }
+</span><span class='line'>)
+</span><span class='line'>
+</span><span class='line'>public class Login  extends ActionSupport {
+</span><span class='line'>
+</span><span class='line'>  private static final long serialVersionUID = 1L;
+</span><span class='line'>  
+</span><span class='line'>  private String replyMsg = null;
+</span><span class='line'>  private String userid = null;
+</span><span class='line'>  private String password = null;
+</span><span class='line'>  
+</span><span class='line'>  //getter/setter省略
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * デフォルトのActionメソッド
+</span><span class='line'>   * 初期表示のため、validateは行わない
+</span><span class='line'>   * @return "success"
+</span><span class='line'>   */
+</span><span class='line'>  @SkipValidation
+</span><span class='line'>  public String execute() throws Exception {
+</span><span class='line'>      return "success";
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * ログインボタン押下時(submit時)のActionメソッド
+</span><span class='line'>   * @return "success"
+</span><span class='line'>   * @throws Exception
+</span><span class='line'>   */
+</span><span class='line'>  public String confirm() throws Exception {
+</span><span class='line'>      //ユーザ名の入力チェック
+</span><span class='line'>        TodoUserHome tuh = new TodoUserHome();
+</span><span class='line'>      List&lt;TodoUser&gt; TodoUser = tuh.getListByNamePassowordHql(getUserid(), getPassword());
+</span><span class='line'>      
+</span><span class='line'>      //ユーザ登録状況確認
+</span><span class='line'>      if (TodoUser.isEmpty()) {
+</span><span class='line'>          setReplyMsg("ユーザ名またはパスワードが間違っています");
+</span><span class='line'>          return ActionSupport.ERROR;             
+</span><span class='line'>      } else {
+</span><span class='line'>          return ActionSupport.SUCCESS;
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>JSP</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+</span><span class='line'>    pageEncoding="UTF-8"%&gt;
+</span><span class='line'>&lt;%@ taglib prefix="s" uri="/struts-tags" %&gt;
+</span><span class='line'>&lt;!DOCTYPE html PUBLIC
+</span><span class='line'> "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+</span><span class='line'>&lt;html&gt;
+</span><span class='line'>&lt;head&gt;
+</span><span class='line'>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+</span><span class='line'>&lt;title&gt;Todo ログイン&lt;/title&gt;
+</span><span class='line'>&lt;/head&gt;
+</span><span class='line'>&lt;body&gt;
+</span><span class='line'>  &lt;s:property value="replyMsg" /&gt;
+</span><span class='line'>  &lt;s:form action="LoginConfirm" validate="true"&gt;
+</span><span class='line'>      &lt;s:textfield label="ユーザID" name="userid" /&gt;
+</span><span class='line'>      &lt;s:password label="パスワード" name="password" /&gt;
+</span><span class='line'>      &lt;s:submit value="ログイン" /&gt;
+</span><span class='line'>  &lt;/s:form&gt;
+</span><span class='line'>  &lt;a href="UserRegister.action"&gt;新規登録する&lt;/a&gt;
+</span><span class='line'>&lt;/body&gt;
+</span><span class='line'>&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[javascriptで時間をリアルタイム表示]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow/"/>
+    <updated>2014-01-17T03:19:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow</id>
+    <content type="html"><![CDATA[<p>サーバーから時間の取得は１度だけのリアルタイム表示のメモ。</p>
+
+<p>JSPのBODYタグ内に下記を書く。<br/>
+あと、jqueryの拡張プラグインを作成してくださった方がいたので、そちらを利用させてもらっています。<br/>
+<a href="http://d.hatena.ne.jp/cyokodog/20090316/jQueryExDate">jQuery拡張プラグイン</a><br/>
+<a href="http://phpjavascriptroom.com/exp3.php?f=include/ajax/jquery_plugin_datecalendar/exdate.inc&amp;ttl=jQuery.exDate.js%82%CC%90%DD%92u%83T%83%93%83v%83%8B">使い方</a></p>
+
+<!-- more -->
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script type="text/javascript"&gt;
+</span><span class='line'>$(function(){
+</span><span class='line'>    var date=$.exDate("&lt;s:property value="javatime"/&gt;","yyyy/mm/dd hh:mi:ss");
+</span><span class='line'>    var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
+</span><span class='line'>    var timeview = 1000;
+</span><span class='line'>  setInterval( function(){
+</span><span class='line'>    timeview = timeview + 1000;
+</span><span class='line'>    ans = new Date(dates+timeview);
+</span><span class='line'>    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
+</span><span class='line'>  }, 1000);
+</span><span class='line'>});
+</span><span class='line'>&lt;/script&gt;
+</span><span class='line'>&lt;p id="time"&gt;&lt;/p&gt;&lt;!-- ←ここに1秒ずつ経過する時間を表示 --&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[javaのsubstringの使い方と月末日の取得方法！]]></title>
     <link href="http://hyina.github.io/blog/2014/01/16/javadateandsubstring/"/>
     <updated>2014-01-16T22:12:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/16/javadateandsubstring</id>
@@ -210,7 +447,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[javautil]]></title>
+    <title type="html"><![CDATA[java関連メモ]]></title>
     <link href="http://hyina.github.io/blog/2014/01/16/javautil/"/>
     <updated>2014-01-16T22:08:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/16/javautil</id>

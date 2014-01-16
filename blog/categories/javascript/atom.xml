@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2014-01-17T04:07:29+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[javascriptで時間をリアルタイム表示]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow/"/>
+    <updated>2014-01-17T03:19:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow</id>
+    <content type="html"><![CDATA[<p>サーバーから時間の取得は１度だけのリアルタイム表示のメモ。</p>
+
+<p>JSPのBODYタグ内に下記を書く。<br/>
+あと、jqueryの拡張プラグインを作成してくださった方がいたので、そちらを利用させてもらっています。<br/>
+<a href="http://d.hatena.ne.jp/cyokodog/20090316/jQueryExDate">jQuery拡張プラグイン</a><br/>
+<a href="http://phpjavascriptroom.com/exp3.php?f=include/ajax/jquery_plugin_datecalendar/exdate.inc&amp;ttl=jQuery.exDate.js%82%CC%90%DD%92u%83T%83%93%83v%83%8B">使い方</a></p>
+
+<!-- more -->
+
+
+<p>```</p>
+
+<script type="text/javascript">
+$(function(){
+    var date=$.exDate("<s:property value="javatime"/>","yyyy/mm/dd hh:mi:ss");
+    var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
+    var timeview = 1000;
+  setInterval( function(){
+    timeview = timeview + 1000;
+    ans = new Date(dates+timeview);
+    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
+  }, 1000);
+});
+</script>
+
+
+<p id="time"></p>
+
+
+<!-- ←ここに1秒ずつ経過する時間を表示 -->
+
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-16T22:55:11+09:00</updated>
+  <updated>2014-01-17T04:07:29+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[javaDateAndSubstring]]></title>
+    <title type="html"><![CDATA[javaのsubstringの使い方と月末日の取得方法！]]></title>
     <link href="http://hyina.github.io/blog/2014/01/16/javadateandsubstring/"/>
     <updated>2014-01-16T22:12:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/16/javadateandsubstring</id>
@@ -135,7 +135,7 @@ public static int getLastDay(String strDate) {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[javautil]]></title>
+    <title type="html"><![CDATA[java関連メモ]]></title>
     <link href="http://hyina.github.io/blog/2014/01/16/javautil/"/>
     <updated>2014-01-16T22:08:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/16/javautil</id>

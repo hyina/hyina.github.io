@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Struts | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <title><![CDATA[Category: struts | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/struts/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-16T22:55:11+09:00</updated>
+  <updated>2014-01-17T04:07:29+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,433 +14,169 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Struts2とHibernate4を使ってTodoアプリをつくろう その１]]></title>
-    <link href="http://hyina.github.io/blog/2013/12/22/struts-hibernate-login/"/>
-    <updated>2013-12-22T23:35:00+09:00</updated>
-    <id>http://hyina.github.io/blog/2013/12/22/struts-hibernate-login</id>
-    <content type="html"><![CDATA[<h3>事の始まり</h3>
+    <title type="html"><![CDATA[strutsでlogin画面]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/17/strutslogin/"/>
+    <updated>2014-01-17T03:44:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/17/strutslogin</id>
+    <content type="html"><![CDATA[<p>めも。<br/>
+セッション管理が抜けてた。。。</p>
 
-<p>12月半ばにとあるプロジェクトにアサインされた。どうやら新規開発らしい。<br/>
-開発案件から遠ざかっていたし、２年ほどいた職場で病んでいた精神も薬とかカウンセリングとかで
-やっとこさマシな状況まで回復してきたので、開発に復活するにはちょうど良さそうなタイミングだった。<br/>
-2年半ほど、(なんちゃって)運用系な作業をやっていたので、開発は2年半ぶりｗ<br/>
-いやー楽しみですわー</p>
-
-<p>MVCはStruts2で、O/RMapperはHibernate使うから勉強しといて！！</p>
+<p><a href="http://www15.plala.or.jp/k_maeba/struts2/login/index.html">参考１</a>
+<a href="http://si.comp.ae.keio.ac.jp/web_app_dev_material/app/framework/framework_list/index.html">参考２</a></p>
 
 <!-- more -->
 
 
-<h4>どっちも触ったことねーーー(´・ω・｀)</h4>
+<p>struts.xml</p>
 
-<p>Struts1.x系はちょろっと改修するときに見たことある程度だったので、マジ初心者。<br/>
-Hibernate？名前しか知りませんがなにか？←<br/>
-という残念っぷり。。。<br/>
-というわけで、勉強も兼ねて、Struts2.x系とHibernate4.x系使ってTODOアプリでも作ってみるかー。</p>
+<p>```</p>
 
-<p>眠いのでまとめるのはまた今度ちゃんとやる。</p>
-
-<h1>限りなく自分用のメモです。</h1>
-
-<h3>環境</h3>
-
-<ol>
-<li>MacBookAir</li>
-<li>Mysql5.6</li>
-<li>Struts2.3.16</li>
-<li>Hibernate4.3.0</li>
-<li>Tomcat7.0.47</li>
-<li>Eclipse kepler
-
-<ul>
-<li>Tomcatプラグイン3.3</li>
-<li>Hibernate Tools
-
-<ul>
-<li>Hibernate Toolsは、Eclipseで<code>http://download.jboss.org/jbosstools/updates/stable/kepler/</code>を指定して、「Hibernate Tools」でフィルター後、複数出てくるが１番上のを入れてみた</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
+<!-- ログイン画面-ログインボタン押下時の処理 -->
 
 
-<h3>Strutsの設定周り</h3>
-
-<p>web.xml
-filter-classへの指定がどっかのバージョンから変わったらしい。。。
-```
-&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?>
-&lt;web-app id=&ldquo;WebApp_9&rdquo; version=&ldquo;2.4&rdquo; xmlns=&ldquo;<a href="http://java.sun.com/xml/ns/j2ee">http://java.sun.com/xml/ns/j2ee</a>&rdquo;
- xmlns:xsi=&ldquo;<a href="http://www.w3.org/2001/XMLSchema-instance">http://www.w3.org/2001/XMLSchema-instance</a>&rdquo;
- xsi:schemaLocation=&ldquo;<a href="http://java.sun.com/xml/ns/j2ee">http://java.sun.com/xml/ns/j2ee</a> <a href="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd</a>&rdquo;></p>
-
-<pre><code>&lt;display-name&gt;Struts Todo&lt;/display-name&gt;
-
-&lt;filter&gt;
-    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
-    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
-&lt;/filter&gt;
-
-&lt;filter-mapping&gt;
-    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
-    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-&lt;/filter-mapping&gt;
-
-&lt;welcome-file-list&gt;
-    &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;
-&lt;/welcome-file-list&gt;
-</code></pre>
-
-<p>&lt;/web-app>
+<p><action name="LoginConfirm" method="confirm" class="todo.Login">
+   <result name="success">/page/todolist.jsp</result>
+   <result name="error">/page/login.jsp</result>
+   <result name="input">/page/login.jsp</result>
+</action>
 ```</p>
 
-<p>struts.xml
-ここら辺は特に変化はないはず。
-```
-&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo; ?>
-&lt;!DOCTYPE struts PUBLIC</p>
+<p>login.java</p>
 
-<pre><code>"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-"http://struts.apache.org/dtds/struts-2.3.dtd"&gt;
+<p>```
+import java.util.List;
+import org.apache.struts2.interceptor.validation.SkipValidation;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.*;</p>
+
+<p>@Validations(</p>
+
+<pre><code>    requiredFields = {
+            @RequiredFieldValidator(
+                    fieldName="userid",
+                    message="ユーザIDを入力してください。"),
+            @RequiredFieldValidator(
+                fieldName="password",
+                message="パスワードを入力してください。")
+    }
 </code></pre>
 
-<p><struts></p>
+<p>)</p>
 
-<pre><code>&lt;package name="StrutsTodoProject" extends="struts-default"&gt;
+<p>public class Login  extends ActionSupport {</p>
 
-    &lt;action name="Login" class="todo.Login"&gt;
-        &lt;result name="success"&gt;ぺーじ&lt;/result&gt;
-    &lt;/action&gt;
+<pre><code>private static final long serialVersionUID = 1L;
 
-    &lt;action name="LoginConfirm" method="confirm" class="todo.Login"&gt;
-        &lt;result name="success"&gt;ぺーじ&lt;/result&gt;
-        &lt;result name="error"&gt;ぺーじ&lt;/result&gt;
-        &lt;result name="input"&gt;ぺーじ&lt;/result&gt;
-    &lt;/action&gt;
-&lt;/package&gt;
+private String replyMsg = null;
+private String userid = null;
+private String password = null;
+
+//getter/setter省略
+
+/**
+ * デフォルトのActionメソッド
+ * 初期表示のため、validateは行わない
+ * @return "success"
+ */
+@SkipValidation
+public String execute() throws Exception {
+    return "success";
+}
+
+/**
+ * ログインボタン押下時(submit時)のActionメソッド
+ * @return "success"
+ * @throws Exception
+ */
+public String confirm() throws Exception {
+    //ユーザ名の入力チェック
+    TodoUserHome tuh = new TodoUserHome();
+    List&lt;TodoUser&gt; TodoUser = tuh.getListByNamePassowordHql(getUserid(), getPassword());
+
+    //ユーザ登録状況確認
+    if (TodoUser.isEmpty()) {
+        setReplyMsg("ユーザ名またはパスワードが間違っています");
+        return ActionSupport.ERROR;             
+    } else {
+        return ActionSupport.SUCCESS;
+    }
+}
 </code></pre>
 
-<p></struts>
+<p>}
 ```</p>
 
-<p>あとは、formのとこでなぜか詰まってしまった。。。<br/>
-formのactionには、struts.xmlのactionタグのnameを書く。<br/>
-参考にしてたサイトがsubmitのとこに入れてたので、動かんくて困った。。。<br/>
-```
+<p>JSP</p>
+
+<p>```
+&lt;%@ page language=&ldquo;java&rdquo; contentType=&ldquo;text/html; charset=UTF-8&rdquo;</p>
+
+<pre><code>pageEncoding="UTF-8"%&gt;
+</code></pre>
+
+<p>&lt;%@ taglib prefix=&ldquo;s&rdquo; uri=&ldquo;/struts-tags&rdquo; %>
+&lt;!DOCTYPE html PUBLIC
+ &ldquo;&ndash;//W3C//DTD HTML 4.01 Transitional//EN&rdquo; &ldquo;<a href="http://www.w3.org/TR/html4/loose.dtd">http://www.w3.org/TR/html4/loose.dtd</a>&rdquo;>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Todo ログイン</title>
+</head>
 <body></p>
 
-<pre><code>&lt;s:form action="LoginConfirm" validate="true"&gt;
-    &lt;s:textfield label="〜" name="xxxx" /&gt;
-    &lt;s:password label="〜" name="yyyy" /&gt;
-    &lt;s:submit value="ボタン" /&gt;
+<pre><code>&lt;s:property value="replyMsg" /&gt;
+&lt;s:form action="LoginConfirm" validate="true"&gt;
+    &lt;s:textfield label="ユーザID" name="userid" /&gt;
+    &lt;s:password label="パスワード" name="password" /&gt;
+    &lt;s:submit value="ログイン" /&gt;
 &lt;/s:form&gt;
+&lt;a href="UserRegister.action"&gt;新規登録する&lt;/a&gt;
 </code></pre>
 
 <p></body>
+</html>
 ```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[javascriptで時間をリアルタイム表示]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow/"/>
+    <updated>2014-01-17T03:19:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow</id>
+    <content type="html"><![CDATA[<p>サーバーから時間の取得は１度だけのリアルタイム表示のメモ。</p>
 
-<h3>Hibernate</h3>
+<p>JSPのBODYタグ内に下記を書く。<br/>
+あと、jqueryの拡張プラグインを作成してくださった方がいたので、そちらを利用させてもらっています。<br/>
+<a href="http://d.hatena.ne.jp/cyokodog/20090316/jQueryExDate">jQuery拡張プラグイン</a><br/>
+<a href="http://phpjavascriptroom.com/exp3.php?f=include/ajax/jquery_plugin_datecalendar/exdate.inc&amp;ttl=jQuery.exDate.js%82%CC%90%DD%92u%83T%83%93%83v%83%8B">使い方</a></p>
 
-<p>ここを参考に<a href="http://www.omotenashi-mind.com/index.php/Hibernate_Tools%E3%81%A7%E7%B0%A1%E5%8D%98Hibernate%E6%B4%BB%E7%94%A8">HibernateToolsで簡単Hibernate活用</a>ツールのインストール。<br/>
-Hibernate Reverse Engineering File以降は、テーブルを作ってからやる（当然）。</p>
+<!-- more -->
 
-<p>hibernate.cfg.xml
-```
-&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?>
-&lt;!DOCTYPE hibernate-configuration PUBLIC &ldquo;&ndash;//Hibernate/Hibernate Configuration DTD 3.0//EN&rdquo;</p>
 
-<pre><code>                                     "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;
-</code></pre>
+<p>```</p>
 
-<p>&lt;hibernate-configuration></p>
+<script type="text/javascript">
+$(function(){
+    var date=$.exDate("<s:property value="javatime"/>","yyyy/mm/dd hh:mi:ss");
+    var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
+    var timeview = 1000;
+  setInterval( function(){
+    timeview = timeview + 1000;
+    ans = new Date(dates+timeview);
+    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
+  }, 1000);
+});
+</script>
 
-<pre><code>&lt;session-factory name=""&gt;
-    &lt;property name="hibernate.connection.driver_class"&gt;org.gjt.mm.mysql.Driver&lt;/property&gt;
-    &lt;property name="hibernate.connection.url"&gt;jdbc:mysql://localhost:3306/でーびー&lt;/property&gt;
-    &lt;property name="hibernate.connection.username"&gt;ゆーざー&lt;/property&gt;
-    &lt;property name="hibernate.connection.password"&gt;ぱすわーど&lt;/property&gt;
-    &lt;property name="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
-    &lt;property name="hibernate.connection.pool_size"&gt;3&lt;/property&gt;
-    &lt;property name="hibernate.current_session_context_class"&gt;thread&lt;/property&gt;
-    &lt;property name="hibernate.show_sql"&gt;true&lt;/property&gt;
-    &lt;!-- Mapping files --&gt;
-    &lt;mapping  resource="まっぴんぐふぁいるのありか" /&gt;
-&lt;/session-factory&gt;
-</code></pre>
 
-<p>&lt;/hibernate-configuration>
-```</p>
+<p id="time"></p>
 
-<p>HibernateToolsで作成したDAO(一部修正)
-```
-/<em>*
- * Home object for domain model class TodoUser.
- * @see todo.hibernate.TodoUser
- * @author Hibernate Tools
- </em>/
-public class TodoUserHome {</p>
 
-<pre><code>private static final Log log = LogFactory.getLog(TodoUserHome.class);
-private SessionFactory sessionFactory;
+<!-- ←ここに1秒ずつ経過する時間を表示 -->
 
-public TodoUserHome() {
-    HibernateUtil h = new HibernateUtil();
-    sessionFactory = h.getSessionFactory();
-}
 
-/** 
- * セッションを取得する 
- * @return Session 
- */
-// TODO 共通化すること 
-private Session getSession() {  
-    Session session = sessionFactory.getCurrentSession();
-    session.beginTransaction();
-    return session;  
-} 
-
-/**
- * 
- * @param transientInstance
- */
-public void persist(TodoUser transientInstance) {
-    log.debug("persisting TodoUser instance");
-    try {
-        Session s = getSession();
-        s.persist(transientInstance);
-        log.debug("persist successful");
-    } catch (RuntimeException re) {
-        log.error("persist failed", re);
-        throw re;
-    }
-}
-
-/**
- * 登録or更新
- * @param instance
- */
-public void attachDirty(TodoUser instance) {
-    log.debug("attaching dirty TodoUser instance");
-    try {
-        Session s = getSession();
-        s.saveOrUpdate(instance);
-        s.getTransaction().commit();
-        log.debug("attach successful");
-    } catch (RuntimeException re) {
-        log.error("attach failed", re);
-        throw re;
-    }
-}
-
-/**
- * 
- * @param instance
- */
-public void attachClean(TodoUser instance) {
-    log.debug("attaching clean TodoUser instance");
-    try {
-        Session s = getSession();
-        s.lock(instance, LockMode.NONE);
-        log.debug("attach successful");
-    } catch (RuntimeException re) {
-        log.error("attach failed", re);
-        throw re;
-    }
-}
-
-/**
- * 削除
- * @param persistentInstance
- */
-public void delete(TodoUser persistentInstance) {
-    log.debug("deleting TodoUser instance");
-    try {
-        Session s = getSession();
-        s.delete(persistentInstance);
-        s.getTransaction().commit();
-        log.debug("delete successful");
-    } catch (RuntimeException re) {
-        log.error("delete failed", re);
-        throw re;
-    }
-}
-
-/**
- * 登録処理
- * @param instance
- */
-public void save(TodoUser instance) {
-    log.debug("Save TodoUser instance");
-    try {
-        Session s = getSession();
-        s.save(instance);
-        s.getTransaction().commit();
-        log.debug("save successful");
-    } catch (RuntimeException re) {
-        log.error("save failed", re);
-        throw re;
-    }
-}
-
-public TodoUser merge(TodoUser detachedInstance) {
-    log.debug("merging TodoUser instance");
-    try {
-        TodoUser result = (TodoUser) sessionFactory.getCurrentSession()
-                .merge(detachedInstance);
-        log.debug("merge successful");
-        return result;
-    } catch (RuntimeException re) {
-        log.error("merge failed", re);
-        throw re;
-    }
-}
-
-/**
- * IDによる検索
- * @param id
- * @return
- */
-public TodoUser findById(java.lang.Integer id) {
-    log.debug("getting TodoUser instance with id: " + id);
-    try {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        TodoUser instance = (TodoUser) session.get("todo.hibernate.TodoUser", id);
-        if (instance == null) {
-            log.debug("get successful, no instance found");
-        } else {
-            log.debug("get successful, instance found");
-        }
-        return instance;
-    } catch (RuntimeException re) {
-        log.error("get failed", re);
-        throw re;
-    }
-}
-
-@SuppressWarnings("unchecked")
-public List&lt;TodoUser&gt; findByExample(TodoUser instance) {
-    log.debug("finding TodoUser instance by example");
-    try {
-        List&lt;TodoUser&gt; results = (List&lt;TodoUser&gt;) sessionFactory
-                .getCurrentSession()
-                .createCriteria("todo.hibernate.TodoUser")
-                .add(create(instance)).list();
-        log.debug("find by example successful, result size: "
-                + results.size());
-        return results;
-    } catch (RuntimeException re) {
-        log.error("find by example failed", re);
-        throw re;
-    }
-}
-
-/** 
- * TodoUserデータ検索（全件取得）
- * @return TODOUSERの全件データ。 
- */  
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getAllList() {  
-    return getSession().createCriteria(TodoUser.class).list();  
-}
-
-/** 
- * HQL文より指定条件で合致するユーザのリストを取得する
- * @param name ユーザ名
- * @return 合致するユーザのリスト
- */
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getListByNameHql(String name) {  
-    //HQL文  
-    String hql = "FROM todo.hibernate.TodoUser as u WHERE u.name = :name";  
-    Query query = getSession().createQuery(hql);  
-
-    //条件          
-    query.setString("name", name);  
-
-    //クエリ発行  
-    return query.list();  
-}  
-
-/** 
- * HQL文より指定条件で合致するユーザ名とパスワードのリストを取得する
- * @param name ユーザ名
- * @param password パスワード
- * @return 合致するユーザのリスト
- */   
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getListByNamePassowordHql(String name, String password) {  
-    //HQL文  
-    String hql = "FROM todo.hibernate.TodoUser as u WHERE u.name = :name AND u.password = :password";  
-    Query query = getSession().createQuery(hql);  
-
-    //条件          
-    query.setString("name", name);  
-    query.setString("password", password);  
-
-    //クエリ発行  
-    return query.list();  
-}  
-
-/** 
- * SQL文より指定条件で合致するユーザのリストを取得する
- * @param name ユーザ名 
- * @return 合致するユーザのリスト 
- */  
-@SuppressWarnings("unchecked")
-public List &lt;TodoUser&gt; getListByNameSql(String name) {  
-    //HQL文  
-    String sql = "FROM TODOUSER u WHERE u.NAME = :name";  
-    Query query = getSession().createSQLQuery(sql);  
-
-    //条件          
-    query.setString("name", name);  
-
-    //クエリ発行  
-    return query.list();  
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>HibernateUtil.java
-```
-package todo.hibernate;</p>
-
-<p>import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;</p>
-
-<p>public class HibernateUtil {</p>
-
-<pre><code>private final SessionFactory sessionFactory = buildSessionFactory();
-
-@SuppressWarnings("deprecation")
-private SessionFactory buildSessionFactory() {
-    try {
-        // Create the SessionFactory from hibernate.cfg.xml
-        return new Configuration().configure().buildSessionFactory();
-    }
-    catch (Throwable ex) {
-        // Make sure you log the exception, as it might be swallowed
-        System.err.println("Initial SessionFactory creation failed." + ex);
-        throw new ExceptionInInitializerError(ex);
-    }
-}
-
-public SessionFactory getSessionFactory() {
-    return sessionFactory;
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<h3>どうしてこうなった</h3>
-
-<p>なぜかしょうもないとこ含め、色んなとこで詰まってしまった(´・ω・｀)<br/>
-まぁ、これも経験ということで。やっぱり手を動かさないと覚えないもんだよねー。</p>
+<p>```</p>
 ]]></content>
   </entry>
   

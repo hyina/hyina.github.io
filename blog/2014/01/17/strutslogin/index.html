@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>javaのsubstringの使い方と月末日の取得方法！ - Hyinaのブログヾ(o・ω・o)ﾉ</title>
+  <title>strutsでlogin画面 - Hyinaのブログヾ(o・ω・o)ﾉ</title>
   <meta name="author" content="hyina">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hyina.github.io/blog/2014/01/16/javadateandsubstring">
+  <link rel="canonical" href="http://hyina.github.io/blog/2014/01/17/strutslogin">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -95,7 +95,7 @@
   
   <header class="page-header">
     
-      <h1 class="entry-title">Javaのsubstringの使い方と月末日の取得方法！</h1>
+      <h1 class="entry-title">Strutsでlogin画面</h1>
     
     
       <p class="meta">
@@ -111,21 +111,23 @@
   
 
 
-<time datetime="2014-01-16T22:12:00+09:00" pubdate data-updated="true">2014-01-16</time>
+<time datetime="2014-01-17T03:44:00+09:00" pubdate data-updated="true">2014-01-17</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>substringの使い方と月末日の取得方法！</p>
+<div class="entry-content"><p>めも。<br/>
+セッション管理が抜けてた。。。</p>
+
+<p><a href="http://www15.plala.or.jp/k_maeba/struts2/login/index.html">参考１</a>
+<a href="http://si.comp.ae.keio.ac.jp/web_app_dev_material/app/framework/framework_list/index.html">参考２</a></p>
 
 <!-- more -->
 
 
-<h3>substringの使い方</h3>
-
-<p>使い方はこんな感じ。</p>
+<p>struts.xml</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -133,81 +135,15 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>---------
-</span><span class='line'>substring
-</span><span class='line'>---------
-</span><span class='line'>public String substring(int beginIndex, int endIndex)
-</span><span class='line'>この文字列の部分文字列である新しい文字列を返す。  
-</span><span class='line'>部分文字列は、指定された beginIndex から始まり、インデックス endIndex - 1 にある文字まで。  
-</span><span class='line'>したがって、部分文字列の長さはendIndex-beginIndex になる。  
-</span><span class='line'>  
-</span><span class='line'>パラメータ:
-</span><span class='line'>  beginIndex - 開始インデックス (この値を含む。スタートは0から。)
-</span><span class='line'>  endIndex - 終了インデックス (この値を含まない) 
-</span><span class='line'>戻り値:
-</span><span class='line'>  指定された部分文字列 
-</span><span class='line'>例外: 
-</span><span class='line'>  IndexOutOfBoundsException - beginIndex が負の値である場合、endIndexが
-</span><span class='line'>  この String オブジェクトの長さより大きい場合、あるいはbeginIndex が endIndex より大きい場合</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- ログイン画面-ログインボタン押下時の処理 --&gt;
+</span><span class='line'>&lt;action name="LoginConfirm" method="confirm" class="todo.Login"&gt;
+</span><span class='line'>   &lt;result name="success"&gt;/page/todolist.jsp&lt;/result&gt;
+</span><span class='line'>   &lt;result name="error"&gt;/page/login.jsp&lt;/result&gt;
+</span><span class='line'>   &lt;result name="input"&gt;/page/login.jsp&lt;/result&gt;
+</span><span class='line'>&lt;/action&gt;</span></code></pre></td></tr></table></div></figure>
 
 
-<p>コードと実行結果。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class test{
-</span><span class='line'>  public static void main(String args[]){
-</span><span class='line'>      String str1 = new String("123456789");
-</span><span class='line'>      //3文字目から5文字目まで取得
-</span><span class='line'>      String str1Substring = str1.substring(2, 5);
-</span><span class='line'>
-</span><span class='line'>      System.out.println("「" + str1 + "」のsubstring(2,5)は「" + str1Substring + "」です");
-</span><span class='line'>
-</span><span class='line'>      String str2 = new String("これはテストです");
-</span><span class='line'>      //1文字目から4文字目まで取得
-</span><span class='line'>      String str2Substring = str2.substring(0, 4);
-</span><span class='line'>
-</span><span class='line'>      System.out.println("「" + str2 + "」のsubstring(0,4)は「" + str2Substring + "」です");
-</span><span class='line'>      
-</span><span class='line'>      
-</span><span class='line'>  }
-</span><span class='line'>}
-</span><span class='line'>---実行結果---
-</span><span class='line'>「123456789」のsubstring(2,5)は「345」です
-</span><span class='line'>「これはテストです」のsubstring(0,4)は「これはテ」です</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>年月日から月の月末日を取得</h3>
-
-<p>コードと実行結果</p>
+<p>login.java</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -244,44 +180,84 @@
 <span class='line-number'>33</span>
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.Calendar;
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.List;
+</span><span class='line'>import org.apache.struts2.interceptor.validation.SkipValidation;
+</span><span class='line'>import com.opensymphony.xwork2.ActionSupport;
+</span><span class='line'>import com.opensymphony.xwork2.validator.annotations.*;
 </span><span class='line'>
-</span><span class='line'>public class Test {
-</span><span class='line'>
-</span><span class='line'>  public static void main(String[] args) {
-</span><span class='line'>      String str1 = "2014/01/01";
-</span><span class='line'>      String str2 = "2014/02/01";//notうるう年
-</span><span class='line'>      String str3 = "2016/02/11";//うるう年
-</span><span class='line'>      System.out.println(str1 + " の月末日は " +getLastDay(str1));
-</span><span class='line'>      System.out.println(str2 + " の月末日は " +getLastDay(str2));
-</span><span class='line'>      System.out.println(str3 + " の月末日は " +getLastDay(str3));
-</span><span class='line'>  }
-</span><span class='line'>  /**
-</span><span class='line'>   * 指定した日付文字列（yyyy/MM/dd or yyyy-MM-dd）の月末日を返却する
-</span><span class='line'>   * @param strDate 対象の日付文字列
-</span><span class='line'>   * @return 月末日付
-</span><span class='line'>   */
-</span><span class='line'>  public static int getLastDay(String strDate) {
-</span><span class='line'>      if (strDate == null || strDate.length() != 10) {
-</span><span class='line'>          throw new IllegalArgumentException("strDate：["+ strDate +"]" + "からは日付を取得できません!");
+</span><span class='line'>@Validations(
+</span><span class='line'>      requiredFields = {
+</span><span class='line'>              @RequiredFieldValidator(
+</span><span class='line'>                      fieldName="userid",
+</span><span class='line'>                      message="ユーザIDを入力してください。"),
+</span><span class='line'>              @RequiredFieldValidator(
+</span><span class='line'>                  fieldName="password",
+</span><span class='line'>                  message="パスワードを入力してください。")
 </span><span class='line'>      }
-</span><span class='line'>      
-</span><span class='line'>      int yyyy = Integer.parseInt(strDate.substring(0,4));//年取得
-</span><span class='line'>      int MM = Integer.parseInt(strDate.substring(5,7));//月取得
-</span><span class='line'>      int dd = Integer.parseInt(strDate.substring(8,10));//日取得
-</span><span class='line'>      Calendar cal = Calendar.getInstance();
-</span><span class='line'>      cal.set(yyyy,MM-1,dd);
-</span><span class='line'>      int last = cal.getActualMaximum(Calendar.DATE);
-</span><span class='line'>      return last;
+</span><span class='line'>)
+</span><span class='line'>
+</span><span class='line'>public class Login  extends ActionSupport {
+</span><span class='line'>
+</span><span class='line'>  private static final long serialVersionUID = 1L;
+</span><span class='line'>  
+</span><span class='line'>  private String replyMsg = null;
+</span><span class='line'>  private String userid = null;
+</span><span class='line'>  private String password = null;
+</span><span class='line'>  
+</span><span class='line'>  //getter/setter省略
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * デフォルトのActionメソッド
+</span><span class='line'>   * 初期表示のため、validateは行わない
+</span><span class='line'>   * @return "success"
+</span><span class='line'>   */
+</span><span class='line'>  @SkipValidation
+</span><span class='line'>  public String execute() throws Exception {
+</span><span class='line'>      return "success";
 </span><span class='line'>  }
-</span><span class='line'>}
-</span><span class='line'>---実行結果---
-</span><span class='line'>2014/01/01 の月末日は 31
-</span><span class='line'>2014/02/01 の月末日は 28
-</span><span class='line'>2016/02/11 の月末日は 29</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * ログインボタン押下時(submit時)のActionメソッド
+</span><span class='line'>   * @return "success"
+</span><span class='line'>   * @throws Exception
+</span><span class='line'>   */
+</span><span class='line'>  public String confirm() throws Exception {
+</span><span class='line'>      //ユーザ名の入力チェック
+</span><span class='line'>        TodoUserHome tuh = new TodoUserHome();
+</span><span class='line'>      List&lt;TodoUser&gt; TodoUser = tuh.getListByNamePassowordHql(getUserid(), getPassword());
+</span><span class='line'>      
+</span><span class='line'>      //ユーザ登録状況確認
+</span><span class='line'>      if (TodoUser.isEmpty()) {
+</span><span class='line'>          setReplyMsg("ユーザ名またはパスワードが間違っています");
+</span><span class='line'>          return ActionSupport.ERROR;             
+</span><span class='line'>      } else {
+</span><span class='line'>          return ActionSupport.SUCCESS;
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<p>monthから1減算しているのは、下記の通り月の始まりが0からなので。</p>
+<p>JSP</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -294,17 +270,35 @@
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>------------
-</span><span class='line'>Calender.set
-</span><span class='line'>------------
-</span><span class='line'>public final void set(int year, int month, int date)
-</span><span class='line'>カレンダフィールド YEAR、MONTH、および DAY_OF_MONTH の値を設定します。他のカレンダフィール
-</span><span class='line'>ドの以前の値は保持されます。保持されないようにする場合は、最初に clear() を呼び出します。 
-</span><span class='line'>
-</span><span class='line'>パラメータ:
-</span><span class='line'>  year - YEAR カレンダフィールドの設定に使用する値
-</span><span class='line'>  month - MONTH カレンダフィールドの設定に使用する値。Month 値は 0 から始まる (1月 は 0 になる)
-</span><span class='line'>  date - DAY_OF_MONTH カレンダフィールドの設定に使用する値</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+</span><span class='line'>    pageEncoding="UTF-8"%&gt;
+</span><span class='line'>&lt;%@ taglib prefix="s" uri="/struts-tags" %&gt;
+</span><span class='line'>&lt;!DOCTYPE html PUBLIC
+</span><span class='line'> "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+</span><span class='line'>&lt;html&gt;
+</span><span class='line'>&lt;head&gt;
+</span><span class='line'>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+</span><span class='line'>&lt;title&gt;Todo ログイン&lt;/title&gt;
+</span><span class='line'>&lt;/head&gt;
+</span><span class='line'>&lt;body&gt;
+</span><span class='line'>  &lt;s:property value="replyMsg" /&gt;
+</span><span class='line'>  &lt;s:form action="LoginConfirm" validate="true"&gt;
+</span><span class='line'>      &lt;s:textfield label="ユーザID" name="userid" /&gt;
+</span><span class='line'>      &lt;s:password label="パスワード" name="password" /&gt;
+</span><span class='line'>      &lt;s:submit value="ログイン" /&gt;
+</span><span class='line'>  &lt;/s:form&gt;
+</span><span class='line'>  &lt;a href="UserRegister.action"&gt;新規登録する&lt;/a&gt;
+</span><span class='line'>&lt;/body&gt;
+</span><span class='line'>&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -328,12 +322,12 @@
   
 
 
-<time datetime="2014-01-16T22:12:00+09:00" pubdate data-updated="true">2014-01-16</time>
+<time datetime="2014-01-17T03:44:00+09:00" pubdate data-updated="true">2014-01-17</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/memo/'>memo</a>
+    <a class='category' href='/blog/categories/struts/'>struts</a>
   
 </span>
 
@@ -342,7 +336,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hyina.github.io/blog/2014/01/16/javadateandsubstring/" data-via="hyina_qfir" data-counturl="http://hyina.github.io/blog/2014/01/16/javadateandsubstring/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hyina.github.io/blog/2014/01/17/strutslogin/" data-via="hyina_qfir" data-counturl="http://hyina.github.io/blog/2014/01/17/strutslogin/" >Tweet</a>
   
   
   
@@ -361,14 +355,10 @@
     <ul class="pager">
       
       <li class="previous"><a class="basic-alignment left"
-        href="/blog/2014/01/16/javautil/" title="Previous Post:
-        java関連メモ">&laquo; java関連メモ</a></li>
+        href="/blog/2014/01/17/javascriptandjavarealtimeshow/" title="Previous Post:
+        javascriptで時間をリアルタイム表示">&laquo; javascriptで時間をリアルタイム表示</a></li>
       
       <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2014/01/17/javascriptandjavarealtimeshow/"
-        title="Next Post: javascriptで時間をリアルタイム表示">javascriptで時間をリアルタイム表示
-        &raquo;</a></li>
       
     </ul>
   </footer>
@@ -416,8 +406,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://hyina.github.io/blog/2014/01/16/javadateandsubstring/';
-        var disqus_url = 'http://hyina.github.io/blog/2014/01/16/javadateandsubstring/';
+        var disqus_identifier = 'http://hyina.github.io/blog/2014/01/17/strutslogin/';
+        var disqus_url = 'http://hyina.github.io/blog/2014/01/17/strutslogin/';
         var disqus_script = 'embed.js';
       
     (function () {
