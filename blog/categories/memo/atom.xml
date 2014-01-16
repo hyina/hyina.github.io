@@ -4,7 +4,7 @@
   <title><![CDATA[Category: memo | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/memo/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-16T22:47:18+09:00</updated>
+  <updated>2014-01-16T22:55:11+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -473,6 +473,27 @@ rake gen_deloy
 </code></p>
 
 <p>あと、記事の削除は、<code>source/_posts/〜.markdown</code>を削除し、html生成+デプロイをすると、ブログからは消え去ります。</p>
+
+<h3>サイト運用</h3>
+
+<p>ユーザーページ、プロジェクトページのそれぞれで、本体のリポジトリと統合する方法が推奨されているみたい。<br/>
+ここ参考。<a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></p>
+
+<p>ユーザーページ用リポジトリへの push</p>
+
+<p><code>
+$ git add .
+$ git commit -m 'コミットメモ'
+$ git push origin source
+</code></p>
+
+<p>プロジェクトページ用リポジトリへの push</p>
+
+<p><code>
+$ git remote add origin (your repo url)
+$ git config branch.master.remote origin # set your new origin as the default branch
+$ git push origin source
+</code></p>
 
 <h3>感想</h3>
 

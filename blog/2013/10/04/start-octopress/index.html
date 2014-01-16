@@ -333,6 +333,31 @@ post titleは、実際のURLになるので、注意。</p>
 
 <p>あと、記事の削除は、<code>source/_posts/〜.markdown</code>を削除し、html生成+デプロイをすると、ブログからは消え去ります。</p>
 
+<h3>サイト運用</h3>
+
+<p>ユーザーページ、プロジェクトページのそれぞれで、本体のリポジトリと統合する方法が推奨されているみたい。<br/>
+ここ参考。<a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></p>
+
+<p>ユーザーページ用リポジトリへの push</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .
+</span><span class='line'>$ git commit -m 'コミットメモ'
+</span><span class='line'>$ git push origin source</span></code></pre></td></tr></table></div></figure>
+
+
+<p>プロジェクトページ用リポジトリへの push</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git remote add origin (your repo url)
+</span><span class='line'>$ git config branch.master.remote origin # set your new origin as the default branch
+</span><span class='line'>$ git push origin source</span></code></pre></td></tr></table></div></figure>
+
+
 <h3>感想</h3>
 
 <hr />
