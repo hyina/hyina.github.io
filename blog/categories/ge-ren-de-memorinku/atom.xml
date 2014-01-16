@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: 個人的メモ集 | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
-  <link href="http://hyina.github.io/blog/categories/ge-ren-de-memoji/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 個人的メモリンク | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/ge-ren-de-memorinku/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-16T22:06:11+09:00</updated>
+  <updated>2014-01-16T22:43:52+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -16,15 +16,14 @@
   <entry>
     <title type="html"><![CDATA[javautil]]></title>
     <link href="http://hyina.github.io/blog/2014/01/16/javautil/"/>
-    <updated>2014-01-16T21:58:00+09:00</updated>
+    <updated>2014-01-16T22:08:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/16/javautil</id>
     <content type="html"><![CDATA[<p>個人的にメモ
 個人的メモのため、追記していく予定。</p>
 
 <ol>
-<li>Listの拡張fro文とIterator</li>
-<li>substringの使い方</li>
-<li>月の末尾の取得</li>
+<li><a href="/blog/2014/01/14/javalist/">Listの拡張fro文とIterator</a></li>
+<li><a href="/blog/2014/01/16/jjavadateandsubstring/">substringの使い方と月の末尾の取得</a></li>
 </ol>
 
 ]]></content>

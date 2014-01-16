@@ -4,7 +4,7 @@
   <title><![CDATA[Category: memo | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/memo/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-16T22:06:11+09:00</updated>
+  <updated>2014-01-16T22:43:52+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,11 +14,135 @@
 
   
   <entry>
+    <title type="html"><![CDATA[javaDateAndSubstring]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/16/javadateandsubstring/"/>
+    <updated>2014-01-16T22:12:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/16/javadateandsubstring</id>
+    <content type="html"><![CDATA[<p>substringの使い方と月末日の取得方法！</p>
+
+<!-- more -->
+
+
+<h3>substringの使い方</h3>
+
+<p>使い方はこんな感じ。</p>
+
+<h2>```</h2>
+
+<h2>substring</h2>
+
+<p>public String substring(int beginIndex, int endIndex)
+この文字列の部分文字列である新しい文字列を返す。<br/>
+部分文字列は、指定された beginIndex から始まり、インデックス endIndex &ndash; 1 にある文字まで。<br/>
+したがって、部分文字列の長さはendIndex-beginIndex になる。</p>
+
+<p>パラメータ:
+  beginIndex &ndash; 開始インデックス (この値を含む。スタートは0から。)
+  endIndex &ndash; 終了インデックス (この値を含まない)
+戻り値:
+  指定された部分文字列
+例外:
+  IndexOutOfBoundsException &ndash; beginIndex が負の値である場合、endIndexが
+  この String オブジェクトの長さより大きい場合、あるいはbeginIndex が endIndex より大きい場合
+```</p>
+
+<p>コードと実行結果。</p>
+
+<p>```
+class test{
+  public static void main(String args[]){</p>
+
+<pre><code>    String str1 = new String("123456789");
+    //3文字目から5文字目まで取得
+    String str1Substring = str1.substring(2, 5);
+
+    System.out.println("「" + str1 + "」のsubstring(2,5)は「" + str1Substring + "」です");
+
+    String str2 = new String("これはテストです");
+    //1文字目から4文字目まで取得
+    String str2Substring = str2.substring(0, 4);
+
+    System.out.println("「" + str2 + "」のsubstring(0,4)は「" + str2Substring + "」です");
+</code></pre>
+
+<p>  }
+}
+&mdash;-実行結果&mdash;&ndash;
+「123456789」のsubstring(2,5)は「345」です
+「これはテストです」のsubstring(0,4)は「これはテ」です
+```</p>
+
+<h3>年月日から月の月末日を取得</h3>
+
+<p>コードと実行結果</p>
+
+<p>```
+import java.util.Calendar;</p>
+
+<p>public class Test {</p>
+
+<pre><code>public static void main(String[] args) {
+    String str1 = "2014/01/01";
+    String str2 = "2014/02/01";//notうるう年
+    String str3 = "2016/02/11";//うるう年
+    System.out.println(str1 + " の月末日は " +getLastDay(str1));
+    System.out.println(str2 + " の月末日は " +getLastDay(str2));
+    System.out.println(str3 + " の月末日は " +getLastDay(str3));
+}
+/**
+ * 指定した日付文字列（yyyy/MM/dd or yyyy-MM-dd）の月末日を返却する
+ * @param strDate 対象の日付文字列
+ * @return 月末日付
+ */
+public static int getLastDay(String strDate) {
+    if (strDate == null || strDate.length() != 10) {
+        throw new IllegalArgumentException("strDate：["+ strDate +"]" + "からは日付を取得できません!");
+    }
+
+    int yyyy = Integer.parseInt(strDate.substring(0,4));//年取得
+    int MM = Integer.parseInt(strDate.substring(5,7));//月取得
+    int dd = Integer.parseInt(strDate.substring(8,10));//日取得
+    Calendar cal = Calendar.getInstance();
+    cal.set(yyyy,MM-1,dd);
+    int last = cal.getActualMaximum(Calendar.DATE);
+    return last;
+}
+</code></pre>
+
+<p>}
+&mdash;-実行結果&mdash;&ndash;
+2014/01/01 の月末日は 31
+2014/02/01 の月末日は 28
+2016/02/11 の月末日は 29
+```</p>
+
+<p>monthから1減算しているのは、下記の通り月の始まりが0からなので。</p>
+
+<h2>```</h2>
+
+<h2>Calender.set</h2>
+
+<p>public final void set(int year, int month, int date)
+カレンダフィールド YEAR、MONTH、および DAY_OF_MONTH の値を設定します。他のカレンダフィール
+ドの以前の値は保持されます。保持されないようにする場合は、最初に clear() を呼び出します。</p>
+
+<p>パラメータ:
+  year &ndash; YEAR カレンダフィールドの設定に使用する値
+  month &ndash; MONTH カレンダフィールドの設定に使用する値。Month 値は 0 から始まる (1月 は 0 になる)
+  date &ndash; DAY_OF_MONTH カレンダフィールドの設定に使用する値
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[javaのListやHashMapの拡張forとIterator]]></title>
     <link href="http://hyina.github.io/blog/2014/01/14/javalist/"/>
     <updated>2014-01-14T23:52:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/14/javalist</id>
     <content type="html"><![CDATA[<p>なんか久々に触ってたらListやHashmapのiterationを忘れてしまうので、メモ。</p>
+
+<!-- more -->
+
 
 <p>```
 HashMap&lt;String,String> map = new HashMap&lt;String,String>();
