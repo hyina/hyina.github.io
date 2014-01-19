@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: strtus | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/strtus/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2014-01-20T00:58:19+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[struts2login]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/19/struts2login/"/>
+    <updated>2014-01-19T23:25:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/19/struts2login</id>
+    <content type="html"><![CDATA[<p>todoアプリのログイン画面。<br/>
+インターセプターの実装しないとだなぁ。<br/>
+s
+Login.java</p>
+
+<p>```
+import java.util.List;
+import org.apache.struts2.interceptor.validation.SkipValidation;
+import todo.hibernate.TodoUser;
+import todo.hibernate.TodoUserHome;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.validator.annotations.*;</p>
+
+<p>@Validations(</p>
+
+<pre><code>    requiredFields = {
+            @RequiredFieldValidator(
+                    fieldName="userid",
+                    message="ユーザIDを入力してください。"),
+            @RequiredFieldValidator(
+                fieldName="password",
+                message="パスワードを入力してください。")
+    }
+</code></pre>
+
+<p>)</p>
+
+<p>public class Login  extends ActionSupport {</p>
+
+<pre><code>private static final long serialVersionUID = 1L;
+
+private String errorMsg = null;
+private String userid = null;
+private String password = null;
+
+/**
+ * useridのgetter
+ * @return userid
+ */
+public String getUserid() {
+    return this.userid;
+}
+/**
+ * useridのsetter
+ * @param userid
+ */
+public void setUserid(String userid) {
+    this.userid = userid;
+}
+
+/**
+ * passwordのgetter
+ * @return password
+ */
+public String getPassword() {
+    return this.password;
+}
+
+/**
+ * passwordのsetter
+ * @param password
+ */
+public void setPassword(String password) {
+    this.password = password;
+}
+
+/**
+ * replyMsgのgetter
+ * @return replyMsg
+ */
+public String getErrorMsg() {
+    return this.errorMsg;
+}
+
+/**
+ * replyMsgのsetter
+ * @param replyMsg
+ */
+public void setErrorMsg(String errorMsg) {
+    this.errorMsg = errorMsg;
+}
+
+/**
+ * デフォルトのActionメソッド
+ * 初期表示のため、validateは行わない
+ * @return "success"
+ */
+@SkipValidation
+public String execute() throws Exception {
+    return "success";
+}
+
+/**
+ * ログインボタン押下時(submit時)のActionメソッド
+ * @return "success"
+ * @throws Exception
+ */
+public String confirm() throws Exception {
+    return LoginCheck();
+}
+
+private String LoginCheck() {
+
+    //ユーザ名の入力チェック
+    TodoUserHome tuh = new TodoUserHome();
+    List&lt;TodoUser&gt; TodoUser = tuh.getListByNamePassowordHql(getUserid(), getPassword());
+
+    //ユーザ登録状況確認
+    if (TodoUser.isEmpty()) {
+        setErrorMsg("ユーザ名またはパスワードが間違っています");
+        return ActionSupport.ERROR;             
+    } else {
+        //セッションに格納する処理
+
+        return ActionSupport.SUCCESS;
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>画面側</p>
+
+<p>```
+&lt;%@ page language=&ldquo;java&rdquo; contentType=&ldquo;text/html; charset=UTF-8&rdquo;</p>
+
+<pre><code>pageEncoding="UTF-8"%&gt;
+</code></pre>
+
+<p>&lt;%@ taglib prefix=&ldquo;s&rdquo; uri=&ldquo;/struts-tags&rdquo; %>
+&lt;!DOCTYPE html PUBLIC
+ &ldquo;&ndash;//W3C//DTD HTML 4.01 Transitional//EN&rdquo; &ldquo;<a href="http://www.w3.org/TR/html4/loose.dtd">http://www.w3.org/TR/html4/loose.dtd</a>&rdquo;>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Todo ログイン</title>
+</head>
+<body></p>
+
+<pre><code>&lt;s:property value="errorMsg" /&gt;
+&lt;s:form action="LoginConfirm" validate="true"&gt;
+    &lt;s:textfield label="ユーザID" name="userid" /&gt;
+    &lt;s:password label="パスワード" name="password" /&gt;
+    &lt;s:submit value="ログイン" /&gt;
+&lt;/s:form&gt;
+</code></pre>
+
+<p></body>
+</html>
+```</p>
+
+<p>struts.xml</p>
+
+<p>```
+&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo; ?>
+&lt;!DOCTYPE struts PUBLIC</p>
+
+<pre><code>"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd"&gt;
+</code></pre>
+
+<p><struts></p>
+
+<pre><code>&lt;package name="StrutsTodoProject" extends="struts-default"&gt;
+    &lt;!-- ログイン画面を表示 --&gt;
+    &lt;action name="Login" class="todo.Login"&gt;
+        &lt;result name="success"&gt;/page/login.jsp&lt;/result&gt;
+    &lt;/action&gt;
+
+    &lt;!-- ログイン画面-ログインボタン押下時の処理 --&gt;
+    &lt;action name="LoginConfirm" method="confirm" class="todo.Login"&gt;
+        &lt;result name="success"&gt;/page/todolist.jsp&lt;/result&gt;
+        &lt;result name="error"&gt;/page/login.jsp&lt;/result&gt;
+        &lt;result name="input"&gt;/page/login.jsp&lt;/result&gt;
+    &lt;/action&gt;
+&lt;/package&gt;
+</code></pre>
+
+<p></struts>
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

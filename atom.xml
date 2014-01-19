@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-17T04:07:29+09:00</updated>
+  <updated>2014-01-20T00:58:19+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,6 +12,324 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[struts2login]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/19/struts2login/"/>
+    <updated>2014-01-19T23:25:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/19/struts2login</id>
+    <content type="html"><![CDATA[<p>todoアプリのログイン画面。<br/>
+インターセプターの実装しないとだなぁ。<br/>
+s
+Login.java</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.List;
+</span><span class='line'>import org.apache.struts2.interceptor.validation.SkipValidation;
+</span><span class='line'>import todo.hibernate.TodoUser;
+</span><span class='line'>import todo.hibernate.TodoUserHome;
+</span><span class='line'>import com.opensymphony.xwork2.ActionSupport;
+</span><span class='line'>import com.opensymphony.xwork2.validator.annotations.*;
+</span><span class='line'>
+</span><span class='line'>@Validations(
+</span><span class='line'>      requiredFields = {
+</span><span class='line'>              @RequiredFieldValidator(
+</span><span class='line'>                      fieldName="userid",
+</span><span class='line'>                      message="ユーザIDを入力してください。"),
+</span><span class='line'>              @RequiredFieldValidator(
+</span><span class='line'>                  fieldName="password",
+</span><span class='line'>                  message="パスワードを入力してください。")
+</span><span class='line'>      }
+</span><span class='line'>)
+</span><span class='line'>
+</span><span class='line'>public class Login  extends ActionSupport {
+</span><span class='line'>
+</span><span class='line'>  private static final long serialVersionUID = 1L;
+</span><span class='line'>  
+</span><span class='line'>  private String errorMsg = null;
+</span><span class='line'>  private String userid = null;
+</span><span class='line'>  private String password = null;
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * useridのgetter
+</span><span class='line'>   * @return userid
+</span><span class='line'>   */
+</span><span class='line'>  public String getUserid() {
+</span><span class='line'>      return this.userid;
+</span><span class='line'>  }
+</span><span class='line'>  /**
+</span><span class='line'>   * useridのsetter
+</span><span class='line'>   * @param userid
+</span><span class='line'>   */
+</span><span class='line'>  public void setUserid(String userid) {
+</span><span class='line'>      this.userid = userid;
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * passwordのgetter
+</span><span class='line'>   * @return password
+</span><span class='line'>   */
+</span><span class='line'>  public String getPassword() {
+</span><span class='line'>      return this.password;
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * passwordのsetter
+</span><span class='line'>   * @param password
+</span><span class='line'>   */
+</span><span class='line'>  public void setPassword(String password) {
+</span><span class='line'>      this.password = password;
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * replyMsgのgetter
+</span><span class='line'>   * @return replyMsg
+</span><span class='line'>   */
+</span><span class='line'>  public String getErrorMsg() {
+</span><span class='line'>      return this.errorMsg;
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * replyMsgのsetter
+</span><span class='line'>   * @param replyMsg
+</span><span class='line'>   */
+</span><span class='line'>  public void setErrorMsg(String errorMsg) {
+</span><span class='line'>      this.errorMsg = errorMsg;
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * デフォルトのActionメソッド
+</span><span class='line'>   * 初期表示のため、validateは行わない
+</span><span class='line'>   * @return "success"
+</span><span class='line'>   */
+</span><span class='line'>  @SkipValidation
+</span><span class='line'>  public String execute() throws Exception {
+</span><span class='line'>      return "success";
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  /**
+</span><span class='line'>   * ログインボタン押下時(submit時)のActionメソッド
+</span><span class='line'>   * @return "success"
+</span><span class='line'>   * @throws Exception
+</span><span class='line'>   */
+</span><span class='line'>  public String confirm() throws Exception {
+</span><span class='line'>      return LoginCheck();
+</span><span class='line'>  }
+</span><span class='line'>  
+</span><span class='line'>  private String LoginCheck() {
+</span><span class='line'>
+</span><span class='line'>      //ユーザ名の入力チェック
+</span><span class='line'>        TodoUserHome tuh = new TodoUserHome();
+</span><span class='line'>      List&lt;TodoUser&gt; TodoUser = tuh.getListByNamePassowordHql(getUserid(), getPassword());
+</span><span class='line'>      
+</span><span class='line'>      //ユーザ登録状況確認
+</span><span class='line'>      if (TodoUser.isEmpty()) {
+</span><span class='line'>          setErrorMsg("ユーザ名またはパスワードが間違っています");
+</span><span class='line'>          return ActionSupport.ERROR;             
+</span><span class='line'>      } else {
+</span><span class='line'>          //セッションに格納する処理
+</span><span class='line'>
+</span><span class='line'>          return ActionSupport.SUCCESS;
+</span><span class='line'>      }
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>画面側</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+</span><span class='line'>    pageEncoding="UTF-8"%&gt;
+</span><span class='line'>&lt;%@ taglib prefix="s" uri="/struts-tags" %&gt;
+</span><span class='line'>&lt;!DOCTYPE html PUBLIC
+</span><span class='line'> "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+</span><span class='line'>&lt;html&gt;
+</span><span class='line'>&lt;head&gt;
+</span><span class='line'>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+</span><span class='line'>&lt;title&gt;Todo ログイン&lt;/title&gt;
+</span><span class='line'>&lt;/head&gt;
+</span><span class='line'>&lt;body&gt;
+</span><span class='line'>  &lt;s:property value="errorMsg" /&gt;
+</span><span class='line'>  &lt;s:form action="LoginConfirm" validate="true"&gt;
+</span><span class='line'>      &lt;s:textfield label="ユーザID" name="userid" /&gt;
+</span><span class='line'>      &lt;s:password label="パスワード" name="password" /&gt;
+</span><span class='line'>      &lt;s:submit value="ログイン" /&gt;
+</span><span class='line'>  &lt;/s:form&gt;
+</span><span class='line'>&lt;/body&gt;
+</span><span class='line'>&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>struts.xml</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+</span><span class='line'>&lt;!DOCTYPE struts PUBLIC
+</span><span class='line'>  "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+</span><span class='line'>  "http://struts.apache.org/dtds/struts-2.3.dtd"&gt;
+</span><span class='line'>&lt;struts&gt;
+</span><span class='line'>    &lt;package name="StrutsTodoProject" extends="struts-default"&gt;
+</span><span class='line'>      &lt;!-- ログイン画面を表示 --&gt;
+</span><span class='line'>        &lt;action name="Login" class="todo.Login"&gt;
+</span><span class='line'>            &lt;result name="success"&gt;/page/login.jsp&lt;/result&gt;
+</span><span class='line'>        &lt;/action&gt;
+</span><span class='line'>
+</span><span class='line'>      &lt;!-- ログイン画面-ログインボタン押下時の処理 --&gt;
+</span><span class='line'>        &lt;action name="LoginConfirm" method="confirm" class="todo.Login"&gt;
+</span><span class='line'>            &lt;result name="success"&gt;/page/todolist.jsp&lt;/result&gt;
+</span><span class='line'>            &lt;result name="error"&gt;/page/login.jsp&lt;/result&gt;
+</span><span class='line'>            &lt;result name="input"&gt;/page/login.jsp&lt;/result&gt;
+</span><span class='line'>        &lt;/action&gt;
+</span><span class='line'>    &lt;/package&gt;
+</span><span class='line'>&lt;/struts&gt;</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[strutsでlogin画面]]></title>
