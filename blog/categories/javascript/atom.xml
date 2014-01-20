@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-20T00:58:19+09:00</updated>
+  <updated>2014-01-21T00:43:32+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -28,21 +28,41 @@
 <!-- more -->
 
 
-<p>```</p>
+<p>```
+<HTML>
+<HEAD>
+<TITLE></TITLE>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/></p>
+
+<script type="text/javascript" src="jquery-2.0.3.min.js"></script>
+
+
+<SCRIPT TYPE="text/javascript" src="exdate.js"></SCRIPT>
+
 
 <script type="text/javascript">
-$(function(){
-    var date=$.exDate("<s:property value="javatime"/>","yyyy/mm/dd hh:mi:ss");
-    var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
-    var timeview = 1000;
+function myFunc(){
+  alert(date);
+  var myWeek = new Array("日","月","火","水","木","金","土");
+  var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
+  var ans = new Date(dates+1000);
   setInterval( function(){
     timeview = timeview + 1000;
     ans = new Date(dates+timeview);
-    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
+    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + "(" + myWeek[ans.getDay()] + "曜日)" + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
   }, 1000);
-});
+}
 </script>
 
+
+<p></HEAD>
+<BODY bgcolor="#ffffff"></p>
+
+<p>  <script type="text/javascript">
+  var date=$.exDate(&ldquo;2014/01/17 23:59:55&rdquo;,&ldquo;yyyy/mm/dd hh:mi:ss&rdquo;);
+  var timeview = 1000;
+  myFunc(date);
+  </script></p>
 
 <p id="time"></p>
 
@@ -50,7 +70,9 @@ $(function(){
 <!-- ←ここに1秒ずつ経過する時間を表示 -->
 
 
-<p>```</p>
+<p></BODY>
+</HTML>
+```</p>
 ]]></content>
   </entry>
   

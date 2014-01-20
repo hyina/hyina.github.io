@@ -4,7 +4,7 @@
   <title><![CDATA[Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-20T00:58:19+09:00</updated>
+  <updated>2014-01-21T00:43:32+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,6 +12,135 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Interceptorでsessionawareが使えないものか]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/21/struts2sessionaware/"/>
+    <updated>2014-01-21T00:14:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/21/struts2sessionaware</id>
+    <content type="html"><![CDATA[<p>Interceptor内のセッションはHttpSessionで取得するのばっかり引っかかるけど、SessionAware使っちゃいけないんだっけ？<br/>
+そんな記事もあったような・・・あとでちゃんと調べよう。<br/>
+InterceptorでsessionAwareが使えないか試したメモ。<br/>
+(セッションに突っ込むデータはPOJOで管理。)</p>
+
+<!-- more -->
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.Map;
+</span><span class='line'>import hyina.session.SessionData;
+</span><span class='line'>import javax.servlet.http.HttpServletRequest;
+</span><span class='line'>import javax.servlet.http.HttpSession;
+</span><span class='line'>import org.apache.struts2.ServletActionContext;
+</span><span class='line'>import org.apache.struts2.interceptor.SessionAware;
+</span><span class='line'>import com.opensymphony.xwork2.ActionInvocation;
+</span><span class='line'>import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+</span><span class='line'>
+</span><span class='line'>public class LoginInterceptor extends AbstractInterceptor implements SessionAware {
+</span><span class='line'>
+</span><span class='line'>  private static final long serialVersionUID = 1L;
+</span><span class='line'>  private SessionData sessionData;
+</span><span class='line'>  private Map sessionMap;
+</span><span class='line'>
+</span><span class='line'>    @Override
+</span><span class='line'>    public void setSession(Map sessionMap) {
+</span><span class='line'>        this.sessionMap = sessionMap;
+</span><span class='line'>    }
+</span><span class='line'>    
+</span><span class='line'>  @Override
+</span><span class='line'>  public String intercept(ActionInvocation invocation) throws Exception {
+</span><span class='line'>
+</span><span class='line'>      HttpServletRequest request = ServletActionContext.getRequest();
+</span><span class='line'>      HttpSession session = ServletActionContext.getRequest().getSession(true);
+</span><span class='line'>        // SessionAwareデータ取得
+</span><span class='line'>      sessionData = (SessionData) session.getAttribute(SessionData.getKey());
+</span><span class='line'>        if (null == sessionData) {
+</span><span class='line'>            sessionData = new SessionData();
+</span><span class='line'>        }
+</span><span class='line'>        // userid取得
+</span><span class='line'>        String userid = sessionData.getUserId();
+</span><span class='line'>
+</span><span class='line'>        // ログインしていれば、次のインターセプターへ
+</span><span class='line'>      if ( userid != null && userid.isEmpty() ){
+</span><span class='line'>          return invocation.invoke();
+</span><span class='line'>      }
+</span><span class='line'>      return "login";
+</span><span class='line'>  }
+</span><span class='line'>
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>struts.xml</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  &lt;interceptors&gt;
+</span><span class='line'>        &lt;!-- interceptorの定義 --&gt;
+</span><span class='line'>        &lt;interceptor name="simple" class="〜.LoginInterceptor"/&gt;
+</span><span class='line'>        &lt;!-- interceptorをグルーピング --&gt;
+</span><span class='line'>        &lt;interceptor-stack name="simpleInterceptorStack" &gt;
+</span><span class='line'>            &lt;!-- 呼び出したい順にinterceptorを記述する --&gt;
+</span><span class='line'>            &lt;interceptor-ref name="simple" /&gt;
+</span><span class='line'>            &lt;interceptor-ref name="defaultStack"/&gt;
+</span><span class='line'>        &lt;/interceptor-stack&gt;
+</span><span class='line'>   &lt;/interceptors&gt;
+</span><span class='line'>   &lt;global-results&gt;
+</span><span class='line'>       &lt;result name="login"&gt;/login.jsp&lt;/result&gt;
+</span><span class='line'>   &lt;/global-results&gt;</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[struts2login]]></title>
@@ -549,19 +678,57 @@ Login.java</p>
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script type="text/javascript"&gt;
-</span><span class='line'>$(function(){
-</span><span class='line'>    var date=$.exDate("&lt;s:property value="javatime"/&gt;","yyyy/mm/dd hh:mi:ss");
-</span><span class='line'>    var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
-</span><span class='line'>    var timeview = 1000;
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;HTML&gt;
+</span><span class='line'>&lt;HEAD&gt;
+</span><span class='line'>&lt;TITLE&gt;&lt;/TITLE&gt;
+</span><span class='line'>&lt;meta http-equiv="content-type" content="text/html; charset=utf-8"/&gt;
+</span><span class='line'>&lt;script type="text/javascript" src="jquery-2.0.3.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;SCRIPT TYPE="text/javascript" src="exdate.js"&gt;&lt;/SCRIPT&gt;
+</span><span class='line'>&lt;script type="text/javascript"&gt;
+</span><span class='line'>function myFunc(){
+</span><span class='line'>  alert(date);
+</span><span class='line'>  var myWeek = new Array("日","月","火","水","木","金","土");
+</span><span class='line'>  var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
+</span><span class='line'>  var ans = new Date(dates+1000);
 </span><span class='line'>  setInterval( function(){
 </span><span class='line'>    timeview = timeview + 1000;
 </span><span class='line'>    ans = new Date(dates+timeview);
-</span><span class='line'>    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
+</span><span class='line'>    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + "(" + myWeek[ans.getDay()] + "曜日)" + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
 </span><span class='line'>  }, 1000);
-</span><span class='line'>});
+</span><span class='line'>}
 </span><span class='line'>&lt;/script&gt;
-</span><span class='line'>&lt;p id="time"&gt;&lt;/p&gt;&lt;!-- ←ここに1秒ずつ経過する時間を表示 --&gt;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>
+</span><span class='line'>&lt;/HEAD&gt;
+</span><span class='line'>&lt;BODY bgcolor="#ffffff"&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;script type="text/javascript"&gt;
+</span><span class='line'>  var date=$.exDate("2014/01/17 23:59:55","yyyy/mm/dd hh:mi:ss");
+</span><span class='line'>  var timeview = 1000;
+</span><span class='line'>  myFunc(date);
+</span><span class='line'>  &lt;/script&gt;
+</span><span class='line'>&lt;p id="time"&gt;&lt;/p&gt;&lt;!-- ←ここに1秒ずつ経過する時間を表示 --&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;/BODY&gt;
+</span><span class='line'>&lt;/HTML&gt;</span></code></pre></td></tr></table></div></figure>
 
 
 

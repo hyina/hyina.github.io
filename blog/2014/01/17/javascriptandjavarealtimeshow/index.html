@@ -141,19 +141,57 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;script type="text/javascript"&gt;
-</span><span class='line'>$(function(){
-</span><span class='line'>    var date=$.exDate("&lt;s:property value="javatime"/&gt;","yyyy/mm/dd hh:mi:ss");
-</span><span class='line'>    var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
-</span><span class='line'>    var timeview = 1000;
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;HTML&gt;
+</span><span class='line'>&lt;HEAD&gt;
+</span><span class='line'>&lt;TITLE&gt;&lt;/TITLE&gt;
+</span><span class='line'>&lt;meta http-equiv="content-type" content="text/html; charset=utf-8"/&gt;
+</span><span class='line'>&lt;script type="text/javascript" src="jquery-2.0.3.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>&lt;SCRIPT TYPE="text/javascript" src="exdate.js"&gt;&lt;/SCRIPT&gt;
+</span><span class='line'>&lt;script type="text/javascript"&gt;
+</span><span class='line'>function myFunc(){
+</span><span class='line'>  alert(date);
+</span><span class='line'>  var myWeek = new Array("日","月","火","水","木","金","土");
+</span><span class='line'>  var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
+</span><span class='line'>  var ans = new Date(dates+1000);
 </span><span class='line'>  setInterval( function(){
 </span><span class='line'>    timeview = timeview + 1000;
 </span><span class='line'>    ans = new Date(dates+timeview);
-</span><span class='line'>    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
+</span><span class='line'>    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + "(" + myWeek[ans.getDay()] + "曜日)" + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
 </span><span class='line'>  }, 1000);
-</span><span class='line'>});
+</span><span class='line'>}
 </span><span class='line'>&lt;/script&gt;
-</span><span class='line'>&lt;p id="time"&gt;&lt;/p&gt;&lt;!-- ←ここに1秒ずつ経過する時間を表示 --&gt;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>
+</span><span class='line'>&lt;/HEAD&gt;
+</span><span class='line'>&lt;BODY bgcolor="#ffffff"&gt;
+</span><span class='line'>
+</span><span class='line'>  &lt;script type="text/javascript"&gt;
+</span><span class='line'>  var date=$.exDate("2014/01/17 23:59:55","yyyy/mm/dd hh:mi:ss");
+</span><span class='line'>  var timeview = 1000;
+</span><span class='line'>  myFunc(date);
+</span><span class='line'>  &lt;/script&gt;
+</span><span class='line'>&lt;p id="time"&gt;&lt;/p&gt;&lt;!-- ←ここに1秒ずつ経過する時間を表示 --&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;/BODY&gt;
+</span><span class='line'>&lt;/HTML&gt;</span></code></pre></td></tr></table></div></figure>
 
 
 
@@ -234,7 +272,7 @@
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 145.0%'>java(3)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 145.0%'>java(3)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/struts2' style='font-size: 115.0%'>struts2(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-yong-memo' style='font-size: 115.0%'>個人用メモ(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
 </section>
 
 <br />

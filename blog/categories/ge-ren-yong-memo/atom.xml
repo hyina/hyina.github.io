@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 個人用メモ | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/ge-ren-yong-memo/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2014-01-21T00:43:32+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Interceptorでsessionawareが使えないものか]]></title>
+    <link href="http://hyina.github.io/blog/2014/01/21/struts2sessionaware/"/>
+    <updated>2014-01-21T00:14:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/01/21/struts2sessionaware</id>
+    <content type="html"><![CDATA[<p>Interceptor内のセッションはHttpSessionで取得するのばっかり引っかかるけど、SessionAware使っちゃいけないんだっけ？<br/>
+そんな記事もあったような・・・あとでちゃんと調べよう。<br/>
+InterceptorでsessionAwareが使えないか試したメモ。<br/>
+(セッションに突っ込むデータはPOJOで管理。)</p>
+
+<!-- more -->
+
+
+<p>```
+import java.util.Map;
+import hyina.session.SessionData;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;</p>
+
+<p>public class LoginInterceptor extends AbstractInterceptor implements SessionAware {</p>
+
+<pre><code>private static final long serialVersionUID = 1L;
+private SessionData sessionData;
+private Map sessionMap;
+
+@Override
+public void setSession(Map sessionMap) {
+    this.sessionMap = sessionMap;
+}
+
+@Override
+public String intercept(ActionInvocation invocation) throws Exception {
+
+    HttpServletRequest request = ServletActionContext.getRequest();
+    HttpSession session = ServletActionContext.getRequest().getSession(true);
+    // SessionAwareデータ取得
+    sessionData = (SessionData) session.getAttribute(SessionData.getKey());
+    if (null == sessionData) {
+        sessionData = new SessionData();
+    }
+    // userid取得
+    String userid = sessionData.getUserId();
+
+    // ログインしていれば、次のインターセプターへ
+    if ( userid != null &amp;&amp; userid.isEmpty() ){
+        return invocation.invoke();
+    }
+    return "login";
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>struts.xml
+```</p>
+
+<pre><code>  &lt;interceptors&gt;
+        &lt;!-- interceptorの定義 --&gt;
+        &lt;interceptor name="simple" class="〜.LoginInterceptor"/&gt;
+        &lt;!-- interceptorをグルーピング --&gt;
+        &lt;interceptor-stack name="simpleInterceptorStack" &gt;
+            &lt;!-- 呼び出したい順にinterceptorを記述する --&gt;
+            &lt;interceptor-ref name="simple" /&gt;
+            &lt;interceptor-ref name="defaultStack"/&gt;
+        &lt;/interceptor-stack&gt;
+   &lt;/interceptors&gt;
+   &lt;global-results&gt;
+       &lt;result name="login"&gt;/login.jsp&lt;/result&gt;
+   &lt;/global-results&gt;
+</code></pre>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>
