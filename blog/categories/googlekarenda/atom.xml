@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: googleカレンダー | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/googlekarenda/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2014-02-03T22:03:41+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Androidで共有のGoogleカレンダーを同期する]]></title>
+    <link href="http://hyina.github.io/blog/2014/02/03/android-google-calender/"/>
+    <updated>2014-02-03T21:22:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/02/03/android-google-calender</id>
+    <content type="html"><![CDATA[<p>自動同期の設定とアカウントに紐付いている複数カレンダーの表示設定。<br/>
+ことある度に調べてるからメモ。<br/>
+まぁ、端末変えた時にしかしないからな(´・ω・｀)</p>
+
+<h3>【目的】Googleカレンダーで複数のカレンダーをAndroidで同期する</h3>
+
+<p>Androidのカレンダーは初期Xperiaの時からジョルテを使用している。<br/>
+が、同期するかの設定は、Androidの設定画面だったり、標準のカレンダーからだったりするので、いつも迷子に・・・。</p>
+
+<!-- more -->
+
+
+<p>Googleカレンダーでカレンダーは作成済みなものとして、さっそくAndroidの設定を行います。</p>
+
+<ol>
+<li>Androidの標準カレンダーを開く（アプリケーション一覧の中から「カレンダー」で検索とか）</li>
+<li>右上の「…」から「マイカレンダー」をタッチ</li>
+<li>Googleやdocomoで管理しているカレンダーの一覧が表示される</li>
+<li>同期したい（ジョルテに表示したい）カレンダーをタッチすれば、ジョルテにも反映される
+
+<ul>
+<li>もし、この中に目的のカレンダーがない場合はGoogleアカウントとの同期が上手くいってない状態と思われ。</li>
+</ul>
+</li>
+</ol>
+
+
+<p>ジョルテ自身がGoogleカレンダーと直接同期しておらず、AndroidOSのカレンダーに依存しているため、上記の作業が必要となります。</p>
+
+<p>ジョルテ　⇔　Androidカレンダー　⇔　Googleカレンダー　って関係。<br/>
+他のGoogleの機能を使用するアプリもこうなっているはず。知らんけどｗ←</p>
+
+<h3>Android自身のGoogleカレンダー同期方法</h3>
+
+<p>念のため。</p>
+
+<ol>
+<li>Androidの設定画面を開く</li>
+<li>「アカウントを追加」でGoogleアカウントを追加 or 既存Googleアカウントをタッチ</li>
+<li>アカウントをタッチして同期対象一覧を表示する</li>
+<li>カレンダーが同期ONになっていることを確認 or 矢印がグルグル回っているアイコンをタッチする
+
+<ul>
+<li>一旦チェックを外して、もう１度チェックした方が確実かも</li>
+</ul>
+</li>
+</ol>
+
+
+<p>もし、上記4でチェックをつけてもチェックが外れてしまう場合は、下記の設定を行い、再度設定すればOK。</p>
+
+<h3>データの自動同期設定</h3>
+
+<p>この設定がされてない場合、自動同期の設定（Gメールとかカレンダーとか色々）が出来ない。</p>
+
+<ol>
+<li>Androidの設定画面を開く</li>
+<li>「データ使用」をタッチ</li>
+<li>「…」からメニューを開き、「データの自動同期」にチェックを入れる</li>
+</ol>
+
+
+<p>これで自動同期が出来るようになる。</p>
+
+<p>いじょー。</p>
+]]></content>
+  </entry>
+  
+</feed>

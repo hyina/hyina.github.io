@@ -97,6 +97,54 @@
       
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2014/02/03/android-google-calender/">Androidで共有のGoogleカレンダーを同期する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-03T21:22:00+09:00" pubdate data-updated="true">2014-02-03</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>自動同期の設定とアカウントに紐付いている複数カレンダーの表示設定。<br/>
+ことある度に調べてるからメモ。<br/>
+まぁ、端末変えた時にしかしないからな(´・ω・｀)</p>
+
+<h3>【目的】Googleカレンダーで複数のカレンダーをAndroidで同期する</h3>
+
+<p>Androidのカレンダーは初期Xperiaの時からジョルテを使用している。<br/>
+が、同期するかの設定は、Androidの設定画面だったり、標準のカレンダーからだったりするので、いつも迷子に・・・。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/02/03/android-google-calender/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2014/01/21/struts2sessionaware/">Interceptorでsessionawareが使えないものか</a></h1>
     
     
@@ -141,7 +189,7 @@ InterceptorでsessionAwareが使えないか試したメモ。<br/>
       
   <header class="page-header">
     
-      <h1 class="entry-title"><a href="/blog/2014/01/19/struts2login/">Struts2login</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/01/19/struts2login/">Struts2のlogin</a></h1>
     
     
       <p class="meta">
@@ -169,7 +217,7 @@ InterceptorでsessionAwareが使えないか試したメモ。<br/>
 s
 Login.java</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -279,121 +327,122 @@ Login.java</p>
 <span class='line-number'>108</span>
 <span class='line-number'>109</span>
 <span class='line-number'>110</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.List;
-</span><span class='line'>import org.apache.struts2.interceptor.validation.SkipValidation;
-</span><span class='line'>import todo.hibernate.TodoUser;
-</span><span class='line'>import todo.hibernate.TodoUserHome;
-</span><span class='line'>import com.opensymphony.xwork2.ActionSupport;
-</span><span class='line'>import com.opensymphony.xwork2.validator.annotations.*;
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.apache.struts2.interceptor.validation.SkipValidation</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">todo.hibernate.TodoUser</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">todo.hibernate.TodoUserHome</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.opensymphony.xwork2.ActionSupport</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.opensymphony.xwork2.validator.annotations.*</span><span class="o">;</span>
 </span><span class='line'>
-</span><span class='line'>@Validations(
-</span><span class='line'>      requiredFields = {
-</span><span class='line'>              @RequiredFieldValidator(
-</span><span class='line'>                      fieldName="userid",
-</span><span class='line'>                      message="ユーザIDを入力してください。"),
-</span><span class='line'>              @RequiredFieldValidator(
-</span><span class='line'>                  fieldName="password",
-</span><span class='line'>                  message="パスワードを入力してください。")
-</span><span class='line'>      }
-</span><span class='line'>)
+</span><span class='line'><span class="nd">@Validations</span><span class="o">(</span>
+</span><span class='line'>      <span class="n">requiredFields</span> <span class="o">=</span> <span class="o">{</span>
+</span><span class='line'>              <span class="nd">@RequiredFieldValidator</span><span class="o">(</span>
+</span><span class='line'>                      <span class="n">fieldName</span><span class="o">=</span><span class="s">&quot;userid&quot;</span><span class="o">,</span>
+</span><span class='line'>                      <span class="n">message</span><span class="o">=</span><span class="s">&quot;ユーザIDを入力してください。&quot;</span><span class="o">),</span>
+</span><span class='line'>              <span class="nd">@RequiredFieldValidator</span><span class="o">(</span>
+</span><span class='line'>                  <span class="n">fieldName</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="o">,</span>
+</span><span class='line'>                  <span class="n">message</span><span class="o">=</span><span class="s">&quot;パスワードを入力してください。&quot;</span><span class="o">)</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'><span class="o">)</span>
 </span><span class='line'>
-</span><span class='line'>public class Login  extends ActionSupport {
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Login</span>  <span class="kd">extends</span> <span class="n">ActionSupport</span> <span class="o">{</span>
 </span><span class='line'>
-</span><span class='line'>  private static final long serialVersionUID = 1L;
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
 </span><span class='line'>  
-</span><span class='line'>  private String errorMsg = null;
-</span><span class='line'>  private String userid = null;
-</span><span class='line'>  private String password = null;
+</span><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">errorMsg</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">userid</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 </span><span class='line'>  
-</span><span class='line'>  /**
-</span><span class='line'>   * useridのgetter
-</span><span class='line'>   * @return userid
-</span><span class='line'>   */
-</span><span class='line'>  public String getUserid() {
-</span><span class='line'>      return this.userid;
-</span><span class='line'>  }
-</span><span class='line'>  /**
-</span><span class='line'>   * useridのsetter
-</span><span class='line'>   * @param userid
-</span><span class='line'>   */
-</span><span class='line'>  public void setUserid(String userid) {
-</span><span class='line'>      this.userid = userid;
-</span><span class='line'>  }
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * useridのgetter</span>
+</span><span class='line'><span class="cm">  * @return userid</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getUserid</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">userid</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * useridのsetter</span>
+</span><span class='line'><span class="cm">  * @param userid</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUserid</span><span class="o">(</span><span class="n">String</span> <span class="n">userid</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="o">.</span><span class="na">userid</span> <span class="o">=</span> <span class="n">userid</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>  
-</span><span class='line'>  /**
-</span><span class='line'>   * passwordのgetter
-</span><span class='line'>   * @return password
-</span><span class='line'>   */
-</span><span class='line'>  public String getPassword() {
-</span><span class='line'>      return this.password;
-</span><span class='line'>  }
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * passwordのgetter</span>
+</span><span class='line'><span class="cm">  * @return password</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getPassword</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">password</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>  
-</span><span class='line'>  /**
-</span><span class='line'>   * passwordのsetter
-</span><span class='line'>   * @param password
-</span><span class='line'>   */
-</span><span class='line'>  public void setPassword(String password) {
-</span><span class='line'>      this.password = password;
-</span><span class='line'>  }
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * passwordのsetter</span>
+</span><span class='line'><span class="cm">  * @param password</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPassword</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>  
-</span><span class='line'>  /**
-</span><span class='line'>   * replyMsgのgetter
-</span><span class='line'>   * @return replyMsg
-</span><span class='line'>   */
-</span><span class='line'>  public String getErrorMsg() {
-</span><span class='line'>      return this.errorMsg;
-</span><span class='line'>  }
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * replyMsgのgetter</span>
+</span><span class='line'><span class="cm">  * @return replyMsg</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getErrorMsg</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">errorMsg</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>  
-</span><span class='line'>  /**
-</span><span class='line'>   * replyMsgのsetter
-</span><span class='line'>   * @param replyMsg
-</span><span class='line'>   */
-</span><span class='line'>  public void setErrorMsg(String errorMsg) {
-</span><span class='line'>      this.errorMsg = errorMsg;
-</span><span class='line'>  }
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * replyMsgのsetter</span>
+</span><span class='line'><span class="cm">  * @param replyMsg</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setErrorMsg</span><span class="o">(</span><span class="n">String</span> <span class="n">errorMsg</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="o">.</span><span class="na">errorMsg</span> <span class="o">=</span> <span class="n">errorMsg</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>  
-</span><span class='line'>  /**
-</span><span class='line'>   * デフォルトのActionメソッド
-</span><span class='line'>   * 初期表示のため、validateは行わない
-</span><span class='line'>   * @return "success"
-</span><span class='line'>   */
-</span><span class='line'>  @SkipValidation
-</span><span class='line'>  public String execute() throws Exception {
-</span><span class='line'>      return "success";
-</span><span class='line'>  }
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * デフォルトのActionメソッド</span>
+</span><span class='line'><span class="cm">  * 初期表示のため、validateは行わない</span>
+</span><span class='line'><span class="cm">  * @return &quot;success&quot;</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="nd">@SkipValidation</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="s">&quot;success&quot;</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>  
-</span><span class='line'>  /**
-</span><span class='line'>   * ログインボタン押下時(submit時)のActionメソッド
-</span><span class='line'>   * @return "success"
-</span><span class='line'>   * @throws Exception
-</span><span class='line'>   */
-</span><span class='line'>  public String confirm() throws Exception {
-</span><span class='line'>      return LoginCheck();
-</span><span class='line'>  }
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * ログインボタン押下時(submit時)のActionメソッド</span>
+</span><span class='line'><span class="cm">  * @return &quot;success&quot;</span>
+</span><span class='line'><span class="cm">  * @throws Exception</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="nf">confirm</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nf">LoginCheck</span><span class="o">();</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>  
-</span><span class='line'>  private String LoginCheck() {
+</span><span class='line'>  <span class="kd">private</span> <span class="n">String</span> <span class="nf">LoginCheck</span><span class="o">()</span> <span class="o">{</span>
 </span><span class='line'>
-</span><span class='line'>      //ユーザ名の入力チェック
-</span><span class='line'>        TodoUserHome tuh = new TodoUserHome();
-</span><span class='line'>      List&lt;TodoUser&gt; TodoUser = tuh.getListByNamePassowordHql(getUserid(), getPassword());
+</span><span class='line'>      <span class="c1">//ユーザ名の入力チェック</span>
+</span><span class='line'>        <span class="n">TodoUserHome</span> <span class="n">tuh</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TodoUserHome</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">List</span><span class="o">&lt;</span><span class="n">TodoUser</span><span class="o">&gt;</span> <span class="n">TodoUser</span> <span class="o">=</span> <span class="n">tuh</span><span class="o">.</span><span class="na">getListByNamePassowordHql</span><span class="o">(</span><span class="n">getUserid</span><span class="o">(),</span> <span class="n">getPassword</span><span class="o">());</span>
 </span><span class='line'>      
-</span><span class='line'>      //ユーザ登録状況確認
-</span><span class='line'>      if (TodoUser.isEmpty()) {
-</span><span class='line'>          setErrorMsg("ユーザ名またはパスワードが間違っています");
-</span><span class='line'>          return ActionSupport.ERROR;             
-</span><span class='line'>      } else {
-</span><span class='line'>          //セッションに格納する処理
+</span><span class='line'>      <span class="c1">//ユーザ登録状況確認</span>
+</span><span class='line'>      <span class="k">if</span> <span class="o">(</span><span class="n">TodoUser</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">setErrorMsg</span><span class="o">(</span><span class="s">&quot;ユーザ名またはパスワードが間違っています&quot;</span><span class="o">);</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">ActionSupport</span><span class="o">.</span><span class="na">ERROR</span><span class="o">;</span>             
+</span><span class='line'>      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>          <span class="c1">//セッションに格納する処理</span>
 </span><span class='line'>
-</span><span class='line'>          return ActionSupport.SUCCESS;
-</span><span class='line'>      }
-</span><span class='line'>  }
+</span><span class='line'>          <span class="k">return</span> <span class="n">ActionSupport</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
 </span><span class='line'>
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>画面側</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -412,30 +461,31 @@ Login.java</p>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
-</span><span class='line'>    pageEncoding="UTF-8"%&gt;
-</span><span class='line'>&lt;%@ taglib prefix="s" uri="/struts-tags" %&gt;
-</span><span class='line'>&lt;!DOCTYPE html PUBLIC
-</span><span class='line'> "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
-</span><span class='line'>&lt;html&gt;
-</span><span class='line'>&lt;head&gt;
-</span><span class='line'>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
-</span><span class='line'>&lt;title&gt;Todo ログイン&lt;/title&gt;
-</span><span class='line'>&lt;/head&gt;
-</span><span class='line'>&lt;body&gt;
-</span><span class='line'>  &lt;s:property value="errorMsg" /&gt;
-</span><span class='line'>  &lt;s:form action="LoginConfirm" validate="true"&gt;
-</span><span class='line'>      &lt;s:textfield label="ユーザID" name="userid" /&gt;
-</span><span class='line'>      &lt;s:password label="パスワード" name="password" /&gt;
-</span><span class='line'>      &lt;s:submit value="ログイン" /&gt;
-</span><span class='line'>  &lt;/s:form&gt;
-</span><span class='line'>&lt;/body&gt;
-</span><span class='line'>&lt;/html&gt;</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;%</span><span class="err">@</span> <span class="n">page</span> <span class="n">language</span><span class="o">=</span><span class="s">&quot;java&quot;</span> <span class="n">contentType</span><span class="o">=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span>
+</span><span class='line'>    <span class="n">pageEncoding</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="o">%&gt;</span>
+</span><span class='line'><span class="o">&lt;%</span><span class="err">@</span> <span class="n">taglib</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&quot;s&quot;</span> <span class="n">uri</span><span class="o">=</span><span class="s">&quot;/struts-tags&quot;</span> <span class="o">%&gt;</span>
+</span><span class='line'><span class="o">&lt;!</span><span class="n">DOCTYPE</span> <span class="n">html</span> <span class="n">PUBLIC</span>
+</span><span class='line'> <span class="s">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span> <span class="s">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">meta</span> <span class="n">http</span><span class="o">-</span><span class="n">equiv</span><span class="o">=</span><span class="s">&quot;Content-Type&quot;</span> <span class="n">content</span><span class="o">=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="n">Todo</span> <span class="err">ログイン</span><span class="o">&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nl">s:</span><span class="n">property</span> <span class="n">value</span><span class="o">=</span><span class="s">&quot;errorMsg&quot;</span> <span class="o">/&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nl">s:</span><span class="n">form</span> <span class="n">action</span><span class="o">=</span><span class="s">&quot;LoginConfirm&quot;</span> <span class="n">validate</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="nl">s:</span><span class="n">textfield</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;ユーザID&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;userid&quot;</span> <span class="o">/&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="nl">s:</span><span class="n">password</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;パスワード&quot;</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="o">/&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="nl">s:</span><span class="n">submit</span> <span class="n">value</span><span class="o">=</span><span class="s">&quot;ログイン&quot;</span> <span class="o">/&gt;</span>
+</span><span class='line'>  <span class="o">&lt;/</span><span class="nl">s:</span><span class="n">form</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>struts.xml</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -454,25 +504,26 @@ Login.java</p>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
-</span><span class='line'>&lt;!DOCTYPE struts PUBLIC
-</span><span class='line'>  "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-</span><span class='line'>  "http://struts.apache.org/dtds/struts-2.3.dtd"&gt;
-</span><span class='line'>&lt;struts&gt;
-</span><span class='line'>    &lt;package name="StrutsTodoProject" extends="struts-default"&gt;
-</span><span class='line'>      &lt;!-- ログイン画面を表示 --&gt;
-</span><span class='line'>        &lt;action name="Login" class="todo.Login"&gt;
-</span><span class='line'>            &lt;result name="success"&gt;/page/login.jsp&lt;/result&gt;
-</span><span class='line'>        &lt;/action&gt;
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="o">=</span><span class="s">&quot;1.0&quot;</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span> <span class="o">?&gt;</span>
+</span><span class='line'><span class="o">&lt;!</span><span class="n">DOCTYPE</span> <span class="n">struts</span> <span class="n">PUBLIC</span>
+</span><span class='line'>  <span class="s">&quot;-//Apache Software Foundation//DTD Struts Configuration 2.3//EN&quot;</span>
+</span><span class='line'>  <span class="s">&quot;http://struts.apache.org/dtds/struts-2.3.dtd&quot;</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">struts</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="kn">package</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;StrutsTodoProject&quot;</span> <span class="kd">extends</span><span class="o">=</span><span class="s">&quot;struts-default&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;!--</span> <span class="err">ログイン画面を表示</span> <span class="o">--&gt;</span>
+</span><span class='line'>        <span class="o">&lt;</span><span class="n">action</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;Login&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;todo.Login&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>            <span class="o">&lt;</span><span class="n">result</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;success&quot;</span><span class="o">&gt;/</span><span class="n">page</span><span class="o">/</span><span class="n">login</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">result</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="o">&lt;/</span><span class="n">action</span><span class="o">&gt;</span>
 </span><span class='line'>
-</span><span class='line'>      &lt;!-- ログイン画面-ログインボタン押下時の処理 --&gt;
-</span><span class='line'>        &lt;action name="LoginConfirm" method="confirm" class="todo.Login"&gt;
-</span><span class='line'>            &lt;result name="success"&gt;/page/todolist.jsp&lt;/result&gt;
-</span><span class='line'>            &lt;result name="error"&gt;/page/login.jsp&lt;/result&gt;
-</span><span class='line'>            &lt;result name="input"&gt;/page/login.jsp&lt;/result&gt;
-</span><span class='line'>        &lt;/action&gt;
-</span><span class='line'>    &lt;/package&gt;
-</span><span class='line'>&lt;/struts&gt;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>      <span class="o">&lt;!--</span> <span class="err">ログイン画面</span><span class="o">-</span><span class="err">ログインボタン押下時の処理</span> <span class="o">--&gt;</span>
+</span><span class='line'>        <span class="o">&lt;</span><span class="n">action</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;LoginConfirm&quot;</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;confirm&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s">&quot;todo.Login&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>            <span class="o">&lt;</span><span class="n">result</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;success&quot;</span><span class="o">&gt;/</span><span class="n">page</span><span class="o">/</span><span class="n">todolist</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">result</span><span class="o">&gt;</span>
+</span><span class='line'>            <span class="o">&lt;</span><span class="n">result</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;error&quot;</span><span class="o">&gt;/</span><span class="n">page</span><span class="o">/</span><span class="n">login</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">result</span><span class="o">&gt;</span>
+</span><span class='line'>            <span class="o">&lt;</span><span class="n">result</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;input&quot;</span><span class="o">&gt;/</span><span class="n">page</span><span class="o">/</span><span class="n">login</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">result</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="o">&lt;/</span><span class="n">action</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;/</span><span class="n">package</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">struts</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
@@ -840,55 +891,6 @@ Login.java</p>
 
     </article>
   
-  
-    <article>
-      
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/">HeadFirstオブジェクト指向分析設計を読んだ時のメモ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-31T15:01:00+09:00" pubdate data-updated="true">2013-12-31</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Head First オブジェクト指向分析設計のメモ</h2>
-
-<p>「Head First オブジェクト指向分析」を読んで理解出来ていなかったところや、大事そうなところをメモしていく。<br/>
-今後のために…。</p>
-
-<h2>オブジェクト指向分析設計とは</h2>
-
-<p>実際にはコードに必要な処理を行わせること、そしてその設計をよくすることに特化したソフトウェア作成手法にすぎない。<br/>
-つまり、柔軟で、変更が容易であり、保守と再利用が可能であるコードを作成するための方法。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/31/headfirst-object-oriented-analysis-and-design/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; Older</a></li>
@@ -906,7 +908,7 @@ Login.java</p>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 145.0%'>java(3)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/struts2' style='font-size: 115.0%'>struts2(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-yong-memo' style='font-size: 115.0%'>個人用メモ(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/android' style='font-size: 115.0%'>android(1)</a> <a href='/blog/categories/googlekarenda' style='font-size: 115.0%'>googleカレンダー(1)</a> <a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 145.0%'>java(3)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>Strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/struts2' style='font-size: 115.0%'>struts2(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-yong-memo' style='font-size: 115.0%'>個人用メモ(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
 </section>
 
 <br />

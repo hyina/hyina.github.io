@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: strtus | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <title><![CDATA[Category: Strtus | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/strtus/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-01-21T00:43:32+09:00</updated>
+  <updated>2014-02-03T22:03:41+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[struts2login]]></title>
+    <title type="html"><![CDATA[struts2のlogin]]></title>
     <link href="http://hyina.github.io/blog/2014/01/19/struts2login/"/>
     <updated>2014-01-19T23:25:00+09:00</updated>
     <id>http://hyina.github.io/blog/2014/01/19/struts2login</id>
@@ -23,7 +23,7 @@
 s
 Login.java</p>
 
-<p>```
+<p>``` java
 import java.util.List;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 import todo.hibernate.TodoUser;
