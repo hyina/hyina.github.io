@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
   <link href="http://hyina.github.io/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://hyina.github.io/"/>
-  <updated>2014-02-03T22:03:41+09:00</updated>
+  <updated>2014-03-12T21:30:55+09:00</updated>
   <id>http://hyina.github.io/</id>
   <author>
     <name><![CDATA[hyina]]></name>
@@ -12,6 +12,212 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[log4j 2.x系]]></title>
+    <link href="http://hyina.github.io/blog/2014/03/12/log4j-2-dot-x/"/>
+    <updated>2014-03-12T20:43:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/03/12/log4j-2-dot-x</id>
+    <content type="html"><![CDATA[<p>仕事でlog4jは使ったことあったが、1.2だった。<br/>
+2.x系の使い方も見とくかーということで、メモしておく。<br/>
+最近新規で開発したのに、log4j 1.2使ってたのはどうなのかとは思う&hellip;</p>
+
+<h4>公式サイト</h4>
+
+<p><a href="http://logging.apache.org/log4j/2.x/">Apache Log4j 2</a></p>
+
+<!-- more -->
+
+
+<h4>2.x系</h4>
+
+<p>基本的な考え方は変わってないが、こんな感じになっているみたい。</p>
+
+<ul>
+<li>設定ファイルの形式でpropertiesが廃止されて、XMLとJSONがサポートされた。</li>
+<li>命名規則が、log4jからlog4j2になった。</li>
+<li>設定の自動リロード</li>
+<li>plugin機構の追加</li>
+</ul>
+
+
+<p>などなど。</p>
+
+<h3>おさらい</h3>
+
+<p>1.x系ではこうやってた。</p>
+
+<h4>maven</h4>
+
+<p>POMに依存ライブラリとして以下を追加する。</p>
+
+<p>```
+<dependency></p>
+
+<pre><code>&lt;groupId&gt;log4j&lt;/groupId&gt;
+&lt;artifactId&gt;log4j&lt;/artifactId&gt;
+&lt;version&gt;1.2.17&lt;/version&gt;
+</code></pre>
+
+<p></dependency>
+```</p>
+
+<h4>log4j.xml</h4>
+
+<p>設定ファイル。クラスパスが通っている場所に置くのがいちばん手早い。<br/>
+```
+&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo; ?>
+&lt;!DOCTYPE log4j:configuration SYSTEM &ldquo;log4j.dtd&rdquo;>
+&lt;log4j:configuration xmlns:log4j=&ldquo;<a href="http://jakarta.apache.org/log4j/">http://jakarta.apache.org/log4j/</a>&rdquo;></p>
+
+<pre><code>&lt;appender name="console" class="org.apache.log4j.ConsoleAppender"&gt;
+    &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+        &lt;param name="ConversionPattern" value="%-5p [%t]: %m%n" /&gt;
+    &lt;/layout&gt;
+&lt;/appender&gt;
+&lt;root&gt;
+    &lt;level value="info" /&gt;
+    &lt;appender-ref ref="console" /&gt;
+&lt;/root&gt;
+</code></pre>
+
+<p>&lt;/log4j:configuration>
+```</p>
+
+<h4>Java側</h4>
+
+<p>Loggerのインスタンスを作って、ログ出力用のメソッドにメッセージを渡す。<br/>
+メモ用なので適当にログ出力させる。</p>
+
+<p>```
+import org.apache.log4j.Logger;</p>
+
+<p>public class LogForJ {</p>
+
+<pre><code>private static final Logger LOG = Logger.getLogger(LogForJ.class);
+
+public static void main(String[] args) {
+    String str1 = "プレース";
+    String str2 = "ホルダー";
+    LOG.info("mainにはいったよ: str1 = " + str1 + ", str2 =" str2);
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>log4j 2.x系</h3>
+
+<h4>maven</h4>
+
+<p>最小構成で必要なjarが２つに分かれた。<br/>
+下記の2つを追加する。</p>
+
+<p>```
+<dependency></p>
+
+<pre><code>&lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+&lt;artifactId&gt;log4j-api&lt;/artifactId&gt;
+&lt;version&gt;2.0-rc1&lt;/version&gt;
+</code></pre>
+
+<p></dependency>
+<dependency>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <version>2.0-rc1</version>
+</dependency>
+```</p>
+
+<h4>log4j2.xml</h4>
+
+<p>appenders要素とloggers要素が新たに登場している(ともに複数形の s が付いている)。<br/>
+一段インデントが深くなったかわりに、個々のアペンダーやロガーがLog4j 1.2 のときよりちょっと短く書ける。<br/>
+とりあえず、コンソールとファイル出力させてる。</p>
+
+<p>```
+&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo; ?>
+<configuration></p>
+
+<pre><code>&lt;appenders&gt;
+    &lt;Console name="console"&gt;
+        &lt;PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/&gt;
+    &lt;/Console&gt;
+    &lt;File name="fileAppender" fileName="myapp.log"&gt;
+        &lt;PatternLayout&gt;
+            &lt;pattern&gt;%msg%n&lt;/pattern&gt;
+        &lt;/PatternLayout&gt;
+    &lt;/File&gt;
+&lt;/appenders&gt;
+
+&lt;loggers&gt;
+    &lt;root level="debug"&gt;
+        &lt;appender-ref ref="console" /&gt;
+        &lt;appender-ref ref="fileAppender"/&gt; &lt;-- 2つappender指定可能 --&gt;
+    &lt;/root&gt;
+&lt;/loggers&gt;
+</code></pre>
+
+<p></configuration>
+```</p>
+
+<h4>Java側</h4>
+
+<p>Java側はこんな感じ。<br/>
+LogManager#getLoggerが引数なしで使えるようになった。<br/>
+とりあえず、コード。</p>
+
+<p>```
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;</p>
+
+<p>public class Main {</p>
+
+<pre><code>private static final Logger LOG = LogManager.getLogger();
+
+public static void main(String[] args) {
+    String str1 = "プレース";
+    String str2 = "ホルダー";
+    LOG.debug("mainにはいったよ: str1 = {}, str2 = {}", str1, str2);
+}
+</code></pre>
+
+<p>}
+```
+ポイントはここらへん。
+1. パッケージが変わった (org.apache.log4j → org.apache.logging.log4j)
+2. Logger のインスタンスを取得する static メソッドの getLogger は、Logger にはなくなった
+3. Logger#infoなどのログ出力メソッドで、プレースホルダと可変長引数が使えるようになった</p>
+
+<pre><code> * {} の部分に引数が埋め込まれる。  
+ * 2.x系では、基本プレースホルダーを使用するのが良いらしい。文字連結とではパフォーマンスが結構変わるみたい。（文字連結は、ログ出力メソッドより先に実行されるため。）logger#debugなんて本番環境ではオフにするけど、それでも文字列連結は無駄に実行されてしまうので注意。  
+ * どれくらい性能差が出るかは [Performance - Apache Log4j 2](http://logging.apache.org/log4j/2.x/performance.html)で詳しく解説されているよ。  
+</code></pre>
+
+<h3>互換性?</h3>
+
+<p>Log4j 2.x系 に Log4j 1.2 互換の API をラッパーとしてかぶせることもできるようになっている。<br/>
+使い方は互換 APIのjarを追加するだけ。<br/>
+Maven の場合は、Log4j 2.x系 のライブラリに加えて、下記を追加するだけでいい。<br/>
+ただし、あくまで Log4j 1.2 の皮を被るだけなので、設定ファイルは Logj 2.0 の形式で用意する必要がある。</p>
+
+<p>```
+<dependency></p>
+
+<pre><code>&lt;groupId&gt;org.apache.logging.log4j.adapters&lt;/groupId&gt;
+&lt;artifactId&gt;log4j12-api&lt;/artifactId&gt;
+&lt;version&gt;2.0-rc1&lt;/version&gt;
+</code></pre>
+
+<p></dependency>
+```</p>
+
+<h3>さいごに</h3>
+
+<p>SLF4J で良くね？という人もいるでしょう。<br/>
+・・・使えないこともあるんですよ←</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[javaのsubstringの使い方と月末日の取得方法！]]></title>

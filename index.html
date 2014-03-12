@@ -97,6 +97,53 @@
       
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2014/03/12/log4j-2-dot-x/">Log4j 2.x系</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-12T20:43:00+09:00" pubdate data-updated="true">2014-03-12</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>仕事でlog4jは使ったことあったが、1.2だった。<br/>
+2.x系の使い方も見とくかーということで、メモしておく。<br/>
+最近新規で開発したのに、log4j 1.2使ってたのはどうなのかとは思う&hellip;</p>
+
+<h4>公式サイト</h4>
+
+<p><a href="http://logging.apache.org/log4j/2.x/">Apache Log4j 2</a></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/03/12/log4j-2-dot-x/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2014/02/03/android-google-calender/">Androidで共有のGoogleカレンダーを同期する</a></h1>
     
     
@@ -794,103 +841,6 @@ Login.java</p>
 
     </article>
   
-  
-    <article>
-      
-  <header class="page-header">
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/13/hibernatesettings/">Hibernateの設定周り＋α</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-13T20:26:00+09:00" pubdate data-updated="true">2014-01-13</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Hibernateの設定</h3>
-
-<p>最低こんくらいあれば動くと思う。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-</span><span class='line'>&lt;!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-</span><span class='line'>                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;
-</span><span class='line'>&lt;hibernate-configuration&gt;
-</span><span class='line'>  &lt;session-factory name=""&gt;
-</span><span class='line'>      &lt;!-- session contextの設定 --&gt;
-</span><span class='line'>      &lt;property name="current_session_context_class"&gt;thread&lt;/property&gt;
-</span><span class='line'>      &lt;!-- DBのドライバ --&gt;
-</span><span class='line'>      &lt;property name="hibernate.connection.driver_class"&gt;org.gjt.mm.mysql.Driver&lt;/property&gt;
-</span><span class='line'>      &lt;property name="hibernate.dialect"&gt;org.hibernate.dialect.MySQLDialect&lt;/property&gt;
-</span><span class='line'>      &lt;!-- DBのユーザ・パスワード --&gt;
-</span><span class='line'>      &lt;property name="hibernate.connection.username"&gt;　&lt;/property&gt;
-</span><span class='line'>      &lt;property name="hibernate.connection.password"&gt;　&lt;/property&gt;
-</span><span class='line'>      &lt;!-- 接続するDBのURL --&gt;
-</span><span class='line'>      &lt;property name="hibernate.connection.url"&gt;jdbc:mysql://localhost:3306/〜&lt;/property&gt;
-</span><span class='line'>      &lt;!-- コネクションプールの設定 --&gt;
-</span><span class='line'>      &lt;property name="hibernate.connection.pool_size"&gt;3&lt;/property&gt;
-</span><span class='line'>      &lt;!-- 実行SQLをコンソールに表示するか（true:表示、false:非表示） --&gt;
-</span><span class='line'>      &lt;property name="hibernate.show_sql"&gt;true&lt;/property&gt;
-</span><span class='line'>      &lt;!-- マッピングファイルの定義 --&gt;
-</span><span class='line'>      &lt;!-- hibernateのxmlで管理する場合 --&gt;
-</span><span class='line'>      &lt;mapping resource="src以下のディレクトリ/〜/〜.hbm.xml" /&gt;
-</span><span class='line'>      &lt;!-- アノテーションで管理する場合 --&gt;
-</span><span class='line'>      &lt;mapping class="パッケージ名.パッケージ名.クラス名" /&gt;
-</span><span class='line'>  &lt;/session-factory&gt;
-</span><span class='line'>&lt;/hibernate-configuration&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/01/13/hibernatesettings/">続きを読む</a>
-    </footer>
-  
-
-
-    </article>
-  
   <ul class="pager">
     
     <li class="previous"><a href="/blog/page/2/">&larr; Older</a></li>
@@ -908,7 +858,7 @@ Login.java</p>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/android' style='font-size: 115.0%'>android(1)</a> <a href='/blog/categories/googlekarenda' style='font-size: 115.0%'>googleカレンダー(1)</a> <a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 145.0%'>java(3)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>Strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/struts2' style='font-size: 115.0%'>struts2(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-yong-memo' style='font-size: 115.0%'>個人用メモ(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/android' style='font-size: 115.0%'>android(1)</a> <a href='/blog/categories/googlekarenda' style='font-size: 115.0%'>googleカレンダー(1)</a> <a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 160.0%'>java(4)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>Strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/struts2' style='font-size: 115.0%'>struts2(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-yong-memo' style='font-size: 115.0%'>個人用メモ(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
 </section>
 
 <br />
