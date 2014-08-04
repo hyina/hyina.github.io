@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mac | Hyinaのブログヾ(o・ω・o)ﾉ]]></title>
+  <link href="http://hyina.github.io/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://hyina.github.io/"/>
+  <updated>2014-08-04T20:52:53+09:00</updated>
+  <id>http://hyina.github.io/</id>
+  <author>
+    <name><![CDATA[hyina]]></name>
+    <email><![CDATA[muffin.nov20@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[mac(Lion)でLibraryを表示する方法]]></title>
+    <link href="http://hyina.github.io/blog/2014/08/04/maclibraryshow/"/>
+    <updated>2014-08-04T20:43:00+09:00</updated>
+    <id>http://hyina.github.io/blog/2014/08/04/maclibraryshow</id>
+    <content type="html"><![CDATA[<h1>非表示のユーザーライブラリフォルダーにアクセスする方法</h1>
+
+<p>sublime text3の設定ファイルをいじる際に、Finderからだとユーザライブラリフォルダが表示されてなかったことに気づいたので、忘却メモとして書いとく。<br/>
+ターミナルからアクセス出来るから問題はないけど、何かで必要になるかもしれないし。</p>
+
+<!-- more -->
+
+
+<h2>移動コマンド</h2>
+
+<ol>
+<li>Finder で移動／フォルダへ移動を選択します。</li>
+<li>「フォルダの場所を入力」テキストボックスに ~/Library と入力し、「移動」をクリックします。</li>
+</ol>
+
+
+<h2>移動メニュー</h2>
+
+<ol>
+<li>Finderを起動する</li>
+<li>移動メニューをクリックする</li>
+<li>Option キーを押下する</li>
+</ol>
+
+
+<h2>常にライブラリフォルダーを表示する(いちいち上記は面倒)</h2>
+
+<ol>
+<li>ターミナルを起動する</li>
+<li><code>chflags nohidden ~/Library</code>を入力して、returnキー押下</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -97,6 +97,52 @@
       
   <header class="page-header">
     
+      <h1 class="entry-title"><a href="/blog/2014/01/14/hibernatesessionfactory/">hibernateSessionFactory</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-14T02:01:00+09:00" pubdate data-updated="true">2014-01-14</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>SessionFactoryをシングルトン化する</h3>
+
+<p>データ永続化のPOJOは作成しているものとする。<br/>
+ここでそれぞれのDAOにはいくつか共通するコードが出てくる。<br/>
+特にセッション取得やクローズを毎回記述するのは面倒ですので、以下のようにDAOの基底クラスを作成し、
+共通メソッドを定義します。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/01/14/hibernatesessionfactory/">続きを読む</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header class="page-header">
+    
       <h1 class="entry-title"><a href="/blog/2014/01/13/hibernatesettings/">Hibernateの設定周り＋α</a></h1>
     
     
@@ -540,7 +586,7 @@ HomebrewでMysql5.6をインストールした時のメモです。</p>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/android' style='font-size: 115.0%'>android(1)</a> <a href='/blog/categories/googlekarenda' style='font-size: 115.0%'>googleカレンダー(1)</a> <a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 160.0%'>java(4)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>Strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/struts2' style='font-size: 115.0%'>struts2(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-yong-memo' style='font-size: 115.0%'>個人用メモ(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/android' style='font-size: 115.0%'>android(1)</a> <a href='/blog/categories/googlekarenda' style='font-size: 115.0%'>googleカレンダー(1)</a> <a href='/blog/categories/hibernate' style='font-size: 145.0%'>hibernate(3)</a> <a href='/blog/categories/java' style='font-size: 160.0%'>java(4)</a> <a href='/blog/categories/javascript' style='font-size: 115.0%'>javascript(1)</a> <a href='/blog/categories/mac' style='font-size: 115.0%'>mac(1)</a> <a href='/blog/categories/memo' style='font-size: 160.0%'>memo(4)</a> <a href='/blog/categories/strtus' style='font-size: 115.0%'>Strtus(1)</a> <a href='/blog/categories/struts' style='font-size: 130.0%'>struts(2)</a> <a href='/blog/categories/struts' style='font-size: 115.0%'>Struts(1)</a> <a href='/blog/categories/struts2' style='font-size: 115.0%'>struts2(1)</a> <a href='/blog/categories/obuziekutozhi-xiang' style='font-size: 115.0%'>オブジェクト指向(1)</a> <a href='/blog/categories/ge-ren-yong-memo' style='font-size: 115.0%'>個人用メモ(1)</a> <a href='/blog/categories/ge-ren-de-memorinku' style='font-size: 115.0%'>個人的メモリンク(1)</a> <a href='/blog/categories/mian-qiang' style='font-size: 130.0%'>勉強(2)</a> <a href='/blog/categories/kai-fa' style='font-size: 115.0%'>開発(1)</a> <a href='/blog/categories/za-tan' style='font-size: 145.0%'>雑談(3)</a> </span>
 </section>
 
 <br />

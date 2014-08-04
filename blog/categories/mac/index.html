@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>javascriptで時間をリアルタイム表示 - Hyinaのブログヾ(o・ω・o)ﾉ</title>
+  <title>Category: mac - Hyinaのブログヾ(o・ω・o)ﾉ</title>
   <meta name="author" content="hyina">
 
   
-  <meta name="description" content="">
+  <meta name="description" content="Category: mac">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow">
+  <link rel="canonical" href="http://hyina.github.ioblog/categories/mac">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/bootstrap/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/stylesheets/bootstrap/responsive.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -90,177 +90,38 @@
   <div class="container">
     <div class="row-fluid">
       
-<article class="hentry span9" role="article">
+<article role="article" class="span9">
 
   
   <header class="page-header">
-    
-      <h1 class="entry-title">Javascriptで時間をリアルタイム表示</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-17T03:19:00+09:00" pubdate data-updated="true">2014-01-17</time>
-        
-      </p>
+    <h1 class="entry-title">Category: Mac</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-<div class="entry-content"><p>サーバーから時間の取得は１度だけのリアルタイム表示のメモ。</p>
 
-<p>JSPのBODYタグ内に下記を書く。<br/>
-あと、jqueryの拡張プラグインを作成してくださった方がいたので、そちらを利用させてもらっています。<br/>
-<a href="http://d.hatena.ne.jp/cyokodog/20090316/jQueryExDate">jQuery拡張プラグイン</a><br/>
-<a href="http://phpjavascriptroom.com/exp3.php?f=include/ajax/jquery_plugin_datecalendar/exdate.inc&amp;ttl=jQuery.exDate.js%82%CC%90%DD%92u%83T%83%93%83v%83%8B">使い方</a></p>
+  
+  <h1>2014</h1>
 
-<!-- more -->
+<article>
+  <div class="well">
 
+<h2><a href="/blog/2014/08/04/maclibraryshow/">mac(Lion)でLibraryを表示する方法</a></h2>
+<time datetime="2014-08-04T20:43:00+09:00" pubdate><span class='month'>Aug</span> <span class='day'>04</span> <span class='year'>2014</span></time>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;HTML&gt;
-</span><span class='line'>&lt;HEAD&gt;
-</span><span class='line'>&lt;TITLE&gt;&lt;/TITLE&gt;
-</span><span class='line'>&lt;meta http-equiv="content-type" content="text/html; charset=utf-8"/&gt;
-</span><span class='line'>&lt;script type="text/javascript" src="jquery-2.0.3.min.js"&gt;&lt;/script&gt;
-</span><span class='line'>&lt;SCRIPT TYPE="text/javascript" src="exdate.js"&gt;&lt;/SCRIPT&gt;
-</span><span class='line'>&lt;script type="text/javascript"&gt;
-</span><span class='line'>function myFunc(){
-</span><span class='line'>  alert(date);
-</span><span class='line'>  var myWeek = new Array("日","月","火","水","木","金","土");
-</span><span class='line'>  var dates = date.getTime(); //現在の日付をミリ秒単位に変換 
-</span><span class='line'>  var ans = new Date(dates+1000);
-</span><span class='line'>  setInterval( function(){
-</span><span class='line'>    timeview = timeview + 1000;
-</span><span class='line'>    ans = new Date(dates+timeview);
-</span><span class='line'>    $("#time").text( ans.getFullYear()  + "-" + (ans.getMonth() + 1) + "-" + ans.getDate() + " " + "(" + myWeek[ans.getDay()] + "曜日)" + ans.getHours() + ":" + ans.getMinutes() + ":" + ans.getSeconds() );
-</span><span class='line'>  }, 1000);
-</span><span class='line'>}
-</span><span class='line'>&lt;/script&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;/HEAD&gt;
-</span><span class='line'>&lt;BODY bgcolor="#ffffff"&gt;
-</span><span class='line'>
-</span><span class='line'>  &lt;script type="text/javascript"&gt;
-</span><span class='line'>  var date=$.exDate("2014/01/17 23:59:55","yyyy/mm/dd hh:mi:ss");
-</span><span class='line'>  var timeview = 1000;
-</span><span class='line'>  myFunc(date);
-</span><span class='line'>  &lt;/script&gt;
-</span><span class='line'>&lt;p id="time"&gt;&lt;/p&gt;&lt;!-- ←ここに1秒ずつ経過する時間を表示 --&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;/BODY&gt;
-</span><span class='line'>&lt;/HTML&gt;</span></code></pre></td></tr></table></div></figure>
-
-
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/mac/'>mac</a></span>
+</footer>
 
 </div>
 
+</article>
 
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">hyina</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-17T03:19:00+09:00" pubdate data-updated="true">2014-01-17</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/struts/'>struts</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow/" data-via="hyina_qfir" data-counturl="http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow/" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
 </div>
 
-    
-    
-    <section>
-      <h1>Comments</h1>
-      <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-    </section>
-    
-    <ul class="pager">
-      
-      <li class="previous"><a class="basic-alignment left"
-        href="/blog/2014/01/16/javadateandsubstring/" title="Previous Post:
-        javaのsubstringの使い方と月末日の取得方法！">&laquo; javaのsubstringの使い方と月末日の取得方法！</a></li>
-      
-      <li><a href="/blog/archives">Blog Archives</a></li>
-      
-      <li class="next"><a class="basic-alignment right" href="/blog/2014/01/17/strutslogin/"
-        title="Next Post: strutsでlogin画面">strutsでlogin画面
-        &raquo;</a></li>
-      
-    </ul>
-  </footer>
+  
 </article>
 
 <aside class="sidebar-nav span3">
@@ -304,10 +165,7 @@
       var disqus_shortname = 'hyinablog';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow/';
-        var disqus_url = 'http://hyina.github.io/blog/2014/01/17/javascriptandjavarealtimeshow/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
